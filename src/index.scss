@@ -10,6 +10,7 @@
 @import "./app/app.component.scss";
 
 body {
+  @extend .mdl-color--grey-900;
   margin: 0;
   padding: 0;
   overflow: hidden;

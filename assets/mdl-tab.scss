@@ -1,12 +1,13 @@
 .mdl-layout__tab-bar-container {
     height: 0;
+    $size: 35px;
     .mdl-layout__tab-bar {
         position: fixed;
         bottom: 2px;
         left: 0;
-        height: 35px;
+        height: $size;
     }
     .mdl-layout__tab {
-        height: 35px;
+        height: $size;
     }
 }

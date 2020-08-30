@@ -1,0 +1,25 @@
+app-spinner {
+    @mixin dimension($size) {
+        width: #{$size}em;
+        height: #{$size}em;
+    }
+    @keyframes logo {
+        0%,
+        100% {
+            @include dimension(5);
+        }
+        75% {
+            @include dimension(3.5);
+        }
+    }
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    img {
+        @include dimension(5);
+        animation: logo 1s ease-in-out infinite;
+    }
+}
