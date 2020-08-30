@@ -1,0 +1,14 @@
+app-navigation {
+    .logo {
+        transition: width 0.2s;
+        transition: height 0.2s;
+        width: 3em;
+        height: 3em;
+        margin-right: 2em;
+    }
+    .mdl-button--mini-fab {
+        position: absolute;
+        left: -2.3em;
+        top: -.3em;
+    }
+}

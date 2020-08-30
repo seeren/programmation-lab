@@ -1,0 +1,17 @@
+@import "./../assets/theme.scss";
+
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~material-design-lite/src/material-design-lite.scss";
+
+@import "./../assets/mdl-button.scss";
+@import "./../assets/mdl-layout.scss";
+@import "./../assets/mdl-tab.scss";
+
+@import "./app/app.component.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  hyphens: auto;
+}

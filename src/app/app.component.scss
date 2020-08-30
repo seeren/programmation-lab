@@ -1,0 +1,22 @@
+@import "./courses/courses.scss";
+@import "./favorites/favorites.scss";
+@import "./main/main.component.scss";
+
+@import "./navigation/navigation.component.scss";
+
+app {
+    main {
+        margin-top: 3.8em;
+        margin-bottom: 50px;
+        @media screen and (min-width: 1023px) {
+            margin-top: 4.5em;
+        }
+        &.expanded {
+            margin-top: 2.6em;
+        }
+        router {
+            height: 100%;
+            display: block;
+        }
+    }
+}

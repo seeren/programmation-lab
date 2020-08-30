@@ -1,0 +1,40 @@
+<header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+        ${'seeren' === title ? `
+        <img src="dist/resources/icon.png" class="logo" />
+        ` : `
+        <h1 class="mdl-layout-title">
+            <button onclick="back()"
+                class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            ${title.charAt(0).toUpperCase() + title.slice(1)}
+        </h1>
+        `}
+    </div>
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+        <a onclick="navigate('seeren')" href="#main" class="mdl-layout__tab ${'seeren' === title ? 'is-active': ''}">
+            <span class="material-icons">home</span>
+        </a>
+        <a onclick="navigate('courses')" href="#courses"
+            class="mdl-layout__tab ${'courses' === title ? 'is-active': ''}">
+            <span class="material-icons">library_books</span>
+        </a>
+        <a onclick="navigate('favorites')" href="#favorites"
+            class="mdl-layout__tab ${'favorites' === title ? 'is-active': ''}">
+            <span class="material-icons">grade</span>
+        </a>
+    </div>
+</header>
+
+${'seeren' === title ? `
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Favorites</span>
+</div>
+` : ``}
+
+<div class="mdl-layout__content">
+    <span class="mdl-layout__tab-panel is-active" id="main"></span>
+    <span class="mdl-layout__tab-panel" id="courses"></span>
+    <span class="mdl-layout__tab-panel" id="favorites"></span>
+</div>
