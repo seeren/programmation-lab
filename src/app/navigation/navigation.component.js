@@ -3,6 +3,8 @@ import { Component, RouterComponent, RouterService } from 'appable';
 // @ts-ignore
 import template from './navigation.component.html';
 
+import { StickyEventService } from '../shared/services/events/sticky.event.service';
+
 /**
  * @type {NavigationComponent}
  */
@@ -20,39 +22,28 @@ export class NavigationComponent extends Component {
      * @emits
      */
     onUpdate() {
+        const header = document.querySelector(`${this.selector} .mdl-layout__header`);
         global.componentHandler.downgradeElements(document.querySelector(`${this.selector}.mdl-layout`));
         global.componentHandler.upgradeDom();
 
         /**
-         * @type {HTMLElement}
+         * @event
+         * @param {Event} event
          */
-        this.main = document.querySelector('main.mdl-layout__content');
+        this.onScroll = (event) => StickyEventService.sticky(event.target, header, 0);
 
-        /**
-         * @type {HTMLElement}
-         */
-        this.header = document.querySelector(`${this.selector} .mdl-layout__header`);
-
-        this.main.onscroll = () => this.requested || this.onScroll();
+        document.querySelector('main.mdl-layout__content').addEventListener('scroll', this.onScroll);
     }
 
     /**
-     * @event
+     * @emits
      */
-    onScroll() {
-        window.requestAnimationFrame(() => {
-            if (0 === this.main.scrollTop) {
-                this.main.classList.remove('expanded');
-                this.header.classList.remove('scrolled');
-                delete this.scrolled;
-            } else if (!this.scrolled) {
-                this.main.classList.add('expanded');
-                this.header.classList.add('scrolled');
-                this.scrolled = true;
-            }
-            delete this.requested;
-        });
-        this.requested = true;
+    onDestroy() {
+        const element = document.querySelector(this.selector);
+        const parent = element.parentNode;
+        parent.parentNode.insertBefore(element, parent);
+        parent.parentNode.removeChild(parent);
+        document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
     }
 
     /**
@@ -61,7 +52,8 @@ export class NavigationComponent extends Component {
     onNavigate() {
         // @ts-ignore
         this.title = RouterService.get().name;
-        if (this.main) {
+        if (document.querySelector('main.mdl-layout__content')) {
+            this.onDestroy();
             this.update();
         }
     }

@@ -1,1 +1,29 @@
-app-course-list { }
+app-course-list {
+    & > .mdl-layout__header {
+        height: 0px;
+        min-height: 0px;
+        position: absolute;
+        display: initial;
+        .mdl-layout__header-row {
+            height: 40px;
+            .material-icons {
+                position: absolute;
+                left: -2.2em;
+                top: -0.1em;
+            }
+        }
+    }
+    .sticky {
+        position: fixed;
+        top: 36px;
+        left: 0;
+    }
+
+    & > header {
+        height: 50vh;
+    }
+
+    & > footer {
+        height: 50vh;
+    }
+}

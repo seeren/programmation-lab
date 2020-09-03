@@ -3,13 +3,11 @@
     .mdl-layout-title {
         transition: font-size 0.2s;
     }
-    &.scrolled {
+    &.sticky {
         $size: 36px;
         @extend .mdl-shadow--8dp;
         font-size: 0.7em;
         min-height: $size;
-        background-color: white !important;
-        color: black !important;
         .mdl-layout__header-row {
             height: $size;
         }

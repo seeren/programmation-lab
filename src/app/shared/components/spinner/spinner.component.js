@@ -12,7 +12,7 @@ export class SpinnerComponent extends Component {
      * @constructor
      */
     constructor() {
-        super({ selector: 'app-spinner', template, });
+        super({ selector: 'app-spinner', template });
     }
 
 }

@@ -1,0 +1,44 @@
+${ !courseList.length ? `
+
+<app-spinner></app-spinner>
+
+` : `
+
+<header>
+    Foo
+</header>
+
+<section class="mdl-layout__header">
+    <div class="mdl-layout__header-row mdl-color--black">
+        <span class="mdl-layout-title">
+            <i class="material-icons">library_books</i>
+            ${courseList.length} Cours
+        </span>
+    </div>
+</section>
+
+<section class="mdl-grid">
+    ${ courseList.map(course => `
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+            <h4>
+                ${course.name}
+            </h4>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Add to Calendar
+            </a>
+            <div class="mdl-layout-spacer"></div>
+            <i class="material-icons">event</i>
+        </div>
+    </div>
+
+    `).join('')}
+</section>
+
+<footer>
+    Bar
+</footer>
+
+`}

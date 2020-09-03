@@ -1,4 +1,9 @@
 app-navigation {
+    .mdl-button--mini-fab {
+        position: absolute;
+        left: -2.3em;
+        top: -0.3em;
+    }
     .logo {
         transition: width 0.2s;
         transition: height 0.2s;
@@ -6,9 +11,8 @@ app-navigation {
         height: 3em;
         margin-right: 2em;
     }
-    .mdl-button--mini-fab {
-        position: absolute;
-        left: -2.3em;
-        top: -.3em;
+    & > .sticky {
+        background-color: white !important;
+        color: black !important;
     }
 }
