@@ -30,7 +30,7 @@ export class NavigationComponent extends Component {
          * @event
          * @param {Event} event
          */
-        this.onScroll = (event) => StickyEventService.sticky(event.target, header, 0);
+        this.onScroll = (event) => StickyEventService.onscroll(event.target, header, 0);
 
         document.querySelector('main.mdl-layout__content').addEventListener('scroll', this.onScroll);
     }
@@ -60,10 +60,10 @@ export class NavigationComponent extends Component {
 
     /**
      * @event
-     * @param {String} section
+     * @param {String} routeName
      */
-    navigate(section) {
-        RouterComponent.navigate(section);
+    navigate(routeName) {
+        RouterComponent.navigate(routeName);
     }
 
     /**

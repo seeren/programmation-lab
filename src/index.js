@@ -13,10 +13,10 @@ import { FavoriteListComponent } from './app/favorites/favorite-list/favorite-li
     : window.addEventListener('load', run))
 )(() => RouterComponent
 
-    .add('/courses', 'courses', CourseListComponent)
+    .add('/formations', 'formations', CourseListComponent)
 
     .add('/seeren', 'seeren', MainComponent)
-    .add('/cours/:name', 'course', CourseComponent)
+    .add('/formations/:name', 'formation', CourseComponent)
     .add('/favoris', 'favorites', FavoriteListComponent)
 
     .run(new AppComponent()));

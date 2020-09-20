@@ -12,12 +12,12 @@
         </h1>
         `}
     </div>
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp">
         <a onclick="navigate('seeren')" href="#main" class="mdl-layout__tab ${'seeren' === title ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
-        <a onclick="navigate('courses')" href="#courses"
-            class="mdl-layout__tab ${'courses' === title ? 'is-active': ''}">
+        <a onclick="navigate('formations')" href="#formations"
+            class="mdl-layout__tab ${'formations' === title ? 'is-active': ''}">
             <span class="material-icons">library_books</span>
         </a>
         <a onclick="navigate('favorites')" href="#favorites"
@@ -35,6 +35,6 @@ ${'seeren' === title ? `
 
 <div class="mdl-layout__content">
     <span class="mdl-layout__tab-panel is-active" id="main"></span>
-    <span class="mdl-layout__tab-panel" id="courses"></span>
+    <span class="mdl-layout__tab-panel" id="formations"></span>
     <span class="mdl-layout__tab-panel" id="favorites"></span>
 </div>

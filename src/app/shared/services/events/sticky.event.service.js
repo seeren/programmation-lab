@@ -18,12 +18,12 @@ export const StickyEventService = new class extends Service {
      * @param {HTMLElement} subject
      * @param {Number} offsetTop
      */
-    sticky(container, subject, offsetTop) {
+    onscroll(container, subject, offsetTop) {
         // @ts-ignore
         if (!subject.sticky) {
             window.requestAnimationFrame(() => {
                 const scrolled = subject.classList.contains('sticky');
-                if (!scrolled && offsetTop <= container.scrollTop) {
+                if (!scrolled && offsetTop < container.scrollTop) {
                     subject.classList.add('sticky');
                 } else if (scrolled && offsetTop >= container.scrollTop) {
                     subject.classList.remove('sticky');

@@ -16,7 +16,12 @@ export class Course {
         this.description = null;
 
         /**
-         * @type {Date}
+         * @type {String}
+         */
+        this.color = null;
+
+        /**
+         * @type {String}
          */
         this.updated = null;
 

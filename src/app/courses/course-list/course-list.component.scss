@@ -1,5 +1,10 @@
 app-course-list {
     & > .mdl-layout__header {
+        &.sticky {
+            position: fixed;
+            top: 36px;
+            left: 0;
+        }
         height: 0px;
         min-height: 0px;
         position: absolute;
@@ -13,17 +18,28 @@ app-course-list {
             }
         }
     }
-    .sticky {
-        position: fixed;
-        top: 36px;
-        left: 0;
-    }
-
-    & > header {
+    > header {
         height: 50vh;
     }
-
-    & > footer {
+    .mdl-grid {
+        padding-top: 3.5em;
+        .mdl-cell {
+            cursor: pointer;
+            border-radius: 0.2em;
+        }
+    }
+    .mdl-card {
+        .mdl-badge {
+            font-size: 28px;
+            &::after {
+                right: -22px;
+            }
+        }
+        .mdl-card__actions {
+            display: flex !important;
+        }
+    }
+    > footer {
         height: 50vh;
     }
 }
