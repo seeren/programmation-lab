@@ -1,4 +1,4 @@
-import { Component, RouterComponent } from 'appable';
+import { Component, RouterComponent, RouterService } from 'appable';
 
 // @ts-ignore
 import template from './course-list.component.html';
@@ -7,7 +7,7 @@ import { StickyEventService } from '../../shared/services/events/sticky.event.se
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { RetryComponent } from '../../shared/components/retry/retry.component';
 import { CousesListService } from '../../shared/services/couses-list.service';
-import { Course } from '../../shared/models/cours.model';
+import { AbortError } from '../../shared/errors/abort.error';
 
 /**
  * @type {CourseListComponent}
@@ -20,10 +20,7 @@ export class CourseListComponent extends Component {
     constructor() {
         super({ selector: 'app-course-list', template });
 
-        /**
-         * @type {Array<Course>}
-         */
-        this.courseList = CousesListService.courseList;
+        this.courseList = null;
 
         /**
          * @event
@@ -32,13 +29,30 @@ export class CourseListComponent extends Component {
             this.onDestroy();
             this.onUpdate();
         };
+
+        /**
+         * @event
+         */
+        this.onAbort = () => {
+            if (1 === CousesListService.xhr.readyState) {
+                CousesListService.xhr.onabort();
+            }
+            RouterService.detach(this.onAbort);
+        };
+    }
+
+    /**
+     * @emits
+     */
+    onInit() {
+        RouterService.attach(this.onAbort);
     }
 
     /**
      * @emits
      */
     onUpdate() {
-        if (this.courseList.length) {
+        if (this.courseList) {
 
             /**
              * @event
@@ -64,6 +78,7 @@ export class CourseListComponent extends Component {
     onDestroy() {
         document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
         window.removeEventListener('resize', this.onResize);
+        this.components.forEach((component) => this.detach(component));
     }
 
     /**
@@ -72,26 +87,50 @@ export class CourseListComponent extends Component {
     showAll() {
         const retry = new RetryComponent();
         const spinner = new SpinnerComponent();
-        this.attach(spinner);
-        this.update();
-        retry.onRetry = () => {
-            this.detach(retry);
-            this.showAll();
-        };
+        this.before(spinner, retry);
         CousesListService.fetch()
-            .catch(() => this.attach(retry))
-            .finally(() => {
-                this.detach(spinner);
-                this.update();
-            });
+            .then(() => this.success(spinner))
+            .catch((e) => (e instanceof AbortError ? null : this.error(spinner, retry)));
     }
 
     /**
      * @event
      * @param {String} courseName
      */
-    navigate(courseName) {
+    show(courseName) {
         RouterComponent.navigate('formation', { name: courseName.toLowerCase() });
+    }
+
+    /**
+     * @param {Component} spinner
+     * @param {RetryComponent} retry
+     */
+    before(spinner, retry) {
+        retry.onRetry = () => {
+            this.detach(retry);
+            this.showAll();
+        };
+        this.attach(spinner);
+        this.update();
+    }
+
+    /**
+     * @param {Component} spinner
+     */
+    success(spinner) {
+        this.courseList = CousesListService.courseList;
+        this.detach(spinner);
+        this.update();
+    }
+
+    /**
+     * @param {Component} spinner
+     * @param {Component} retry
+     */
+    error(spinner, retry) {
+        this.attach(retry);
+        this.detach(spinner);
+        this.update();
     }
 
 }
