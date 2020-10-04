@@ -48,19 +48,18 @@ export class CourseListBuilder {
         const courseList = [];
         repositoryList.forEach((repository) => {
             const course = new Course();
-            const date = repository.updated_at.substr(0, repository.updated_at.indexOf('T')).split('-');
             course.description = repository.description;
             course.name = repository.name;
             course.color = this.colorList[course.name[0].toLowerCase()];
             course.stargazers = repository.stargazers_count;
-            course.updated = `${date[2]}/${date[1]}/${date[0]}`;
+            course.updated = repository.updated_at;
             course.watchers = repository.watchers_count;
             course.wikiList = [];
             courseList.push(course);
         });
-        return courseList.sort((a, b) => (new Date(b.updated))
-            .valueOf() - (new Date(a.updated))
-            .valueOf());
+        return courseList.sort(
+            (a, b) => (new Date(b.updated)).valueOf() - (new Date(a.updated)).valueOf(),
+        );
     }
 
 }
