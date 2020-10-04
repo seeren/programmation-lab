@@ -1,4 +1,34 @@
 app-course-list {
+    .mdl-grid {
+        padding-top: 3.5em;
+        .mdl-card.mdl-cell {
+            cursor: pointer;
+            border-radius: 0.3em;
+        }
+    }
+    > header {
+        height: 50vh;
+        .mdl-card {
+            background-color: transparent;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            .mdl-card__title {
+                justify-content: center;
+                align-content: center;
+                flex-wrap: wrap;
+                h2 {
+                    cursor: pointer !important;
+                    font-weight: 300;
+                    align-self: center;
+                }
+                .mdl-card__supporting-text {
+                    text-align: center;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
     & > .mdl-layout__header {
         &.sticky {
             position: fixed;
@@ -18,28 +48,19 @@ app-course-list {
             }
         }
     }
-    > header {
+    > footer {
+        display: flex;
+        align-items: center;
         height: 50vh;
-    }
-    .mdl-grid {
-        padding-top: 3.5em;
-        .mdl-cell {
-            cursor: pointer;
-            border-radius: 0.2em;
-        }
-    }
-    .mdl-card {
-        .mdl-badge {
-            font-size: 28px;
-            &::after {
-                right: -22px;
+        background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(208,234,253,0) 100%); 
+        .mdl-grid {
+            padding-top: 8px;
+            h4 {
+                margin-top: 0;
             }
         }
-        .mdl-card__actions {
-            display: flex !important;
+        img {
+            width: 75%;
         }
-    }
-    > footer {
-        height: 50vh;
     }
 }
