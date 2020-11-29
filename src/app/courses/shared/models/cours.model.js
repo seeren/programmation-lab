@@ -26,6 +26,11 @@ export class Course {
         this.updated = null;
 
         /**
+         * @type {String}
+         */
+        this.readme = null;
+
+        /**
          * @type {Number}
          */
         this.stargazers = null;
