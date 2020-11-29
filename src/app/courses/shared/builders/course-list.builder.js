@@ -41,21 +41,23 @@ export class CourseListBuilder {
     }
 
     /**
+     * @param {Array<Course>} courseList
      * @param {Array<any>} repositoryList
      * @returns {Array<Course>}
      */
-    build(repositoryList) {
-        const courseList = [];
+    build(courseList, repositoryList) {
         repositoryList.forEach((repository) => {
-            const course = new Course();
+            let course = courseList.find((item) => repository.name === item.name);
+            if (!course) {
+                course = new Course();
+                course.name = repository.name;
+                courseList.push(course);
+            }
             course.description = repository.description;
-            course.name = repository.name;
             course.color = this.colorList[course.name[0].toLowerCase()];
             course.stargazers = repository.stargazers_count;
             course.updated = repository.updated_at;
             course.watchers = repository.watchers_count;
-            course.wikiList = [];
-            courseList.push(course);
         });
         return courseList.sort(
             (a, b) => (new Date(b.updated)).valueOf() - (new Date(a.updated)).valueOf(),
