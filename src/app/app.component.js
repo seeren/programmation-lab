@@ -3,7 +3,7 @@ import { Component } from 'appable';
 // @ts-ignore
 import template from './app.component.html';
 
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
 
 export class AppComponent extends Component {
 
