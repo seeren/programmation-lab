@@ -3,7 +3,7 @@ ${ courseList ? `
 <header class="mdl-color--${courseList[0].color}">
     <div class="mdl-cell mdl-card">
         <div class="mdl-card__title mdl-card--expand mdl-color-text--grey-50">
-            <h2 class="display-1">${courseList[0].name}</h2>
+            <h2 class="display-1" onclick="show('${courseList[0].name}')">${courseList[0].name}</h2>
             <p class="mdl-card__supporting-text  mdl-color-text--grey-50">${courseList[0].description}</p>
         </div>
         <div
