@@ -3,7 +3,7 @@ import { Component, RouterComponent, RouterService } from 'appable';
 // @ts-ignore
 import template from './navigation.component.html';
 
-import { StickyEventService } from '../shared/services/events/sticky.event.service';
+import { StickyEventService } from '../../services/events/sticky.event.service';
 
 /**
  * @type {NavigationComponent}
