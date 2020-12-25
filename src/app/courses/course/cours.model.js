@@ -1,3 +1,6 @@
+import { Readme } from '../shared/models/readme.model';
+import { Wiki } from '../shared/models/wiki.model';
+
 /**
  * @type {Course}
  */
@@ -26,7 +29,7 @@ export class Course {
         this.updated = null;
 
         /**
-         * @type {String}
+         * @type {Readme}
          */
         this.readme = null;
 
@@ -41,9 +44,9 @@ export class Course {
         this.watchers = null;
 
         /**
-         * @type {Array}
+         * @type {Array<Wiki>}
          */
-        this.wikiList = [];
+        this.wikiList = null;
     }
 
 }

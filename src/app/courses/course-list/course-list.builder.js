@@ -1,4 +1,4 @@
-import { Course } from '../models/cours.model';
+import { Course } from '../course/cours.model';
 
 export class CourseListBuilder {
 
