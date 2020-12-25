@@ -14,9 +14,9 @@ import { FavoriteListComponent } from './app/favorites/favorite-list/favorite-li
 )(() => RouterComponent
 
     .add('/formations', 'formations', CourseListComponent)
+    .add('/formations/:name', 'formation', CourseComponent)
 
     .add('/seeren', 'seeren', MainComponent)
-    .add('/formations/:name', 'formation', CourseComponent)
     .add('/favoris', 'favorites', FavoriteListComponent)
 
     .run(new AppComponent()));
