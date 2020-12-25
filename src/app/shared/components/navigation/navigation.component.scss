@@ -1,4 +1,7 @@
 app-navigation {
+    .loader {
+        background-image: url("./../resources/icon.png");
+    }
     .mdl-button--mini-fab {
         position: absolute;
         left: -2.3em;

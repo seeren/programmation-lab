@@ -1,4 +1,7 @@
 app-spinner {
+    .loader {
+        background-image: url("./../resources/icon.png");
+    }
     @mixin dimension($size) {
         width: #{$size}em;
         height: #{$size}em;
