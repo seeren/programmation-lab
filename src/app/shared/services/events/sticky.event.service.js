@@ -7,13 +7,6 @@ import { Service } from 'appable';
 export const StickyEventService = new class extends Service {
 
     /**
-     * @constructor
-     */
-    constructor() {
-        super();
-    }
-
-    /**
      * @param {HTMLElement} container
      * @param {HTMLElement} subject
      * @param {Number} offsetTop
