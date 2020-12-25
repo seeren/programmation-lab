@@ -1,4 +1,4 @@
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../../environment/environment.prod';
 
 import { NotFoundError } from '../../shared/errors/not-found.error';
 import { RateError } from '../../shared/errors/rate.error';

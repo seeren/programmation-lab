@@ -1,4 +1,4 @@
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../../environment/environment.prod';
 import { RateError } from '../../shared/errors/rate.error';
 
 import { HttpClientService } from '../../shared/services/http-client.service';
