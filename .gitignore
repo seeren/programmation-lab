@@ -1,6 +1,7 @@
 /.nyc_output/
 /.vscode/
 /coverage/
+/environment/*.prod.js
 /node_modules/
 /platforms/
 /plugins/

@@ -5,4 +5,9 @@ export const environment = {
      */
     organisation: 'seeren-training',
 
+    /**
+     * @type {String}
+     */
+    token: 'GITHUB_TOKEN',
+
 };
