@@ -25,14 +25,10 @@ export class NavigationComponent extends Component {
         const header = document.querySelector(`${this.selector} .mdl-layout__header`);
         global.componentHandler.downgradeElements(document.querySelector(`${this.selector}.mdl-layout`));
         global.componentHandler.upgradeDom();
-
-        /**
-         * @event
-         * @param {Event} event
-         */
-        this.onScroll = (event) => StickyEventService.onscroll(event.target, header, 0);
-
-        document.querySelector('main.mdl-layout__content').addEventListener('scroll', this.onScroll);
+        document.querySelector('main.mdl-layout__content').addEventListener(
+            'scroll',
+            this.onScroll = (event) => StickyEventService.onscroll(event.target, header, 0),
+        );
     }
 
     /**
