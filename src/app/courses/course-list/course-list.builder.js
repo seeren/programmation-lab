@@ -1,5 +1,8 @@
 import { Course } from '../course/cours.model';
 
+/**
+ * @type {CourseListBuilder}
+ */
 export class CourseListBuilder {
 
     /**

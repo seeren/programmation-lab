@@ -2,7 +2,9 @@ import { Service } from 'appable';
 
 import { AbortError } from '../errors/abort.error';
 
-// @ts-ignore
+/**
+ * @type {HttpClientService}
+ */
 export class HttpClientService extends Service {
 
     /**
@@ -32,7 +34,7 @@ export class HttpClientService extends Service {
      * @returns {Boolean}
      */
     abort() {
-        if (1 === this.xhr.readyState) {
+        if (this.xhr && 1 === this.xhr.readyState) {
             this.xhr.abort();
             return true;
         }

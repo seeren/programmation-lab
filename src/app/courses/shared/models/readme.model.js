@@ -1,5 +1,3 @@
-import { Markdown } from './markdown/markdown';
-
 /**
  * @type {Readme}
  */
@@ -13,9 +11,9 @@ export class Readme {
         this.raw = null;
 
         /**
-         * @type {Array<Markdown>}
+         * @type {Array<Node>}
          */
-        this.content = [];
+        this.childNodes = null;
     }
 
 }
