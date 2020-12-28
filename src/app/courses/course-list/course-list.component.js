@@ -54,9 +54,12 @@ export class CourseListComponent extends Component {
      * @emits
      */
     onDestroy() {
-        document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
-        window.removeEventListener('resize', this.onResize);
-        this.components.forEach((component) => this.detach(component));
+        if (this.onScroll) {
+            document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
+            window.removeEventListener('resize', this.onResize);
+        } else if (this.components.length) {
+            this.components.forEach((component) => this.detach(component));
+        }
     }
 
     /**

@@ -6,8 +6,9 @@ import template from './course.component.html';
 import { RetryComponent } from '../../shared/components/retry/retry.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { AbortError } from '../../shared/errors/abort.error';
-import { CourseService } from './course.service';
 import { CourseListService } from '../course-list/couse-list.service';
+import { CourseService } from './course.service';
+import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
 
 /**
  * @type {CourseComponent}
@@ -62,8 +63,9 @@ export class CourseComponent extends Component {
         this.update();
         CourseService.get(name)
             .then((course) => {
-                console.log(course);
+                course.readme.childNodes = new MarkdownHTML().convert(course.readme.raw);
                 this.course = course;
+                console.log(course);
                 this.detach(spinner);
                 this.update();
             })
