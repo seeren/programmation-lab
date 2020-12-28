@@ -1,6 +1,9 @@
 import { Course } from './cours.model';
-import { ReadmeBuilder } from '../shared/builders/readme.builder';
+import { Readme } from '../shared/models/readme.model';
 
+/**
+ * @type {CourseBuilder}
+ */
 export class CourseBuilder {
 
     /**
@@ -15,7 +18,8 @@ export class CourseBuilder {
             course = new Course();
             courseList.push(course);
         }
-        course.readme = new ReadmeBuilder().build(decodeURIComponent(escape(atob(readme.content))));
+        course.readme = new Readme();
+        course.readme.raw = decodeURIComponent(escape(atob(readme.content)));
         return course;
     }
 
