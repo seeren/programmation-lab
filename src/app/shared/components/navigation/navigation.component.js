@@ -16,6 +16,7 @@ export class NavigationComponent extends Component {
     constructor() {
         super({ selector: 'app-navigation', template });
         RouterService.attach(() => this.onNavigate());
+        this.title = null;
     }
 
     /**
