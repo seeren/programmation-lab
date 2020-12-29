@@ -3,9 +3,12 @@
     $size: 35px;
     .mdl-layout__tab-bar {
         position: fixed;
-        bottom: 2px;
+        bottom: 0px;
         left: 0;
         height: $size;
+        .is-active {
+            @extend .mdl-color--cyan-800;
+        }
     }
     .mdl-layout__tab {
         height: $size;
