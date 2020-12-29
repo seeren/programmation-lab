@@ -23,6 +23,7 @@ app-course-list {
                     align-self: center;
                 }
                 .mdl-card__supporting-text {
+                    width: 100%;
                     text-align: center;
                     font-size: 1.5rem;
                 }
@@ -52,15 +53,23 @@ app-course-list {
         display: flex;
         align-items: center;
         height: 50vh;
-        background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(208,234,253,0) 100%); 
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(208, 234, 253, 0) 100%);
         .mdl-grid {
+            width: 100%;
             padding-top: 8px;
+            margin-left: 0;
+            margin-right: 0;
             h4 {
                 margin-top: 0;
             }
-        }
-        img {
-            width: 75%;
+            .logo {
+                display: flex;
+                justify-content: center;
+                img {
+                    max-height: 4em;
+                    align-self: center;
+                }
+            }
         }
     }
 }
