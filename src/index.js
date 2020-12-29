@@ -12,11 +12,8 @@ import { FavoriteListComponent } from './app/favorites/favorite-list/favorite-li
     ? window.document.addEventListener('deviceready', run)
     : window.addEventListener('load', run))
 )(() => RouterComponent
-
     .add('/formations', 'formations', CourseListComponent)
     .add('/formations/:name', 'formation', CourseComponent)
-
     .add('/seeren', 'seeren', MainComponent)
     .add('/favoris', 'favorites', FavoriteListComponent)
-
     .run(new AppComponent()));

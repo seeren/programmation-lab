@@ -1,6 +1,6 @@
 <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
-        ${'seeren' === title ? `
+        ${'main' === title ? `
         <img src="dist/resources/icon.png" class="logo" />
         ` : `
         <h1 class="mdl-layout-title">
@@ -13,7 +13,7 @@
         `}
     </div>
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp">
-        <a onclick="navigate('seeren')" href="#main" class="mdl-layout__tab ${'seeren' === title ? 'is-active': ''}">
+        <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === title ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
         <a onclick="navigate('formations')" href="#formations"
@@ -27,7 +27,7 @@
     </div>
 </header>
 
-${'seeren' === title ? `
+${'main' === title ? `
 <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Favorites</span>
 </div>

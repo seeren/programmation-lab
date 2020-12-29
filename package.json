@@ -26,6 +26,7 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-headercolor": {},
+      "cordova-plugin-navigationbar-color": {},
       "cordova-plugin-splashscreen": {}
     }
   },
@@ -40,6 +41,9 @@
     "browser-sync-webpack-plugin": "^2.2.2",
     "chai": "^4.2.0",
     "cordova": "^10.0.0",
+    "cordova-android": "^9.0.0",
+    "cordova-plugin-navigationbar-color": "^0.1.0",
+    "cordova-plugin-splashscreen": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
     "cordova-res": "^0.15.1",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
@@ -67,10 +71,8 @@
   },
   "dependencies": {
     "appable": "^1.2.2",
-    "cordova-android": "^8.1.0",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-headercolor": "^1.0.0",
-    "cordova-plugin-splashscreen": "^5.0.3",
     "cordova-plugin-statusbar": "^2.4.3",
     "cordova-plugin-whitelist": "^1.3.4",
     "material-design-icons": "^3.0.1",
