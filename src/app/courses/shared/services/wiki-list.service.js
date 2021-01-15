@@ -3,6 +3,7 @@ import { HttpClientService } from '../../../shared/services/http-client.service'
 import { RateError } from '../../../shared/errors/rate.error';
 import { Wiki } from '../models/wiki.model';
 import { WikiService } from './wiki.service';
+import { AbortError } from '../../../shared/errors/abort.error';
 
 /**
  * @type {WikiListService}
@@ -35,14 +36,30 @@ export const WikiListService = new class extends HttpClientService {
             return reject(new RateError());
         }
         wikiUrlList.pop();
-        const getListByUrl = () => (wikiUrlList.length
-            ? WikiService.get(wikiUrlList[0].download_url).then((wiki) => {
-                wikiList.push(wiki);
-                wikiUrlList.shift();
-                getListByUrl();
-            }).catch((e) => reject(e))
-            : resolve(wikiList));
+        const getListByUrl = () => {
+            if (!wikiUrlList.length || !wikiUrlList[0].download_url) {
+                return resolve(wikiList);
+            }
+            if (this.aborted) {
+                return reject(new AbortError());
+            }
+            WikiService.get(wikiUrlList[0].download_url)
+                .then((wiki) => {
+                    wikiList.push(wiki);
+                    wikiUrlList.shift();
+                    getListByUrl();
+                })
+                .catch((e) => reject(e));
+        };
         getListByUrl();
+    }
+
+    /**
+     * @returns {Boolean}
+     */
+    abort() {
+        super.abort();
+        return WikiService.abort();
     }
 
 }();

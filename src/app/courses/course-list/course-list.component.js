@@ -57,8 +57,6 @@ export class CourseListComponent extends Component {
         if (this.onScroll) {
             document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
             window.removeEventListener('resize', this.onResize);
-        } else if (this.components.length) {
-            this.components.forEach((component) => this.detach(component));
         }
     }
 
@@ -75,9 +73,9 @@ export class CourseListComponent extends Component {
         this.attach(spinner);
         this.update();
         CourseListService.get()
-            .then(() => {
+            .then((courseList) => {
                 this.detach(spinner);
-                this.courseList = CourseListService.courseList;
+                this.courseList = courseList;
                 this.update();
             })
             .catch((e) => {

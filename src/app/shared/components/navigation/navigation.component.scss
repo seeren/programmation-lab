@@ -2,20 +2,50 @@ app-navigation {
     .loader {
         background-image: url("./../resources/icon.png");
     }
+    .mdl-layout__header {
+        transition: background 0.2s;
+        .logo {
+            transition: width 0.2s;
+            transition: height 0.2s;
+            width: 3em;
+            height: 3em;
+        }
+        &.sticky {
+            background-color: white !important;
+            color: black !important;
+            .mdl-button--mini-fab {
+                top: -0.3em;
+            }
+        }
+
+        .mdl-layout__header-row {
+            padding-left: 0 !important;
+        }
+        .mdl-layout__tab-bar-container {
+            height: 0;
+            $size: 35px;
+            .mdl-layout__tab-bar {
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                height: $size;
+            }
+            .mdl-layout__tab {
+                height: $size;
+            }
+        }
+    }
     .mdl-button--mini-fab {
         position: absolute;
-        left: -2.3em;
-        top: -0.3em;
+        left: 0.5em;
+        top: -0.2em;
     }
-    .logo {
-        transition: width 0.2s;
-        transition: height 0.2s;
-        width: 3em;
-        height: 3em;
-        margin-right: 2em;
+    .mdl-layout-title {
+        width: 100%;
+        padding: 0 3em;
+        margin: 0;
     }
-    & > .sticky {
-        background-color: white !important;
-        color: black !important;
+    .mdl-layout__content {
+        display: none;
     }
 }

@@ -1,1 +1,95 @@
-app-course { }
+app-course {
+    .mdl-tabs {
+        position: absolute;
+        min-height: 100%;
+        display: flex;
+        .mdl-tabs__tab-bar {
+            z-index: 9;
+            position: absolute;
+            width: 100%;
+            top: 56px;
+            border: none;
+            .mdl-tabs__tab {
+                width: 50%;
+                &.is-active::after {
+                    background-color: white !important;
+                }
+            }
+        }
+        .mdl-tabs__panel {
+            box-sizing: border-box;
+            padding-top: 9em;
+            &.is-active {
+                display: flex !important;
+            }
+        }
+    }
+    .mdl-grid {
+        align-content: flex-start;
+        justify-content: center;
+    }
+    #description {
+        .mdl-grid {
+            flex-direction: column;
+            align-content: center;
+            width: 100vw;
+            box-sizing: border-box;
+        }
+        .duration {
+            display: flex;
+            position: relative;
+            flex-grow: 1;
+            justify-content: center;
+            align-items: center;
+            svg {
+                transform: translate(-50%, -50%) rotate(-90deg);
+                max-height: 75%;
+                max-width: 75%;
+                top: 50%;
+                left: 50%;
+                position: absolute;
+            }
+            p {
+                margin: 0;
+                padding-left: 0.5em;
+                span {
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+    #summary {
+        width: 100%;
+        .mdl-grid {
+            width: 100%;
+        }
+        .mdl-card {
+            min-height: auto;
+            .mdl-card__title {
+                padding: 12px 16px;
+                .mdl-card__title-text {
+                    padding-bottom: 4px;
+                    font-size: 1.2em;
+                }
+                .material-icons {
+                    top: 60;
+                }
+            }
+            .mdl-card__supporting-text {
+                width: 100%;
+                padding: 0;
+                .mdl-list {
+                    padding-left: 1em;
+                    margin: 0;
+                    display: none;
+                    .mdl-list__item {
+                        padding: 12px !important;
+                    }
+                }
+            }
+            &.open .mdl-list {
+                display: block !important;
+            }
+        }
+    }
+}

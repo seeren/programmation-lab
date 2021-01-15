@@ -23,12 +23,15 @@ export class NavigationComponent extends Component {
      * @emits
      */
     onUpdate() {
-        const header = document.querySelector(`${this.selector} .mdl-layout__header`);
         global.componentHandler.downgradeElements(document.querySelector(`${this.selector}.mdl-layout`));
-        global.componentHandler.upgradeDom();
+        global.componentHandler.upgradeElement(document.querySelector(`${this.selector}.mdl-layout`));
         document.querySelector('main.mdl-layout__content').addEventListener(
             'scroll',
-            this.onScroll = (event) => StickyEventService.onscroll(event.target, header, 0),
+            this.onScroll = (event) => StickyEventService.onscroll(
+                event.target,
+                document.querySelector(`${this.selector} .mdl-layout__header`),
+                0,
+            ),
         );
     }
 
@@ -47,8 +50,16 @@ export class NavigationComponent extends Component {
      * @emits
      */
     onNavigate() {
+        let title = null;
+        const state = RouterService.get();
         // @ts-ignore
-        this.title = RouterService.get().name;
+        title = state.name;
+        // @ts-ignore
+        Object.keys(state.param).forEach((key) => {
+            // @ts-ignore
+            title = state.param[key];
+        });
+        this.title = title;
         if (document.querySelector('main.mdl-layout__content')) {
             this.onDestroy();
             this.update();
@@ -57,10 +68,10 @@ export class NavigationComponent extends Component {
 
     /**
      * @event
-     * @param {String} routeName
+     * @param {String} name
      */
-    navigate(routeName) {
-        RouterComponent.navigate(routeName);
+    navigate(name) {
+        RouterComponent.navigate(name);
     }
 
     /**

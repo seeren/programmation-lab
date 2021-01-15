@@ -6,9 +6,8 @@ import template from './course.component.html';
 import { RetryComponent } from '../../shared/components/retry/retry.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { AbortError } from '../../shared/errors/abort.error';
-import { CourseListService } from '../course-list/couse-list.service';
 import { CourseService } from './course.service';
-import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
+import { StickyEventService } from '../../shared/services/events/sticky.event.service';
 
 /**
  * @type {CourseComponent}
@@ -23,16 +22,18 @@ export class CourseComponent extends Component {
         this.course = null;
     }
 
-    /**
-     * @emits
-     */
-    onInit() {
-        const name = RouterComponent.get('name');
-        this.course = CourseListService.courseList.find((course) => course.name === name);
-    }
-
     onUpdate() {
-        if ((!this.course || !this.course.readme) && !this.components.length) {
+        if (this.course && this.course.readme) {
+            global.componentHandler.upgradeElement(document.querySelector(`${this.selector} .mdl-tabs`));
+            document.querySelector('main.mdl-layout__content').addEventListener(
+                'scroll',
+                this.onScroll = (event) => StickyEventService.onscroll(
+                    event.target,
+                    document.querySelector(`${this.selector} .mdl-tabs__tab-bar`),
+                    16,
+                ),
+            );
+        } else if (!this.components.length) {
             RouterService.attach(this.onAbort = () => {
                 CourseService.abort();
                 RouterService.detach(this.onAbort);
@@ -46,7 +47,10 @@ export class CourseComponent extends Component {
      * @emits
      */
     onDestroy() {
-        this.components.forEach((component) => this.detach(component));
+        this.course = null;
+        if (this.onScroll) {
+            document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
+        }
     }
 
     /**
@@ -63,9 +67,7 @@ export class CourseComponent extends Component {
         this.update();
         CourseService.get(name)
             .then((course) => {
-                course.readme.childNodes = new MarkdownHTML().convert(course.readme.raw);
                 this.course = course;
-                console.log(course);
                 this.detach(spinner);
                 this.update();
             })
@@ -76,6 +78,22 @@ export class CourseComponent extends Component {
                     this.update();
                 }
             });
+    }
+
+    /**
+     * @param {number} id
+     */
+    toggle(id) {
+        const className = 'open';
+        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
+        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
+        if (summary.classList.contains(className)) {
+            summary.classList.remove(className);
+            btn.innerHTML = 'keyboard_arrow_down';
+        } else {
+            summary.classList.add(className);
+            btn.innerHTML = 'keyboard_arrow_up';
+        }
     }
 
 }

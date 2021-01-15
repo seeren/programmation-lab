@@ -14,7 +14,7 @@ export class CourseListBuilder {
          * @type {Object}
          */
         this.colorList = {
-            a: 'blue-500',
+            a: 'green-500',
             b: 'purple-500',
             c: 'blue-grey-800',
             d: 'grey-800',
@@ -31,7 +31,7 @@ export class CourseListBuilder {
             o: 'amber-500',
             p: 'deep-purple-500',
             q: 'brown-500',
-            r: 'red',
+            r: 'cyan-500',
             s: 'light-blue-500',
             t: 'indigo-500',
             u: 'pink-500',

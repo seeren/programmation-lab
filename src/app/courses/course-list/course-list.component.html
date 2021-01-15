@@ -1,10 +1,9 @@
-${ courseList ? `
-
-<header class="mdl-color--${courseList[0].color}">
+${ courseList ? `<header class="mdl-color--${courseList[0].color}">
     <div class="mdl-cell mdl-card">
         <div class="mdl-card__title mdl-card--expand mdl-color-text--grey-50">
             <h2 class="display-1" onclick="show('${courseList[0].name}')">${courseList[0].name}</h2>
-            <p class="mdl-card__supporting-text  mdl-color-text--grey-50">${courseList[0].description}</p>
+            <p class="mdl-card__supporting-text mdl-typography--text-center mdl-color-text--grey-50">
+                ${courseList[0].description}</p>
         </div>
         <div
             class="mdl-card__actions mdl-color-text--grey-50 mdl-color--${courseList[0].color.substr(0, courseList[0].color.length - 3) + (parseInt(courseList[0].color.substr(courseList[0].color.length - 3), 10) + 100)}">
@@ -13,9 +12,10 @@ ${ courseList ? `
             <span>${ new Intl.DateTimeFormat('fr-FR').format(new Date(courseList[0].updated))}</span>
         </div>
         <div class="mdl-card__menu mdl-color-text--grey-50">
-            ${courseList[0].stargazers ? `
-            <i class="material-icons mdl-badge mdl-badge--overlap" data-badge="${courseList[0].stargazers}">favorite</i>
-            ` : ``}
+            ${courseList[0].stargazers
+            ? `<i class="material-icons mdl-badge mdl-badge--overlap"
+                data-badge="${courseList[0].stargazers}">favorite</i>`
+            : ``}
         </div>
     </div>
 </header>
@@ -27,8 +27,8 @@ ${ courseList ? `
 </section>
 
 <section class="mdl-grid mdl-color--white">
-    ${ courseList.map((course, key) => key ? `
-    <div onclick="show('${course.name}')"
+    ${ courseList.map((course, key) => key
+    ? `<div onclick="show('${course.name}')"
         class="mdl-cell mdl-cell--6-col-phone mdl-cell--4-col-tablet mdl-cell--3-col mdl-card mdl-shadow--2dp mdl-color--${course.color}">
         <div class="mdl-card__title mdl-card--expand mdl-color-text--grey-50">
             <h3 class="mdl-card__title-text">${course.name}</h3>
@@ -41,12 +41,12 @@ ${ courseList ? `
             <span>${ new Intl.DateTimeFormat('fr-FR').format(new Date(course.updated))}</span>
         </div>
         <div class="mdl-card__menu mdl-color-text--grey-50">
-            ${course.stargazers ? `
-            <i class="material-icons mdl-badge mdl-badge--overlap" data-badge="${course.stargazers}">favorite</i>
-            ` : ''}
+            ${course.stargazers
+            ? `<i class="material-icons mdl-badge mdl-badge--overlap" data-badge="${course.stargazers}">favorite</i>`
+            : ''}
         </div>
-    </div>
-    ` : '').join('')}
+    </div>`
+    : '').join('')}
 </section>
 
 <footer class="mdl-mega-footer">
@@ -61,10 +61,9 @@ ${ courseList ? `
                 Follow
             </a>
         </div>
-        <div class="logo mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--4-col mdl-typography--text-center">
+        <div
+            class="logo mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--4-col mdl-typography--text-center">
             <img src="dist/resources/icon.png" alt="" />
         </div>
     </div>
-</footer>
-
-` : `` }
+</footer>` : `` }

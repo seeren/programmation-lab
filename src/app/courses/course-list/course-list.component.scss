@@ -24,18 +24,13 @@ app-course-list {
                 }
                 .mdl-card__supporting-text {
                     width: 100%;
-                    text-align: center;
                     font-size: 1.5rem;
+                    line-height: 1.2em;
                 }
             }
         }
     }
     & > .mdl-layout__header {
-        &.sticky {
-            position: fixed;
-            top: 36px;
-            left: 0;
-        }
         height: 0px;
         min-height: 0px;
         position: absolute;

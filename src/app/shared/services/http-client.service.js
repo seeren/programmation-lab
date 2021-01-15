@@ -24,6 +24,7 @@ export class HttpClientService extends Service {
      * @returns {XMLHttpRequest}
      */
     request(reject) {
+        this.aborted = false;
         const xhr = new XMLHttpRequest();
         xhr.onerror = (e) => reject(e);
         xhr.onabort = () => reject(new AbortError());
@@ -36,7 +37,7 @@ export class HttpClientService extends Service {
     abort() {
         if (this.xhr && 1 === this.xhr.readyState) {
             this.xhr.abort();
-            return true;
+            return this.aborted = true;
         }
         return false;
     }

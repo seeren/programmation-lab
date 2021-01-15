@@ -18,14 +18,14 @@ export const CourseListService = new class extends HttpClientService {
         super();
 
         /**
-         * @type {Array<Course>}
-         */
-        this.courseList = [];
-
-        /**
          * @type {String}
          */
-        this.key = `${environment}:course-list`;
+        this.key = `${environment.organisation}:course-list`;
+
+        /**
+         * @type {Array<Course>}
+         */
+        this.courseList = LocalStorageService.get(this.key) || [];
     }
 
     /**
@@ -33,9 +33,7 @@ export const CourseListService = new class extends HttpClientService {
      */
     get() {
         return new Promise((resolve, reject) => {
-            const courseList = LocalStorageService.get(this.key);
-            if (courseList) {
-                courseList.forEach((course) => this.courseList.push(course));
+            if (this.courseList.length) {
                 return resolve(this.courseList);
             }
             this.xhr = this.request(reject);
@@ -43,10 +41,10 @@ export const CourseListService = new class extends HttpClientService {
             this.xhr.setRequestHeader('Authorization', `token ${environment.token}`);
             this.xhr.onload = () => {
                 const repositoryList = JSON.parse(this.xhr.response);
-                new CourseListBuilder().build(this.courseList, repositoryList);
                 if (!Array.isArray(repositoryList)) {
                     return reject(new RateError());
                 }
+                new CourseListBuilder().build(this.courseList, repositoryList);
                 this.save();
                 resolve(this.courseList);
             };

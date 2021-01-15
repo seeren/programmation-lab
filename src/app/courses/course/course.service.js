@@ -13,6 +13,15 @@ import { Course } from './cours.model';
 // @ts-ignore
 export const CourseService = new class extends HttpClientService {
 
+    constructor() {
+        super();
+
+        /**
+         * @type {CourseBuilder}
+         */
+        this.builder = new CourseBuilder();
+    }
+
     /**
      * @param {String} name
      * @returns {Promise<Course>}
@@ -21,6 +30,7 @@ export const CourseService = new class extends HttpClientService {
         return new Promise((resolve, reject) => {
             const course = CourseListService.courseList.find((item) => item.name === name);
             if (course && course.readme) {
+                this.builder.decorate(course);
                 return resolve(course);
             }
             this.xhr = this.request(reject);
@@ -43,12 +53,21 @@ export const CourseService = new class extends HttpClientService {
         } if (!readme.content) {
             return reject(new RateError());
         }
-        const course = new CourseBuilder().build(CourseListService.courseList, readme, name);
+        const course = this.builder.build(CourseListService.courseList, readme, name);
         WikiListService.get(name).then((wikiList) => {
             course.wikiList = wikiList;
             CourseListService.save();
+            this.builder.decorate(course);
             resolve(course);
         }).catch((e) => reject(e));
+    }
+
+    /**
+     * @returns {Boolean}
+     */
+    abort() {
+        super.abort();
+        return WikiListService.abort();
     }
 
 }();

@@ -1,23 +1,21 @@
 <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
-        ${'main' === title ? `
-        <img src="dist/resources/icon.png" class="logo" />
-        ` : `
-        <h1 class="mdl-layout-title">
+        ${'main' === title
+        ? `<img src="dist/resources/icon.png" class="logo" />`
+        : `<h1 class="mdl-layout-title mdl-typography--text-center">
             <button onclick="back()"
                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
                 <i class="material-icons">arrow_back</i>
             </button>
             ${title.charAt(0).toUpperCase() + title.slice(1)}
-        </h1>
-        `}
+        </h1>`}
     </div>
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp">
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp mdl-color--accent-contrast">
         <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === title ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
         <a onclick="navigate('formations')" href="#formations"
-            class="mdl-layout__tab ${'formations' === title ? 'is-active': ''}">
+            class="mdl-layout__tab ${'main' !== title && 'favorites' !== title ? 'is-active': ''}">
             <span class="material-icons">library_books</span>
         </a>
         <a onclick="navigate('favorites')" href="#favorites"
@@ -27,11 +25,10 @@
     </div>
 </header>
 
-${'main' === title ? `
-<div class="mdl-layout__drawer">
+${'main' === title
+? `<div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Favorites</span>
-</div>
-` : ``}
+</div>` : ``}
 
 <div class="mdl-layout__content">
     <span class="mdl-layout__tab-panel is-active" id="main"></span>
