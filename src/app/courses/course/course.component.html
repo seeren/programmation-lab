@@ -53,7 +53,7 @@ ${ course && course.readme ? `<div
                             <span class="mdl-list__item-primary-content">
                                 ${node.innerText.substring(node.innerHTML.indexOf(' '))}
                             </span>
-                            <button class="mdl-button mdl-js-button mdl-button--icon">
+                            <button onclick="chapter('${wiki.childNodes[0].innerHTML}', '${node.innerText.substring(node.innerHTML.indexOf(' '))}')" class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons mdl-list__item-icon">keyboard_arrow_right</i>
                             </button>
                         </li>`).join('')}

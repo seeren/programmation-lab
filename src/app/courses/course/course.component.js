@@ -54,6 +54,22 @@ export class CourseComponent extends Component {
     }
 
     /**
+     * @param {number} id
+     */
+    toggle(id) {
+        const className = 'open';
+        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
+        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
+        if (summary.classList.contains(className)) {
+            summary.classList.remove(className);
+            btn.innerHTML = 'keyboard_arrow_down';
+        } else {
+            summary.classList.add(className);
+            btn.innerHTML = 'keyboard_arrow_up';
+        }
+    }
+
+    /**
      * @param {String} name
      */
     show(name) {
@@ -81,19 +97,16 @@ export class CourseComponent extends Component {
     }
 
     /**
-     * @param {number} id
+     * @event
+     * @param {String} chapter
+     * @param {String} section
      */
-    toggle(id) {
-        const className = 'open';
-        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
-        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
-        if (summary.classList.contains(className)) {
-            summary.classList.remove(className);
-            btn.innerHTML = 'keyboard_arrow_down';
-        } else {
-            summary.classList.add(className);
-            btn.innerHTML = 'keyboard_arrow_up';
-        }
+    chapter(chapter, section) {
+        RouterComponent.navigate('chapitre', {
+            name: RouterComponent.get('name'),
+            chapter,
+            section: section.trim(),
+        });
     }
 
 }
