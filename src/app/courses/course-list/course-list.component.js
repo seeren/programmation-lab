@@ -4,13 +4,12 @@ import { Component, RouterComponent } from 'appable';
 import template from './course-list.component.html';
 
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { RetryComponent } from '../../shared/components/retry/retry.component';
 import { CourseListService } from './couse-list.service';
 import { AbortError } from '../../shared/errors/abort.error';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { ResizeService } from '../../shared/services/resize.service';
 import { AbortService } from '../../shared/services/abort.service';
-import { Course } from '../course/cours.model';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 /**
  * @type {CourseListComponent}
@@ -55,53 +54,17 @@ export class CourseListComponent extends Component {
      */
     showAll() {
         const spinner = new SpinnerComponent();
-        const retry = this.showAllStart(spinner);
+        const retry = SpinnerService.start(this, spinner, () => this.showAll());
         CourseListService.get()
-            .then((data) => this.showAllSuccess(data))
-            .catch((error) => this.showAllError(retry, error))
-            .finally(() => this.showAllEnd(spinner));
-    }
-
-    /**
-     * @param {SpinnerComponent} spinner
-     * @returns {RetryComponent}
-     */
-    showAllStart(spinner) {
-        const retry = new RetryComponent();
-        retry.onRetry = () => {
-            this.detach(retry);
-            this.showAll();
-        };
-        this.attach(spinner);
-        this.update();
-        return retry;
-    }
-
-    /**
-     * @param {Course[]} courseList
-     */
-    showAllSuccess(courseList) {
-        this.courseList = courseList;
-        this.update();
-    }
-
-    /**
-     * @param {RetryComponent} retry
-     * @param {Error} error
-     */
-    showAllError(retry, error) {
-        if (!(error instanceof AbortError)) {
-            this.attach(retry);
-            this.update();
-        }
-    }
-
-    /**
-     * @param {SpinnerComponent} spinner
-     */
-    showAllEnd(spinner) {
-        AbortService.remove(this.onAbort);
-        this.detach(spinner);
+            .then((data) => this.courseList = data)
+            .catch((error) => error instanceof AbortError || this.attach(retry))
+            .finally(() => {
+                AbortService.remove(this.onAbort);
+                this.detach(spinner);
+                if (this.components.length || this.courseList) {
+                    this.update();
+                }
+            });
     }
 
     /**

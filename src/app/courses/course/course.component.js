@@ -1,13 +1,15 @@
-import { Component, RouterComponent, RouterService } from 'appable';
+import { Component, RouterComponent } from 'appable';
 
 // @ts-ignore
 import template from './course.component.html';
 
-import { RetryComponent } from '../../shared/components/retry/retry.component';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { AbortError } from '../../shared/errors/abort.error';
 import { CourseService } from './course.service';
-import { StickyEventService } from '../../shared/services/events/sticky.event.service';
+import { ScrollService } from '../../shared/services/scroll.service';
+import { MdlService } from '../../shared/services/mdl.service';
+import { AbortService } from '../../shared/services/abort.service';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 /**
  * @type {CourseComponent}
@@ -24,21 +26,12 @@ export class CourseComponent extends Component {
 
     onUpdate() {
         if (this.course && this.course.readme) {
-            global.componentHandler.upgradeElement(document.querySelector(`${this.selector} .mdl-tabs`));
-            document.querySelector('main.mdl-layout__content').addEventListener(
-                'scroll',
-                this.onScroll = (event) => StickyEventService.onscroll(
-                    event.target,
-                    document.querySelector(`${this.selector} .mdl-tabs__tab-bar`),
-                    16,
-                ),
-            );
+            MdlService
+                .upgradeOne(`${this.selector} .mdl-tabs`)
+                .upgradeAll(`${this.selector} .mdl-tabs__ripple-container`);
+            this.onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
         } else if (!this.components.length) {
-            RouterService.attach(this.onAbort = () => {
-                CourseService.abort();
-                RouterService.detach(this.onAbort);
-                delete this.onAbort;
-            });
+            this.onAbort = AbortService.add(CourseService);
             this.show(RouterComponent.get('name'));
         }
     }
@@ -49,8 +42,26 @@ export class CourseComponent extends Component {
     onDestroy() {
         this.course = null;
         if (this.onScroll) {
-            document.querySelector('main.mdl-layout__content').removeEventListener('scroll', this.onScroll);
+            ScrollService.remove(this.onScroll);
         }
+    }
+
+    /**
+     * @param {String} name
+     */
+    show(name) {
+        const spinner = new SpinnerComponent();
+        const retry = SpinnerService.start(this, spinner, () => this.show(name));
+        CourseService.get(name)
+            .then((data) => this.course = data)
+            .catch((error) => error instanceof AbortError || this.attach(retry))
+            .finally(() => {
+                AbortService.remove(this.onAbort);
+                this.detach(spinner);
+                if (this.components.length || this.course) {
+                    this.update();
+                }
+            });
     }
 
     /**
@@ -70,38 +81,11 @@ export class CourseComponent extends Component {
     }
 
     /**
-     * @param {String} name
-     */
-    show(name) {
-        const retry = new RetryComponent();
-        const spinner = new SpinnerComponent();
-        retry.onRetry = () => {
-            this.detach(retry);
-            this.show(name);
-        };
-        this.attach(spinner);
-        this.update();
-        CourseService.get(name)
-            .then((course) => {
-                this.course = course;
-                this.detach(spinner);
-                this.update();
-            })
-            .catch((e) => {
-                this.detach(spinner);
-                if (!(e instanceof AbortError)) {
-                    this.attach(retry);
-                    this.update();
-                }
-            });
-    }
-
-    /**
      * @event
      * @param {String} chapter
      * @param {String} section
      */
-    chapter(chapter, section) {
+    showChapter(chapter, section) {
         RouterComponent.navigate('chapitre', {
             name: RouterComponent.get('name'),
             chapter,

@@ -1,25 +1,22 @@
 ${ course && course.readme ? `<div
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
-
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${course.color}">
         <a href="#description" class="is-active mdl-tabs__tab mdl-color-text--white">Description</a>
         <a href="#summary" class="mdl-tabs__tab mdl-color-text--white">Programme</a>
     </div>
-
     <div class="mdl-tabs__panel is-active" id="description">
-
         <div class="mdl-grid">
             <h2 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
-                ${course.readme.childNodes[0].innerHTML}
+                ${this.course.readme.document.querySelector('h1').innerHTML}
             </h2>
             <h3 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
-                ${course.readme.childNodes[3].innerHTML}
+                ${this.course.readme.document.querySelector('h2 ~ h2').innerHTML}
             </h3>
             <p class="mdl-cell mdl-cell--8-col">
-                ${course.readme.childNodes[4].innerHTML}
+                ${this.course.readme.document.querySelector('p ~ p').innerHTML}
             </p>
             <h3 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
-                Durée: ${course.readme.childNodes[2].innerHTML}
+                Durée: ${this.course.readme.document.querySelector('p').innerHTML}
             </h3>
             <div class="duration">
                 <p class="mdl-typography--display-1">
@@ -33,13 +30,12 @@ ${ course && course.readme ? `<div
             </div>
         </div>
     </div>
-
     <div class="mdl-tabs__panel" id="summary">
         <div class="mdl-grid justify-center">
             ${ course.wikiList.map((wiki, index) => index
             ? `<div class="summary-${index} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">
-                    <h2 class="mdl-card__title-text">${wiki.childNodes[0].innerHTML}</h2>
+                    <h2 class="mdl-card__title-text">${wiki.document.querySelector('h1').innerHTML}</h2>
                     <div class="mdl-layout-spacer"></div>
                     <button onclick="toggle(${index})" class="mdl-button mdl-js-button mdl-button--icon">
                         <i class="material-icons">keyboard_arrow_down</i>
@@ -47,13 +43,13 @@ ${ course && course.readme ? `<div
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="mdl-list">
-                        ${ wiki.childNodes.map((node) => 'H2' !== node.tagName
-                        ? ''
-                        : `<li class="mdl-list__item">
+                        ${ Array.from(wiki.document.querySelectorAll('h2')).map((h2) => `<li class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
-                                ${node.innerText.substring(node.innerHTML.indexOf(' '))}
+                                ${h2.innerText.substring(3)}
                             </span>
-                            <button onclick="chapter('${wiki.childNodes[0].innerHTML}', '${node.innerText.substring(node.innerHTML.indexOf(' '))}')" class="mdl-button mdl-js-button mdl-button--icon">
+                            <button
+                                onclick="showChapter('${wiki.document.querySelector('h1').innerHTML}', '${h2.innerText.substring(3)}')"
+                                class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons mdl-list__item-icon">keyboard_arrow_right</i>
                             </button>
                         </li>`).join('')}
@@ -63,5 +59,4 @@ ${ course && course.readme ? `<div
             : ``).join('')}
         </div>
     </div>
-
 </div>` : `` }
