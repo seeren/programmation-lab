@@ -8,38 +8,25 @@ import { AbortError } from '../errors/abort.error';
 export class HttpClientService extends Service {
 
     /**
-     * @constructor
-     */
-    constructor() {
-        super();
-
-        /**
-         * @type {XMLHttpRequest}
-         */
-        this.xhr = null;
-    }
-
-    /**
      * @param {Function} reject
      * @returns {XMLHttpRequest}
      */
     request(reject) {
         this.aborted = false;
-        const xhr = new XMLHttpRequest();
-        xhr.onerror = (e) => reject(e);
-        xhr.onabort = () => reject(new AbortError());
-        return xhr;
+        this.xhr = new XMLHttpRequest();
+        this.xhr.onerror = (e) => reject(e);
+        this.xhr.onabort = () => reject(new AbortError());
+        return this.xhr;
     }
 
     /**
-     * @returns {Boolean}
+     * @returns {void}
      */
     abort() {
-        if (this.xhr && 1 === this.xhr.readyState) {
+        if (this.xhr && 0 < this.xhr.readyState) {
             this.xhr.abort();
-            return this.aborted = true;
+            this.aborted = true;
         }
-        return false;
     }
 
 }

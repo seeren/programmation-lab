@@ -1,6 +1,6 @@
+import { HttpClientService } from '../../shared/services/http-client.service';
 import { environment } from '../../../../environment/environment.prod';
 import { RateError } from '../../shared/errors/rate.error';
-import { HttpClientService } from '../../shared/services/http-client.service';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { Course } from '../course/cours.model';
 import { CourseListBuilder } from './course-list.builder';
@@ -18,14 +18,14 @@ export const CourseListService = new class extends HttpClientService {
         super();
 
         /**
-         * @type {String}
-         */
-        this.key = `${environment.organisation}:course-list`;
-
-        /**
          * @type {Array<Course>}
          */
-        this.courseList = LocalStorageService.get(this.key) || [];
+        this.courseList = LocalStorageService.get(environment.storage) || [];
+
+        /**
+         * @type {CourseListBuilder}
+         */
+        this.builder = new CourseListBuilder();
     }
 
     /**
@@ -36,7 +36,7 @@ export const CourseListService = new class extends HttpClientService {
             if (this.courseList.length) {
                 return resolve(this.courseList);
             }
-            this.xhr = this.request(reject);
+            this.request(reject);
             this.xhr.open('GET', `https://api.github.com/users/${environment.organisation}/repos`);
             this.xhr.setRequestHeader('Authorization', `token ${environment.token}`);
             this.xhr.onload = () => {
@@ -44,7 +44,7 @@ export const CourseListService = new class extends HttpClientService {
                 if (!Array.isArray(repositoryList)) {
                     return reject(new RateError());
                 }
-                new CourseListBuilder().build(this.courseList, repositoryList);
+                this.courseList = this.builder.build(repositoryList, this.courseList);
                 this.save();
                 resolve(this.courseList);
             };
@@ -56,7 +56,7 @@ export const CourseListService = new class extends HttpClientService {
      * @returns {void}
      */
     save() {
-        LocalStorageService.set(this.key, this.courseList, 86400);
+        LocalStorageService.set(environment.storage, this.courseList, 86400);
     }
 
 }();
