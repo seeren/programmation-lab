@@ -7,19 +7,19 @@ export class MarkdownHTML {
 
     /**
      * @param {String} markdown
-     * @returns {Array<Node>}
+     * @returns {DocumentFragment}
      */
     convert(markdown) {
-        const nodeList = [];
+        const document = window.document.createDocumentFragment();
         let previous = null;
         let current = null;
         markdown.split(/[\r\n]+/).forEach((line) => {
             if (previous !== (current = this.convertLine(line, previous))) {
-                nodeList.push(current);
+                document.appendChild(current);
             }
             previous = current;
         });
-        return nodeList;
+        return document;
     }
 
     /**

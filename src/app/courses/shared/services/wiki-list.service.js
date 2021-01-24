@@ -1,9 +1,8 @@
-import { environment } from '../../../../../environment/environment.prod';
 import { HttpClientService } from '../../../shared/services/http-client.service';
+import { environment } from '../../../../../environment/environment.prod';
 import { RateError } from '../../../shared/errors/rate.error';
 import { Wiki } from '../models/wiki.model';
 import { WikiService } from './wiki.service';
-import { AbortError } from '../../../shared/errors/abort.error';
 
 /**
  * @type {WikiListService}
@@ -17,7 +16,7 @@ export const WikiListService = new class extends HttpClientService {
      */
     get(name) {
         return new Promise((resolve, reject) => {
-            this.xhr = this.request(reject);
+            this.request(reject);
             this.xhr.open('GET', `https://api.github.com/repos/${environment.organisation}/${name}/contents/wiki`);
             this.xhr.setRequestHeader('Authorization', `token ${environment.token}`);
             this.xhr.onload = () => this.onload(resolve, reject);
@@ -39,9 +38,6 @@ export const WikiListService = new class extends HttpClientService {
         const getListByUrl = () => {
             if (!wikiUrlList.length || !wikiUrlList[0].download_url) {
                 return resolve(wikiList);
-            }
-            if (this.aborted) {
-                return reject(new AbortError());
             }
             WikiService.get(wikiUrlList[0].download_url)
                 .then((wiki) => {

@@ -23,9 +23,9 @@ export class HttpClientService extends Service {
      * @returns {void}
      */
     abort() {
+        this.aborted = true;
         if (this.xhr && 0 < this.xhr.readyState) {
             this.xhr.abort();
-            this.aborted = true;
         }
     }
 

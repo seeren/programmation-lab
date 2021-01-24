@@ -40,10 +40,11 @@ export class CourseComponent extends Component {
      * @emits
      */
     onDestroy() {
-        this.course = null;
-        if (this.onScroll) {
+        if (this.course && this.course.readme) {
             ScrollService.remove(this.onScroll);
         }
+        this.components.forEach((component) => this.detach(component));
+        this.course = null;
     }
 
     /**
@@ -57,27 +58,11 @@ export class CourseComponent extends Component {
             .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
-                this.detach(spinner);
                 if (this.components.length || this.course) {
+                    this.detach(spinner);
                     this.update();
                 }
             });
-    }
-
-    /**
-     * @param {number} id
-     */
-    toggle(id) {
-        const className = 'open';
-        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
-        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
-        if (summary.classList.contains(className)) {
-            summary.classList.remove(className);
-            btn.innerHTML = 'keyboard_arrow_down';
-        } else {
-            summary.classList.add(className);
-            btn.innerHTML = 'keyboard_arrow_up';
-        }
     }
 
     /**
@@ -91,6 +76,22 @@ export class CourseComponent extends Component {
             chapter,
             section: section.trim(),
         });
+    }
+
+    /**
+     * @param {Number} id
+     */
+    toggle(id) {
+        const className = 'open';
+        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
+        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
+        if (summary.classList.contains(className)) {
+            summary.classList.remove(className);
+            btn.innerHTML = 'keyboard_arrow_down';
+        } else {
+            summary.classList.add(className);
+            btn.innerHTML = 'keyboard_arrow_up';
+        }
     }
 
 }

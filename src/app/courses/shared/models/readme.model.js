@@ -11,9 +11,9 @@ export class Readme {
         this.raw = null;
 
         /**
-         * @type {Array<Node>}
+         * @type {DocumentFragment}
          */
-        this.childNodes = null;
+        this.document = null;
     }
 
 }

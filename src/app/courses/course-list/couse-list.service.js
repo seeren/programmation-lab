@@ -4,6 +4,8 @@ import { RateError } from '../../shared/errors/rate.error';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { Course } from '../course/cours.model';
 import { CourseListBuilder } from './course-list.builder';
+import { AbortError } from '../../shared/errors/abort.error';
+import { AbortService } from '../../shared/services/abort.service';
 
 /**
  * @type {CourseListService}

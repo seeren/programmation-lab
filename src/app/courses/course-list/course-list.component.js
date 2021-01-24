@@ -43,10 +43,11 @@ export class CourseListComponent extends Component {
      * @emits
      */
     onDestroy() {
-        if (this.onScroll) {
+        if (this.courseList) {
             ScrollService.remove(this.onScroll);
             ResizeService.remove(this.onResize);
         }
+        this.components.forEach((component) => this.detach(component));
     }
 
     /**
@@ -60,8 +61,8 @@ export class CourseListComponent extends Component {
             .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
-                this.detach(spinner);
                 if (this.components.length || this.courseList) {
+                    this.detach(spinner);
                     this.update();
                 }
             });

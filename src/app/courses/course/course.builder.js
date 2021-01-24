@@ -7,6 +7,14 @@ import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
  */
 export class CourseBuilder {
 
+    constructor() {
+
+        /**
+         * @type {MarkdownHTML}
+         */
+        this.converter = new MarkdownHTML();
+    }
+
     /**
      * @param {Array<Course>} courseList
      * @param {any} readme
@@ -26,12 +34,14 @@ export class CourseBuilder {
 
     /**
      * @param {Course} course
+     * @returns {Course}
      */
     decorate(course) {
-        course.readme.childNodes = new MarkdownHTML().convert(course.readme.raw);
-        course.wikiList.forEach((wikiList) => {
-            wikiList.childNodes = new MarkdownHTML().convert(wikiList.raw);
-        });
+        course.readme.document = this.converter.convert(course.readme.raw);
+        course.wikiList.forEach(
+            (wikiList) => wikiList.document = this.converter.convert(wikiList.raw),
+        );
+        return course;
     }
 
 }
