@@ -29,6 +29,7 @@ export class CourseBuilder {
         }
         course.readme = new Readme();
         course.readme.raw = decodeURIComponent(escape(atob(readme.content)));
+        course.readme.checked = true;
         return course;
     }
 
