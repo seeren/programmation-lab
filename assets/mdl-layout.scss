@@ -3,7 +3,7 @@
     .mdl-layout-title {
         transition: font-size 0.2s;
     }
-    &.sticky {
+    &.scrolled {
         $size: 36px;
         @extend .mdl-shadow--8dp;
         font-size: 0.7em;

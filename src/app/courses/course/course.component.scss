@@ -1,28 +1,6 @@
 app-course {
-    .mdl-tabs {
-        position: absolute;
-        min-height: 100%;
-        display: flex;
-        .mdl-tabs__tab-bar {
-            z-index: 9;
-            position: absolute;
-            width: 100%;
-            top: 56px;
-            border: none;
-            .mdl-tabs__tab {
-                width: 50%;
-                &.is-active::after {
-                    background-color: white !important;
-                }
-            }
-        }
-        .mdl-tabs__panel {
-            box-sizing: border-box;
-            padding-top: 9em;
-            &.is-active {
-                display: flex !important;
-            }
-        }
+    .mdl-tabs__tab.is-active::after {
+        background-color: white !important;
     }
     .mdl-grid {
         align-content: flex-start;
