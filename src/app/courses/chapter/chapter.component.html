@@ -1,1 +1,21 @@
-<h2>chapter is ready!</h2>
+${ chapter ? `<div
+    class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${color.substr(0, color.length - 3) + (parseInt(color.substr(color.length - 3), 10) + 100)}">
+    <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${color}">
+        ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `
+        <a href="#section-${index}"
+            class="${h2.innerHTML.indexOf(section) !== -1 ? `is-active ` : ``}mdl-tabs__tab mdl-color-text--white">
+            <span class="before"></span>
+            <span class="marker"><i class="material-icons">panorama_fish_eye</i></span>
+            <span class="after"></span>
+        </a>
+        `).join('')}
+    </div>
+    ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `
+    <div class="${h2.innerHTML.indexOf(section) !==-1 ? `is-active ` : ``}mdl-tabs__panel" id="section-${index}">
+        ${index}
+        ${ index === length - 1 ? `
+        <button onclick="terminate()" class="terminate mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            Terminate
+        </button>` : ``}
+    </div>`).join('')}
+</div>` : `` }

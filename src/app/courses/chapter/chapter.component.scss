@@ -1,1 +1,52 @@
-chapter { }
+app-chapter {
+    @mixin stepperColor($opacity: 1) {
+        .before,
+        .after {
+            background-color: rgba(255, 255, 255, $opacity);
+        }
+        .material-icons {
+            color: rgba(255, 255, 255, $opacity);
+        }
+    }
+    .mdl-tabs {
+        .mdl-tabs__tab {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            @include stepperColor();
+            .before,
+            .after {
+                flex-grow: 1;
+                height: 3px;
+            }
+            .marker {
+                height: 36px;
+                margin: auto -2px auto;
+            }
+            &.is-active {
+                &::after {
+                    background-color: transparent !important;
+                }
+                .after {
+                    background-color: rgba(255, 255, 255, 0.5);
+                }
+                .material-icons {
+                    border-radius: 50%;
+                    background-color: white;
+                }
+                & ~ .mdl-tabs__tab {
+                    @include stepperColor(0.5);
+                }
+            }
+        }
+    }
+    .mdl-tabs__panel {
+        position: relative;
+        width: 100%;
+        .terminate {
+            position: absolute;
+            bottom: 0;
+            min-width: 100%;
+        }
+    }
+}
