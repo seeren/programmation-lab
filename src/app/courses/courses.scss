@@ -27,6 +27,7 @@ app-chapter {
         }
     }
     .mdl-tabs__panel {
+        width: 100%;
         box-sizing: border-box;
         padding-top: 9em;
         &.is-active {
