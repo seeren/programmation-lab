@@ -42,19 +42,17 @@ export const ScrollService = new class extends Service {
      * @param {Number} offsetTop
      */
     scroll(container, subject, offsetTop) {
-        // @ts-ignore
-        if (!subject.getAttribute('data-sticky')) {
+        if (!subject.getAttribute('data-scrolled')) {
             window.requestAnimationFrame(() => {
-                const scrolled = subject.classList.contains('sticky');
+                const scrolled = subject.classList.contains('scrolled');
                 if (!scrolled && offsetTop < container.scrollTop) {
-                    subject.classList.add('sticky');
+                    subject.classList.add('scrolled');
                 } else if (scrolled && offsetTop >= container.scrollTop) {
-                    subject.classList.remove('sticky');
+                    subject.classList.remove('scrolled');
                 }
-                // @ts-ignore
-                subject.removeAttribute('data-sticky');
+                subject.removeAttribute('data-scrolled');
             });
-            subject.setAttribute('data-sticky', 'sticky');
+            subject.setAttribute('data-scrolled', 'scrolled');
         }
     }
 
