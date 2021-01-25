@@ -50,7 +50,7 @@ export const ColorService = new class extends Service {
      * @returns {String}
      */
     get(name) {
-        return this.colorList[name.toLowerCase()];
+        return this.colorList[name[0].toLowerCase()];
     }
 
 }();

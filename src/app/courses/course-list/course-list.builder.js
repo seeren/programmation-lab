@@ -20,7 +20,7 @@ export class CourseListBuilder {
                 courseList.push(course);
             }
             course.description = repository.description;
-            course.color = ColorService.get(course.name[0]);
+            course.color = ColorService.get(course.name);
             course.stargazers = repository.stargazers_count;
             course.updated = repository.updated_at;
             course.watchers = repository.watchers_count;
