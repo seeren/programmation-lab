@@ -95,7 +95,7 @@ export class CourseComponent extends Component {
     toggle(id) {
         const className = 'open';
         const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
-        const btn = window.document.querySelector(`${this.selector} .summary-${id} .material-icons`);
+        const btn = window.document.querySelector(`${this.selector} .summary-${id} .toggle`);
         if (summary.classList.contains(className)) {
             summary.classList.remove(className);
             btn.innerHTML = 'keyboard_arrow_down';

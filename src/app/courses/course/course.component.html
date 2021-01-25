@@ -35,20 +35,23 @@ ${ course && course.readme ? `<div
             ${ course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">
-                    <h2 class="mdl-card__title-text">${wiki.document.querySelector('h1').innerHTML}</h2>
+                    ${ wiki.checked ? `<i class="mdl-list__item-icon material-icons done">done</i>` : ``}
+                    <h2 class="mdl-card__title-text">
+                        ${wiki.document.querySelector('h1').innerHTML}
+                    </h2>
                     <div class="mdl-layout-spacer"></div>
                     <button onclick="toggle(${wikiIndex})" class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">keyboard_arrow_down</i>
+                        <i class="material-icons toggle">keyboard_arrow_down</i>
                     </button>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="mdl-list">
-                        ${ Array.from(wiki.document.querySelectorAll('h2')).map((h2, sectionIndex) => `<li class="mdl-list__item">
+                        ${ Array.from(wiki.document.querySelectorAll('h2')).map((h2, sectionIndex) => `<li
+                            class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
                                 ${h2.innerText.substring(3)}
                             </span>
-                            <button
-                                onclick="showChapter(${wikiIndex}, ${sectionIndex})"
+                            <button onclick="showChapter(${wikiIndex}, ${sectionIndex})"
                                 class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons mdl-list__item-icon">keyboard_arrow_right</i>
                             </button>

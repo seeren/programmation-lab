@@ -49,8 +49,11 @@ app-course {
                     padding-bottom: 4px;
                     font-size: 1.2em;
                 }
-                .material-icons {
-                    top: 60;
+                .done {
+                    @extend .mdl-color-text--green-500;
+                    margin-right: 0.8em;
+                    font-size: 2em;
+                    margin-top: -0.25em;
                 }
             }
             .mdl-card__supporting-text {
