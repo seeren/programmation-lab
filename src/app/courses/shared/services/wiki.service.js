@@ -18,6 +18,7 @@ export const WikiService = new class extends HttpClientService {
             this.xhr.onload = () => {
                 const wiki = new Wiki();
                 wiki.raw = this.xhr.response;
+                wiki.checked = false;
                 resolve(wiki);
             };
             this.xhr.send();

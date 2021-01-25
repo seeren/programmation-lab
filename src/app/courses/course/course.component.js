@@ -21,7 +21,14 @@ export class CourseComponent extends Component {
      */
     constructor() {
         super({ selector: 'app-course', template });
+    }
+
+    /**
+     * @emits
+     */
+    onInit() {
         this.course = null;
+        this.percent = null;
     }
 
     onUpdate() {
@@ -54,7 +61,10 @@ export class CourseComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.show(name));
         CourseService.get(name)
-            .then((data) => this.course = data)
+            .then((data) => {
+                this.course = data;
+                this.percent = CourseService.toPercent(data);
+            })
             .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
@@ -67,14 +77,15 @@ export class CourseComponent extends Component {
 
     /**
      * @event
-     * @param {String} chapter
-     * @param {String} section
+     * @param {Number} wikiIndex
+     * @param {Number} sectionIndex
      */
-    showChapter(chapter, section) {
+    showChapter(wikiIndex, sectionIndex) {
+        const wiki = this.course.wikiList[wikiIndex];
         RouterComponent.navigate('chapitre', {
             name: RouterComponent.get('name'),
-            chapter,
-            section: section.trim(),
+            chapter: wiki.document.querySelector('h1').innerText,
+            section: wiki.document.querySelectorAll('h2')[sectionIndex].innerText.substring(3),
         });
     }
 

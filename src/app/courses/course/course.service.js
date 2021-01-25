@@ -23,6 +23,16 @@ export const CourseService = new class extends HttpClientService {
     }
 
     /**
+     * @param {Course} course
+     * @returns {Number}
+     */
+    toPercent(course) {
+        let checked = 0;
+        course.wikiList.forEach((wiki) => checked += wiki.checked ? 1 : 0);
+        return Math.round((checked / (course.wikiList.length - 1)) * 100);
+    }
+
+    /**
      * @param {String} name
      * @returns {Promise<Course>}
      */
