@@ -2,6 +2,29 @@
   "presets": [
     "@babel/preset-env"
   ],
+  "plugins": [
+    [
+      "prismjs",
+      {
+        "languages": [
+          "javascript",
+          "php",
+          "markup",
+          "json",
+          "css",
+          "yaml",
+          "twig",
+          "sql",
+          "ts",
+        ],
+        "plugins": [
+          "line-numbers"
+        ],
+        "theme": "okaidia",
+        "css": true
+      }
+    ]
+  ],
   "env": {
     "test": {
       "plugins": [

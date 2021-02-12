@@ -23,8 +23,7 @@ module.exports = {
                 use: 'raw-loader',
             },
             {
-                test: /\.scss$/,
-                exclude: /node_modules/,
+                test: /\.(scss|css)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
@@ -58,6 +57,7 @@ module.exports = {
             host: 'localhost',
             port: 3000,
             files: ['www/index.html'],
+            // @ts-ignore
             server: {
                 baseDir: 'www',
                 middleware: (req, res, next) => (-1 === req.url.indexOf('.') && '/' !== req.url
