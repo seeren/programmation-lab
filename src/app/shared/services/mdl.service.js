@@ -27,7 +27,7 @@ export const MdlService = new class extends Service {
      * @returns {this}
      */
     upgradeAll(selector) {
-        global.componentHandler.upgradeElement(document.querySelector(selector));
+        global.componentHandler.upgradeElements(document.querySelectorAll(selector));
         return this;
     }
 

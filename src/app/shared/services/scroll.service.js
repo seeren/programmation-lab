@@ -6,6 +6,30 @@ import { Service } from 'appable';
 // @ts-ignore
 export const ScrollService = new class extends Service {
 
+    top() {
+        window.document.querySelector('main.mdl-layout__content').scrollTo({
+            left: 0,
+            top: 0,
+        });
+    }
+
+    /**
+     * @param {String} selector
+     */
+    topOnClick(selector) {
+        window.document.querySelectorAll(selector).forEach(
+            (element) => element.addEventListener('click', this.top),
+        );
+    }
+
+    /**
+     * @param {EventListenerOrEventListenerObject} onScroll
+     */
+    remove(onScroll) {
+        window.document.querySelector('main.mdl-layout__content')
+            .removeEventListener('scroll', onScroll);
+    }
+
     /**
      * @param {String} selector
      * @param {Number} offsetTop
@@ -16,7 +40,7 @@ export const ScrollService = new class extends Service {
         /**
          * @param {Event} event
          */
-        const onScroll = (event) => this.scroll(
+        const onScroll = (event) => this.listen(
             // @ts-ignore
             event.target,
             window.document.querySelector(selector),
@@ -29,19 +53,11 @@ export const ScrollService = new class extends Service {
     }
 
     /**
-     * @param {EventListenerOrEventListenerObject} onScroll
-     */
-    remove(onScroll) {
-        window.document.querySelector('main.mdl-layout__content')
-            .removeEventListener('scroll', onScroll);
-    }
-
-    /**
      * @param {HTMLElement} container
      * @param {HTMLElement} subject
      * @param {Number} offsetTop
      */
-    scroll(container, subject, offsetTop) {
+    listen(container, subject, offsetTop) {
         if (!subject.getAttribute('data-scrolled')) {
             window.requestAnimationFrame(() => {
                 const scrolled = subject.classList.contains('scrolled');
