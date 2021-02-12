@@ -56,6 +56,7 @@ export class NavigationComponent extends Component {
         if (window.document.querySelector('main.mdl-layout__content')) {
             this.onDestroy();
             this.update();
+            ScrollService.scrollTop();
         }
     }
 

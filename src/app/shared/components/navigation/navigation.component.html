@@ -10,7 +10,7 @@
             ${title.charAt(0).toUpperCase() + title.slice(1)}
         </h1>`}
     </div>
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp mdl-color--accent-contrast">
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp mdl-color--accent">
         <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === title ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
@@ -27,7 +27,8 @@
 ${'main' === title
 ? `<div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Favorites</span>
-</div>` : ``}
+</div>`
+: ``}
 <div class="mdl-layout__content">
     <span class="mdl-layout__tab-panel is-active" id="main"></span>
     <span class="mdl-layout__tab-panel" id="formations"></span>

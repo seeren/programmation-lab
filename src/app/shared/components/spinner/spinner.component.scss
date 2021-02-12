@@ -2,19 +2,6 @@ app-spinner {
     .loader {
         background-image: url("./../resources/icon.png");
     }
-    @mixin dimension($size) {
-        width: #{$size}em;
-        height: #{$size}em;
-    }
-    @keyframes logo {
-        0%,
-        100% {
-            @include dimension(5);
-        }
-        75% {
-            @include dimension(3.5);
-        }
-    }
     display: flex;
     position: absolute;
     width: 100%;
@@ -22,7 +9,17 @@ app-spinner {
     justify-content: center;
     align-items: center;
     img {
-        @include dimension(5);
+        @keyframes logo {
+            0%,
+            100% {
+                width: 5em;
+                height: 5em;
+            }
+            75% {
+                width: 3.5em;
+                height: 3.5em;
+            }
+        }
         animation: logo 1s ease-in-out infinite;
     }
 }
