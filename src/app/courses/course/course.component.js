@@ -117,7 +117,7 @@ export class CourseComponent extends Component {
      * @param {Number} sectionIndex
      */
     showChapter(wikiIndex, sectionIndex) {
-        RouterComponent.navigate('chapitre', {
+        RouterComponent.navigate('chapter', {
             name: RouterComponent.get('name'),
             chapter: this.course.wikiList[wikiIndex].document.querySelector('h1').innerText,
             section: this.course.wikiList[wikiIndex].document.querySelectorAll('h2')[sectionIndex].innerText.substring(3),
