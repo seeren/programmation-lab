@@ -26,6 +26,8 @@ export class CourseBuilder {
         if (!course) {
             course = new Course();
             courseList.push(course);
+            // eslint-disable-next-line prefer-destructuring
+            course.name = readme.html_url.split('/')[4];
         }
         course.readme = new Readme();
         course.readme.raw = decodeURIComponent(escape(atob(readme.content)));

@@ -1,11 +1,13 @@
-import { HttpClientService } from '../../shared/services/http-client.service';
 import { environment } from '../../../../environment/environment.prod';
+
+import { HttpClientService } from '../../shared/services/http-client.service';
 import { NotFoundError } from '../../shared/errors/not-found.error';
 import { RateError } from '../../shared/errors/rate.error';
 import { CourseListService } from '../course-list/couse-list.service';
 import { WikiListService } from '../shared/services/wiki-list.service';
 import { CourseBuilder } from './course.builder';
 import { Course } from './cours.model';
+import { Wiki } from '../shared/models/wiki.model';
 
 /**
  * @type {CourseService}
@@ -38,7 +40,13 @@ export const CourseService = new class extends HttpClientService {
      */
     get(name) {
         return new Promise((resolve, reject) => {
-            const course = CourseListService.courseList.find((item) => item.name === name);
+            const course = CourseListService.courseList.find(
+
+                /**
+                 * @param {Course} item
+                 */
+                (item) => item.name === name,
+            );
             if (course && course.readme && course.wikiList) {
                 if (!(course.readme.document instanceof DocumentFragment)) {
                     this.builder.decorate(course);
@@ -67,12 +75,24 @@ export const CourseService = new class extends HttpClientService {
             return reject(new RateError());
         }
         const course = this.builder.build(CourseListService.courseList, readme, name);
-        WikiListService.get(name).then((wikiList) => {
-            course.wikiList = wikiList;
-            CourseListService.save();
-            this.builder.decorate(course);
-            resolve(course);
-        }).catch((e) => reject(e));
+        WikiListService.get(name).then(
+
+            /**
+             * @param {Wiki[]} wikiList
+             */
+            (wikiList) => {
+                course.wikiList = wikiList;
+                CourseListService.save();
+                this.builder.decorate(course);
+                resolve(course);
+            },
+        ).catch(
+
+            /**
+             * @param {Error} e
+             */
+            (e) => reject(e),
+        );
     }
 
     /**

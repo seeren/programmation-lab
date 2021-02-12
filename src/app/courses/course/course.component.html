@@ -1,10 +1,13 @@
-${ course && course.readme ? `<div
+${course && course.readme
+? `<div
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${course.color}">
-        <a href="#description" class="is-active mdl-tabs__tab mdl-color-text--white">Description</a>
-        <a href="#summary" class="mdl-tabs__tab mdl-color-text--white">Programme</a>
+        <a href="#description" onclick="open('description')"
+            class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--white">Description</a>
+        <a href="#summary" onclick="open('summary')"
+            class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--white">Programme</a>
     </div>
-    <div class="mdl-tabs__panel is-active" id="description">
+    <div class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="description">
         <div class="mdl-grid">
             <h2 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
                 ${this.course.readme.document.querySelector('h1').innerHTML}
@@ -30,9 +33,9 @@ ${ course && course.readme ? `<div
             </div>
         </div>
     </div>
-    <div class="mdl-tabs__panel" id="summary">
+    <div class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
         <div class="mdl-grid justify-center">
-            ${ course.wikiList.map((wiki, wikiIndex) => wikiIndex
+            ${course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">
                     ${ wiki.checked ? `<i class="mdl-list__item-icon material-icons done">done</i>` : ``}
@@ -46,7 +49,7 @@ ${ course && course.readme ? `<div
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="mdl-list">
-                        ${ Array.from(wiki.document.querySelectorAll('h2')).map((h2, sectionIndex) => `<li
+                        ${Array.from(wiki.document.querySelectorAll('h2')).map((h2, sectionIndex) => `<li
                             class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
                                 ${h2.innerText.substring(3)}
@@ -59,7 +62,8 @@ ${ course && course.readme ? `<div
                     </ul>
                 </div>
             </div>`
-            : ``).join('')}
+            : '').join('')}
         </div>
     </div>
-</div>` : `` }
+</div>`
+: '' }

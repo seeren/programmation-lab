@@ -10,6 +10,7 @@ import { ScrollService } from '../../shared/services/scroll.service';
 import { MdlService } from '../../shared/services/mdl.service';
 import { AbortService } from '../../shared/services/abort.service';
 import { SpinnerService } from '../../shared/components/spinner/spinner.service';
+import { Course } from './cours.model';
 
 /**
  * @type {CourseComponent}
@@ -21,6 +22,7 @@ export class CourseComponent extends Component {
      */
     constructor() {
         super({ selector: 'app-course', template });
+        this.tab = 'description';
     }
 
     /**
@@ -28,7 +30,6 @@ export class CourseComponent extends Component {
      */
     onInit() {
         this.course = null;
-        this.percent = null;
     }
 
     onUpdate() {
@@ -51,7 +52,30 @@ export class CourseComponent extends Component {
             ScrollService.remove(this.onScroll);
         }
         this.components.forEach((component) => this.detach(component));
-        this.course = null;
+    }
+
+    /**
+     * @param {String} tab
+     */
+    open(tab) {
+        this.tab = tab;
+    }
+
+    /**
+     * @event
+     * @param {Number} id
+     */
+    toggle(id) {
+        const className = 'open';
+        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
+        const btn = window.document.querySelector(`${this.selector} .summary-${id} .toggle`);
+        if (summary.classList.contains(className)) {
+            summary.classList.remove(className);
+            btn.innerHTML = 'keyboard_arrow_down';
+        } else {
+            summary.classList.add(className);
+            btn.innerHTML = 'keyboard_arrow_up';
+        }
     }
 
     /**
@@ -61,11 +85,23 @@ export class CourseComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.show(name));
         CourseService.get(name)
-            .then((data) => {
-                this.course = data;
-                this.percent = CourseService.toPercent(data);
-            })
-            .catch((error) => error instanceof AbortError || this.attach(retry))
+            .then(
+
+                /**
+                 * @param {Course} data
+                 */
+                (data) => {
+                    this.course = data;
+                    this.percent = CourseService.toPercent(data);
+                },
+            )
+            .catch(
+
+                /**
+                 * @param {Error} error
+                 */
+                (error) => error instanceof AbortError || this.attach(retry),
+            )
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.course) {
@@ -81,28 +117,11 @@ export class CourseComponent extends Component {
      * @param {Number} sectionIndex
      */
     showChapter(wikiIndex, sectionIndex) {
-        const wiki = this.course.wikiList[wikiIndex];
         RouterComponent.navigate('chapitre', {
             name: RouterComponent.get('name'),
-            chapter: wiki.document.querySelector('h1').innerText,
-            section: wiki.document.querySelectorAll('h2')[sectionIndex].innerText.substring(3),
+            chapter: this.course.wikiList[wikiIndex].document.querySelector('h1').innerText,
+            section: this.course.wikiList[wikiIndex].document.querySelectorAll('h2')[sectionIndex].innerText.substring(3),
         });
-    }
-
-    /**
-     * @param {Number} id
-     */
-    toggle(id) {
-        const className = 'open';
-        const summary = window.document.querySelector(`${this.selector} .summary-${id}`);
-        const btn = window.document.querySelector(`${this.selector} .summary-${id} .toggle`);
-        if (summary.classList.contains(className)) {
-            summary.classList.remove(className);
-            btn.innerHTML = 'keyboard_arrow_down';
-        } else {
-            summary.classList.add(className);
-            btn.innerHTML = 'keyboard_arrow_up';
-        }
     }
 
 }

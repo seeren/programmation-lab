@@ -10,28 +10,28 @@ app-course {
         .mdl-grid {
             flex-direction: column;
             align-content: center;
-            width: 100vw;
+            width: 100%;
             box-sizing: border-box;
-        }
-        .duration {
-            display: flex;
-            position: relative;
-            flex-grow: 1;
-            justify-content: center;
-            align-items: center;
-            svg {
-                transform: translate(-50%, -50%) rotate(-90deg);
-                max-height: 75%;
-                max-width: 75%;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-            }
-            p {
-                margin: 0;
-                padding-left: 0.5em;
-                span {
-                    vertical-align: top;
+            .duration {
+                display: flex;
+                position: relative;
+                flex-grow: 1;
+                justify-content: center;
+                align-items: center;
+                svg {
+                    transform: translate(-50%, -50%) rotate(-90deg);
+                    max-height: 75%;
+                    max-width: 75%;
+                    top: 50%;
+                    left: 50%;
+                    position: absolute;
+                }
+                p {
+                    margin: 0;
+                    padding-left: 0.5em;
+                    span {
+                        vertical-align: top;
+                    }
                 }
             }
         }
@@ -54,6 +54,9 @@ app-course {
                     margin-right: 0.8em;
                     font-size: 2em;
                     margin-top: -0.25em;
+                }
+                .toggle {
+                    margin-top: 0.06em;
                 }
             }
             .mdl-card__supporting-text {
