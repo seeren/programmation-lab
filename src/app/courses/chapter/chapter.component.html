@@ -1,21 +1,61 @@
-${ chapter ? `<div
+${ chapter
+? `<div
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${color.substr(0, color.length - 3) + (parseInt(color.substr(color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${color}">
-        ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `
-        <a href="#section-${index}"
+        ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `<a href="#section-${index}"
             class="${h2.innerHTML.indexOf(section) !== -1 ? `is-active ` : ``}mdl-tabs__tab mdl-color-text--white">
             <span class="before"></span>
             <span class="marker"><i class="material-icons">panorama_fish_eye</i></span>
             <span class="after"></span>
-        </a>
-        `).join('')}
+        </a>`).join('')}
     </div>
-    ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `
-    <div class="${h2.innerHTML.indexOf(section) !==-1 ? `is-active ` : ``}mdl-tabs__panel" id="section-${index}">
-        ${index}
-        ${ index === length - 1 ? `
-        <button onclick="terminate()" class="terminate mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-            Terminate
-        </button>` : ``}
+    ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `<div id="section-${index}"
+        class="${h2.innerHTML.indexOf(section) !==-1 ? `is-active ` : ``}mdl-tabs__panel">
+        <div class="mdl-grid">
+            <h2 class="mdl-cell mdl-cell--8-col">${h2.innerText.substring(3)}</h2>
+            ${Array.from(chapter.document.querySelectorAll('h2:nth-of-type(' + (index + 1) + ') ~ *'))
+            .map((element, index, nodeList) => undefined === nodeList.checked && 'H2' !== element.tagName
+            ? ((() => {
+            switch (element.tagName) {
+            case 'H3': return `<h3 class="mdl-cell mdl-cell--8-col">${element.innerText.substring(3)}</h3>`;
+            case 'H4': return `<h4 class="mdl-cell mdl-cell--8-col">${element.innerText.substring(3)}</h4>`;
+            case 'CODE': return `
+            <pre
+                class="mdl-cell mdl-cell--8-col mdl-color--accent"><code class="language-${element.getAttribute('data-language')}">${element.innerHTML}</code></pre>
+            `;
+            case 'BLOCKQUOTE': return `<blockquote class="mdl-cell mdl-cell--8-col">
+                ${element.innerHTML}
+            </blockquote>`;
+            case 'TABLE': return `<div class="mdl-cell mdl-cell--8-col">
+                <table class="mdl-data-table mdl-js-data-table mdl-color-text--black">
+                    ${element.innerHTML}
+                </table>
+            </div>`;
+            case 'P': return `<p
+                class="${/Manipulation$/.exec(element.innerText) ? 'manipulation' : ''} mdl-cell mdl-cell--8-col mdl-card__supporting-text mdl-color--${color} mdl-color-text--white mdl-shadow--2dp">
+                ${element.innerHTML}
+            </p>`;
+            case 'IMG': return `<div class="img-loader" data-src="${element.src}">
+                <span class="mdl-spinner is-active mdl-js-spinner"></span>
+            </div>`;
+            case 'A': return `<div class="link-container mdl-cell mdl-cell--8-col">
+                <a href=" ${element.href}" target="_blank">
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i class="material-icons">attach_file</i>
+                    </button>
+                </a>
+                <br />
+                <p>${element.innerText}</p>
+            </div>`;
+            case 'UL': return `<ul class="mdl-list mdl-cell mdl-cell--8-col">
+                ${element.innerHTML.replace(/<li/g, `<li class="mdl-list__item mdl-color--${color}" `)} </ul>`;
+                    default: return ''
+                    }
+                    })())
+                    : nodeList.checked = '' ).join('')}
+                    <button onclick="next(${index})"
+                        class="mdl-cell mdl-cell--8-col mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Suivant</button>
+        </div>
     </div>`).join('')}
-</div>` : `` }
+</div>`
+: '' }

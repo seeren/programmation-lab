@@ -17,11 +17,12 @@ app-chapter {
             .before,
             .after {
                 flex-grow: 1;
-                height: 3px;
+                height: 2px;
             }
             .marker {
-                height: 36px;
+                display: flex;
                 margin: auto -2px auto;
+                align-self: center;
             }
             &.is-active {
                 &::after {
@@ -42,10 +43,74 @@ app-chapter {
     }
     .mdl-tabs__panel {
         position: relative;
-        .terminate {
-            position: absolute;
-            bottom: 0;
-            min-width: 100%;
+        .mdl-grid {
+            width: 100%;
+            box-sizing: border-box;
+            align-content: center;
+            flex-direction: column;
+            .mdl-card__supporting-text {
+                font-size: 1.5em;
+                line-height: 1.2em;
+            }
+            h2 {
+                margin: 0.5em auto;
+            }
+            p {
+                padding: 1.5em 1em;
+                line-height: 1.5em;
+            }
+            img {
+                @extend .mdl-cell, .mdl-cell--8-col;
+                margin: 2em auto;
+                opacity: 0.9;
+            }
+            li {
+                color: inherit;
+            }
+            li:nth-child(even) {
+                background-color: transparent !important;
+            }
+            pre {
+                margin: 8px;
+            }
+            mark {
+                @extend .mdl-chip, .mdl-chip__text, .mdl-color--accent-contrast;
+                width: auto;
+            }
+            blockquote {
+                margin: 2em 0 2em 12px;
+            }
+            table {
+                width: 100%;
+                white-space: normal;
+                th {
+                    text-align: center;
+                }
+                td {
+                    text-align: left;
+                }
+            }
+            .img-loader {
+                text-align: center;
+                margin: 2em auto;
+            }
+            .link-container {
+                margin-top: 2em;
+                text-align: center;
+                p {
+                    margin: 0;
+                }
+            }
+            .manipulation {
+                @extend h2;
+                font-size: 34px;
+                background-color: transparent !important;
+                box-shadow: none !important;
+                & + * {
+                    @extend .mdl-color--accent, .mdl-color-text--accent-contrast;
+                    margin: 1.25em auto;
+                }
+            }
         }
     }
 }

@@ -1,10 +1,15 @@
 import { Component, RouterComponent } from 'appable';
 
+import Prism from 'prismjs';
+
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 import { AbortError } from '../../shared/errors/abort.error';
 import { AbortService } from '../../shared/services/abort.service';
+import { ImageService } from '../../shared/services/image.service';
 import { MdlService } from '../../shared/services/mdl.service';
+import { ScrollService } from '../../shared/services/scroll.service';
+import { Wiki } from '../shared/models/wiki.model';
 import { ColorService } from '../shared/services/color.service';
 
 // @ts-ignore
@@ -27,11 +32,8 @@ export class ChapterComponent extends Component {
      * @emits
      */
     onInit() {
-        this.color = null;
         this.chapter = null;
-        this.length = null;
         this.section = RouterComponent.get('section');
-        // this.section = 'Scrum';
     }
 
     /**
@@ -39,11 +41,15 @@ export class ChapterComponent extends Component {
      */
     onUpdate() {
         if (this.chapter) {
+            ImageService.lazyLoad(`${this.selector} .img-loader`);
             MdlService.upgradeOne(`${this.selector} .mdl-js-ripple-effect`);
+            MdlService.upgradeAll(`${this.selector} .mdl-js-spinner`);
+            this.onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
+            ScrollService.topOnClick(`${this.selector} .mdl-tabs__tab`);
+            Prism.highlightAll();
         } else if (!this.components.length) {
             this.onAbort = AbortService.add(ChapterService);
             this.show(RouterComponent.get('name'), RouterComponent.get('chapter'));
-            // this.show('Agile', 'Présentation des principales approches Agiles');
         }
     }
 
@@ -51,6 +57,9 @@ export class ChapterComponent extends Component {
      * @emits
      */
     onDestroy() {
+        if (this.chapter) {
+            ScrollService.remove(this.onScroll);
+        }
         this.components.forEach((component) => this.detach(component));
     }
 
@@ -62,12 +71,23 @@ export class ChapterComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.show(name, chapter));
         ChapterService.get(name, chapter)
-            .then((data) => {
-                this.chapter = data;
-                this.length = data.document.querySelectorAll('h2').length;
-                this.color = ColorService.get(name);
-            })
-            .catch((error) => error instanceof AbortError || this.attach(retry))
+            .then(
+
+                /**
+                 * @param {Wiki} data
+                 */
+                (data) => {
+                    this.chapter = data;
+                    this.color = ColorService.get(name);
+                },
+            )
+            .catch(
+
+                /**
+                 * @param {Error} error
+                 */
+                (error) => error instanceof AbortError || this.attach(retry),
+            )
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.chapter) {
@@ -79,12 +99,18 @@ export class ChapterComponent extends Component {
 
     /**
      * @event
+     * @param {Number} index
      */
-    terminate() {
-        ChapterService.terminate(this.chapter);
-        RouterComponent.navigate('formation', {
-            name: RouterComponent.get('name'),
-        });
+    next(index) {
+        const tabs = window.document.querySelectorAll(`${this.selector} .mdl-tabs__tab`);
+        if (index !== tabs.length - 1) {
+            tabs[index + 1][`${'click'}`]();
+        } else {
+            ChapterService.terminate(this.chapter);
+            RouterComponent.navigate('formation', {
+                name: RouterComponent.get('name'),
+            });
+        }
     }
 
 }
