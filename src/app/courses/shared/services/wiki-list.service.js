@@ -1,5 +1,6 @@
-import { HttpClientService } from '../../../shared/services/http-client.service';
 import { environment } from '../../../../../environment/environment.prod';
+
+import { HttpClientService } from '../../../shared/services/http-client.service';
 import { RateError } from '../../../shared/errors/rate.error';
 import { Wiki } from '../models/wiki.model';
 import { WikiService } from './wiki.service';
@@ -34,18 +35,30 @@ export const WikiListService = new class extends HttpClientService {
         if (!Array.isArray(wikiUrlList)) {
             return reject(new RateError());
         }
-        wikiUrlList.pop();
         const getListByUrl = () => {
             if (!wikiUrlList.length || !wikiUrlList[0].download_url) {
                 return resolve(wikiList);
             }
             WikiService.get(wikiUrlList[0].download_url)
-                .then((wiki) => {
-                    wikiList.push(wiki);
-                    wikiUrlList.shift();
-                    getListByUrl();
-                })
-                .catch((e) => reject(e));
+                .then(
+
+                    /**
+                     * @param {Wiki} wiki
+                     */
+                    (wiki) => {
+                        wikiList.push(wiki);
+                        wikiUrlList.shift();
+                        getListByUrl();
+                    },
+                )
+                .catch(
+
+                    /**
+                     * @param {Error} e
+                     */
+                    (e) => reject(e),
+
+                );
         };
         getListByUrl();
     }
