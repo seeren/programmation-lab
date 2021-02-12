@@ -13,7 +13,7 @@ export class MarkdownHTML {
         const document = window.document.createDocumentFragment();
         let previous = null;
         let current = null;
-        markdown.split(/[\r\n]+/).forEach((line) => {
+        markdown.split(/[\r\n]/).forEach((line) => {
             if (previous !== (current = this.convertLine(line, previous))) {
                 document.appendChild(current);
             }
@@ -56,6 +56,13 @@ export class MarkdownHTML {
         if ('___' === line) {
             return window.document.createElement('hr');
         }
+        if (matches = /\[(.+)]\((.+)\)$/.exec(line)) {
+            const link = window.document.createElement('a');
+            // eslint-disable-next-line prefer-destructuring
+            link.href = matches[2];
+            link.appendChild(window.document.createTextNode(matches[1]));
+            return link;
+        }
         return this.buildChildNodes(window.document.createElement('p'), line);
     }
 
@@ -71,7 +78,9 @@ export class MarkdownHTML {
         matches.pop();
         matches.shift();
         const raw = window.document.createElement('tr');
+        let cellTag = 'td';
         if (!previous || 'TABLE' !== previous.tagName) {
+            cellTag = 'th';
             // eslint-disable-next-line no-param-reassign
             previous = window.document.createElement('table');
             const thead = window.document.createElement('thead');
@@ -84,7 +93,7 @@ export class MarkdownHTML {
             previous.childNodes[1].appendChild(raw);
         }
         matches.forEach((match) => {
-            const cell = window.document.createElement('td');
+            const cell = window.document.createElement(cellTag);
             cell.appendChild(document.createTextNode(match));
             raw.appendChild(cell);
         });
@@ -98,15 +107,14 @@ export class MarkdownHTML {
      * @returns {HTMLElement}
      */
     convertCode(matches, previous, line = null) {
-        if (line) {
+        if (null !== line) {
             const text = document.createTextNode(line);
             previous.appendChild(text);
-            previous.appendChild(document.createElement('br'));
+            previous.appendChild(document.createTextNode('\n'));
             return previous;
         }
         if (previous.getAttribute('data-state')) {
             previous.removeAttribute('data-state');
-            previous.removeChild(previous.lastChild);
             return previous;
         }
         const element = window.document.createElement('code');
@@ -182,6 +190,10 @@ export class MarkdownHTML {
         let html = line;
         let matches = null;
         let regexp = null;
+        regexp = /`([^`]+)`/g;
+        while (matches = regexp.exec(line)) {
+            html = html.replace(matches[0], `<mark>${matches[1]}</mark>`);
+        }
         regexp = /\*\*([^**]+)\*\*/g;
         while (matches = regexp.exec(line)) {
             html = html.replace(matches[0], `<strong>${matches[1]}</strong>`);
