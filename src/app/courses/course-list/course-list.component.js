@@ -4,12 +4,13 @@ import { Component, RouterComponent } from 'appable';
 import template from './course-list.component.html';
 
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { CourseListService } from './couse-list.service';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 import { AbortError } from '../../shared/errors/abort.error';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { ResizeService } from '../../shared/services/resize.service';
 import { AbortService } from '../../shared/services/abort.service';
-import { SpinnerService } from '../../shared/components/spinner/spinner.service';
+import { CourseListService } from './couse-list.service';
+import { Course } from '../course/cours.model';
 
 /**
  * @type {CourseListComponent}
@@ -30,8 +31,7 @@ export class CourseListComponent extends Component {
      */
     onUpdate(element) {
         if (this.courseList) {
-            const offset = element.getElementsByTagName('header')[0].offsetHeight - 36;
-            this.onScroll = ScrollService.add(`${this.selector} .mdl-layout__header`, offset);
+            this.onScroll = ScrollService.add(`${this.selector} .mdl-layout__header`, element.getElementsByTagName('header')[0].offsetHeight - 36);
             this.onResize = ResizeService.add(this, element);
         } else if (!this.components.length) {
             this.onAbort = AbortService.add(CourseListService);
@@ -57,8 +57,20 @@ export class CourseListComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.showAll());
         CourseListService.get()
-            .then((data) => this.courseList = data)
-            .catch((error) => error instanceof AbortError || this.attach(retry))
+            .then(
+
+                /**
+                 * @param {Course[]} data
+                 */
+                (data) => this.courseList = data,
+            )
+            .catch(
+
+                /**
+                 * @param {Error} error
+                 */
+                (error) => error instanceof AbortError || this.attach(retry),
+            )
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.courseList) {

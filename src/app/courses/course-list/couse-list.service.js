@@ -1,11 +1,10 @@
-import { HttpClientService } from '../../shared/services/http-client.service';
 import { environment } from '../../../../environment/environment.prod';
+
+import { HttpClientService } from '../../shared/services/http-client.service';
 import { RateError } from '../../shared/errors/rate.error';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { Course } from '../course/cours.model';
 import { CourseListBuilder } from './course-list.builder';
-import { AbortError } from '../../shared/errors/abort.error';
-import { AbortService } from '../../shared/services/abort.service';
 
 /**
  * @type {CourseListService}
@@ -35,7 +34,7 @@ export const CourseListService = new class extends HttpClientService {
      */
     get() {
         return new Promise((resolve, reject) => {
-            if (this.courseList.length) {
+            if (this.courseList.length && !this.courseList.find((course) => !course.description)) {
                 return resolve(this.courseList);
             }
             this.request(reject);
@@ -48,7 +47,7 @@ export const CourseListService = new class extends HttpClientService {
                 }
                 this.courseList = this.builder.build(repositoryList, this.courseList);
                 this.save();
-                resolve(this.courseList);
+                return resolve(this.courseList);
             };
             this.xhr.send();
         });

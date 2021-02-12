@@ -1,11 +1,4 @@
 app-course-list {
-    .mdl-grid {
-        padding-top: 3.5em;
-        .mdl-card.mdl-cell {
-            cursor: pointer;
-            border-radius: 0.3em;
-        }
-    }
     > header {
         height: 50vh;
         .mdl-card {
@@ -20,7 +13,6 @@ app-course-list {
                 h2 {
                     cursor: pointer !important;
                     font-weight: 300;
-                    align-self: center;
                 }
                 .mdl-card__supporting-text {
                     width: 100%;
@@ -30,7 +22,7 @@ app-course-list {
             }
         }
     }
-    & > .mdl-layout__header {
+    > .mdl-layout__header {
         height: 0px;
         min-height: 0px;
         position: absolute;
@@ -42,6 +34,13 @@ app-course-list {
                 left: -2.2em;
                 top: -0.1em;
             }
+        }
+    }
+    > .mdl-grid {
+        padding-top: 3.5em;
+        .mdl-card.mdl-cell {
+            cursor: pointer;
+            border-radius: 0.3em;
         }
     }
     > footer {
@@ -58,7 +57,6 @@ app-course-list {
                 margin-top: 0;
             }
             .logo {
-                display: flex;
                 justify-content: center;
                 img {
                     max-height: 4em;
