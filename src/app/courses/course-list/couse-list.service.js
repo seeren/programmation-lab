@@ -21,7 +21,7 @@ export const CourseListService = new class extends HttpClientService {
         /**
          * @type {Array<Course>}
          */
-        this.courseList = LocalStorageService.get(environment.storage) || [];
+        this.courseList = LocalStorageService.get(environment.storage.courseList) || [];
 
         /**
          * @type {CourseListBuilder}
@@ -57,7 +57,7 @@ export const CourseListService = new class extends HttpClientService {
      * @returns {void}
      */
     save() {
-        LocalStorageService.set(environment.storage, this.courseList, 86400);
+        LocalStorageService.set(environment.storage.courseList, this.courseList, 86400);
     }
 
 }();
