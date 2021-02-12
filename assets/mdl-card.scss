@@ -1,12 +1,14 @@
-.mdl-card__supporting-text {
-    box-sizing: border-box;
-}
-.mdl-badge {
-    font-size: 28px !important;
-    &::after {
-        right: -22px !important;
+mdl-card {
+    .mdl-card__supporting-text {
+        box-sizing: border-box;
     }
-}
-.mdl-card__actions {
-    display: flex !important;
+    .mdl-badge {
+        font-size: 28px !important;
+        &::after {
+            right: -22px !important;
+        }
+    }
+    .mdl-card__actions {
+        display: flex !important;
+    }
 }

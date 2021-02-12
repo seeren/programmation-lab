@@ -3,7 +3,6 @@ app-navigation {
         background-image: url("./../resources/icon.png");
     }
     .mdl-layout__header {
-        transition: background 0.2s;
         &.scrolled {
             background-color: white !important;
             color: black !important;

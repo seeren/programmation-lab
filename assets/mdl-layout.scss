@@ -4,8 +4,8 @@
         transition: font-size 0.2s;
     }
     &.scrolled {
-        $size: 36px;
         @extend .mdl-shadow--8dp;
+        $size: 36px;
         font-size: 0.7em;
         min-height: $size;
         .mdl-layout__header-row {
