@@ -3,6 +3,7 @@ ${ chapter
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${color.substr(0, color.length - 3) + (parseInt(color.substr(color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${color}">
         ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `<a href="#section-${index}"
+            onclick="step('${h2.innerText.substring(3)}')"
             class="${h2.innerHTML.indexOf(section) !== -1 ? `is-active ` : ``}mdl-tabs__tab mdl-color-text--white">
             <span class="before"></span>
             <span class="marker"><i class="material-icons">panorama_fish_eye</i></span>
@@ -48,7 +49,7 @@ ${ chapter
                 <p>${element.innerText}</p>
             </div>`;
             case 'UL': return `<ul class="mdl-list mdl-cell mdl-cell--8-col">
-                ${element.innerHTML.replace(/<li/g, `<li class="mdl-list__item mdl-color--${color}" `)} </ul>`;
+                ${element.innerHTML.replace(/<li /g, `<li class="mdl-list__item mdl-color--${color}" `)} </ul>`;
                     default: return ''
                     }
                     })())

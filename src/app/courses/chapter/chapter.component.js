@@ -1,4 +1,4 @@
-import { Component, RouterComponent } from 'appable';
+import { Component, RouterComponent, RouterService } from 'appable';
 
 import Prism from 'prismjs';
 
@@ -45,11 +45,10 @@ export class ChapterComponent extends Component {
             MdlService.upgradeOne(`${this.selector} .mdl-js-ripple-effect`);
             MdlService.upgradeAll(`${this.selector} .mdl-js-spinner`);
             this.onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
-            ScrollService.topOnClick(`${this.selector} .mdl-tabs__tab`);
             Prism.highlightAll();
         } else if (!this.components.length) {
             this.onAbort = AbortService.add(ChapterService);
-            this.show(RouterComponent.get('name'), RouterComponent.get('chapter'));
+            this.show(RouterComponent.get('course'), RouterComponent.get('chapter'));
         }
     }
 
@@ -64,13 +63,13 @@ export class ChapterComponent extends Component {
     }
 
     /**
-     * @param {String} name
+     * @param {String} course
      * @param {String} chapter
      */
-    show(name, chapter) {
+    show(course, chapter) {
         const spinner = new SpinnerComponent();
-        const retry = SpinnerService.start(this, spinner, () => this.show(name, chapter));
-        ChapterService.get(name, chapter)
+        const retry = SpinnerService.start(this, spinner, () => this.show(course, chapter));
+        ChapterService.get(course, chapter)
             .then(
 
                 /**
@@ -78,7 +77,7 @@ export class ChapterComponent extends Component {
                  */
                 (data) => {
                     this.chapter = data;
-                    this.color = ColorService.get(name);
+                    this.color = ColorService.get(course);
                 },
             )
             .catch(
@@ -98,6 +97,18 @@ export class ChapterComponent extends Component {
     }
 
     /**
+     * @param {String} section
+     */
+    step(section) {
+        ScrollService.top();
+        if (section !== this.section) {
+            this.section = section;
+            RouterService.get()[`${'param'}`].section = section;
+            ChapterService.notify();
+        }
+    }
+
+    /**
      * @event
      * @param {Number} index
      */
@@ -107,9 +118,7 @@ export class ChapterComponent extends Component {
             tabs[index + 1][`${'click'}`]();
         } else {
             ChapterService.terminate(this.chapter);
-            RouterComponent.navigate('formation', {
-                name: RouterComponent.get('name'),
-            });
+            RouterComponent.navigate('course', { course: RouterComponent.get('course') });
         }
     }
 

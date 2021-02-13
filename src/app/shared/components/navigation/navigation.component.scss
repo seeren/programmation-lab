@@ -43,6 +43,9 @@ app-navigation {
                     &.is-active::after {
                         background-color: white !important;
                     }
+                    &.is-active.chapter::after {
+                        background-color: transparent !important;
+                    }
                 }
             }
         }

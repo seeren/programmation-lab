@@ -1,6 +1,6 @@
 <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
-        ${'main' === title
+        ${'main' === route
         ? `<img src="dist/resources/icon.png" class="logo" />`
         : `<h1 class="mdl-layout-title mdl-typography--text-center">
             <button onclick="back()"
@@ -11,15 +11,15 @@
         </h1>`}
     </div>
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp mdl-color--accent">
-        <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === title ? 'is-active': ''}">
+        <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === route ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
-        <a onclick="navigate('formations')" href="#formations"
-            class="mdl-layout__tab ${'main' !== title && 'favorites' !== title ? 'is-active': ''}">
+        <a onclick="navigate('courses')" href="#courses"
+            class="mdl-layout__tab ${'courses' === route || 'course' === route || 'chapter' === route ? 'is-active': ''}">
             <span class="material-icons">library_books</span>
         </a>
-        <a onclick="navigate('favorites')" href="#favorites"
-            class="mdl-layout__tab ${'favorites' === title ? 'is-active': ''}">
+        <a ${'chapter' !== route ? `onclick="navigate('favorites')" href="#favorites"` : `onclick="toogleFavorite(event)" href="#"`}
+            class="mdl-layout__tab ${'favorites' === route ? 'is-active': ''}${'chapter' === route ? ' chapter' : ''}">
             <span class="material-icons">grade</span>
         </a>
     </div>
@@ -31,6 +31,6 @@ ${'main' === title
 : ``}
 <div class="mdl-layout__content">
     <span class="mdl-layout__tab-panel is-active" id="main"></span>
-    <span class="mdl-layout__tab-panel" id="formations"></span>
+    <span class="mdl-layout__tab-panel" id="courses"></span>
     <span class="mdl-layout__tab-panel" id="favorites"></span>
 </div>

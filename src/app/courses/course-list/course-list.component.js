@@ -82,10 +82,10 @@ export class CourseListComponent extends Component {
 
     /**
      * @event
-     * @param {String} name
+     * @param {String} course
      */
-    show(name) {
-        RouterComponent.navigate('course', { name });
+    show(course) {
+        RouterComponent.navigate('course', { course });
     }
 
 }

@@ -14,15 +14,6 @@ export const ScrollService = new class extends Service {
     }
 
     /**
-     * @param {String} selector
-     */
-    topOnClick(selector) {
-        window.document.querySelectorAll(selector).forEach(
-            (element) => element.addEventListener('click', this.top),
-        );
-    }
-
-    /**
      * @param {EventListenerOrEventListenerObject} onScroll
      */
     remove(onScroll) {

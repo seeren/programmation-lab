@@ -40,7 +40,7 @@ export class CourseComponent extends Component {
             this.onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
         } else if (!this.components.length) {
             this.onAbort = AbortService.add(CourseService);
-            this.show(RouterComponent.get('name'));
+            this.show(RouterComponent.get('course'));
         }
     }
 
@@ -79,12 +79,12 @@ export class CourseComponent extends Component {
     }
 
     /**
-     * @param {String} name
+     * @param {String} course
      */
-    show(name) {
+    show(course) {
         const spinner = new SpinnerComponent();
-        const retry = SpinnerService.start(this, spinner, () => this.show(name));
-        CourseService.get(name)
+        const retry = SpinnerService.start(this, spinner, () => this.show(course));
+        CourseService.get(course)
             .then(
 
                 /**
@@ -118,7 +118,7 @@ export class CourseComponent extends Component {
      */
     showChapter(wikiIndex, sectionIndex) {
         RouterComponent.navigate('chapter', {
-            name: RouterComponent.get('name'),
+            course: RouterComponent.get('course'),
             chapter: this.course.wikiList[wikiIndex].document.querySelector('h1').innerText,
             section: this.course.wikiList[wikiIndex].document.querySelectorAll('h2')[sectionIndex].innerText.substring(3),
         });
