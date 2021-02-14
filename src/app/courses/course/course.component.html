@@ -1,14 +1,14 @@
 ${course && course.readme
 ? `<div
-    class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
+    class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--accent-contrast mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${course.color}">
         <a href="#description" onclick="open('description')"
-            class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--white">Description</a>
+            class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Description</a>
         <a href="#summary" onclick="open('summary')"
-            class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--white">Programme</a>
+            class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Programme</a>
     </div>
     <div class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="description">
-        <div class="mdl-grid">
+        <div class="w-100 border-box mdl-grid">
             <h2 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
                 ${this.course.readme.document.querySelector('h1').innerHTML}
             </h2>
@@ -21,11 +21,11 @@ ${course && course.readme
             <h3 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
                 Durée: ${this.course.readme.document.querySelector('p').innerHTML}
             </h3>
-            <div class="duration">
-                <p class="mdl-typography--display-1">
+            <div class="p-relative d-flex duration">
+                <p class="m-0 mdl-typography--display-1">
                     ${percent} <span class="mdl-typography--subhead">%</span>
                 </p>
-                <svg viewBox="0 0 120 120">
+                <svg class="p-absolute" viewBox="0 0 120 120">
                     <circle cx="60" cy="60" r="54" fill="none" stroke="#212121" stroke-width="12" />
                     <circle cx="60" cy="60" r="54" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-dasharray="340"
                         stroke-dashoffset="-${340 / (100 / percent)}" />
@@ -33,12 +33,12 @@ ${course && course.readme
             </div>
         </div>
     </div>
-    <div class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
-        <div class="mdl-grid">
+    <div class="w-100 ${'summary' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
+        <div class="w-100 mdl-grid">
             ${course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">
-                    ${ wiki.checked ? `<i class="mdl-list__item-icon material-icons done">done</i>` : ``}
+                    ${ wiki.checked ? `<i class="mdl-list__item-icon material-icons mdl-color-text--green-500 done">done</i>` : ``}
                     <h2 class="mdl-card__title-text">
                         ${wiki.document.querySelector('h1').innerHTML}
                     </h2>
@@ -47,8 +47,8 @@ ${course && course.readme
                         <i class="material-icons toggle">keyboard_arrow_down</i>
                     </button>
                 </div>
-                <div class="mdl-card__supporting-text">
-                    <ul class="mdl-list">
+                <div class="w-100 p-0 mdl-card__supporting-text">
+                    <ul class="m-0 d-none mdl-list">
                         ${Array.from(wiki.document.querySelectorAll('h2')).map((h2, sectionIndex) => `<li
                             class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">

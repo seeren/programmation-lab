@@ -3,9 +3,6 @@ app-course-list {
         height: 50vh;
         .mdl-card {
             background-color: transparent;
-            height: 100%;
-            width: 100%;
-            margin: 0;
             .mdl-card__title {
                 justify-content: center;
                 align-content: center;
@@ -15,7 +12,6 @@ app-course-list {
                     font-weight: 300;
                 }
                 .mdl-card__supporting-text {
-                    width: 100%;
                     font-size: 1.5rem;
                     line-height: 1.2em;
                 }
@@ -23,14 +19,10 @@ app-course-list {
         }
     }
     > .mdl-layout__header {
-        height: 0px;
-        min-height: 0px;
-        position: absolute;
         display: initial;
         .mdl-layout__header-row {
             height: 40px;
             .material-icons {
-                position: absolute;
                 left: -2.2em;
                 top: -0.1em;
             }
@@ -44,18 +36,11 @@ app-course-list {
         }
     }
     > footer {
-        display: flex;
         align-items: center;
         height: 50vh;
         background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(208, 234, 253, 0) 100%);
         .mdl-grid {
-            width: 100%;
             padding-top: 8px;
-            margin-left: 0;
-            margin-right: 0;
-            h4 {
-                margin-top: 0;
-            }
             .logo {
                 justify-content: center;
                 img {

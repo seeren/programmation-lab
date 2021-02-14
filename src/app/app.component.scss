@@ -10,8 +10,7 @@ app {
     main {
         margin-bottom: 35px;
         router {
-            min-height: 100%;
-            display: block;
+            @extend .h-min-100, .d-block;
         }
     }
 }

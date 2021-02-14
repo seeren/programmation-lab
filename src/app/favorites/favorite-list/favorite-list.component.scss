@@ -1,42 +1,24 @@
 app-favorite-list {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+    @extend .p-absolute, .h-100, .w-100, .border-box;
     padding-top: 56px;
-    box-sizing: border-box;
     .mdl-grid {
-        width: 100%;
-        min-height: 100%;
-        position: relative;
-        box-sizing: border-box;
         align-content: center;
         flex-direction: column;
         .empty {
-            margin: auto;
-            text-align: center;
             .material-icons {
                 font-size: 3em;
             }
         }
         .mdl-list {
-            padding: 0;
-            margin: 0;
             .mdl-list__item {
                 flex-shrink: 0;
                 flex-wrap: wrap;
-                @mixin listItem() {
-                    padding: 0.5em 1em;
-                    box-sizing: border-box;
-                    margin: 0;
-                }
-                padding: 0;
                 margin: 0.5em 0;
                 .mdl-typography--subhead {
-                    @include listItem();
-                    width: 100%;
+                    padding: 0.5em 1em;
                 }
                 .mdl-typography--headline {
-                    @include listItem();
+                    padding: 0.5em 1em;
                 }
                 .mdl-button {
                     margin-right: 16px;

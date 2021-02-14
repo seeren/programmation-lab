@@ -10,8 +10,6 @@ app-chapter {
     }
     .mdl-tabs {
         .mdl-tabs__tab {
-            padding: 0;
-            display: flex;
             align-items: center;
             @include stepperColor();
             .before,
@@ -20,7 +18,6 @@ app-chapter {
                 height: 2px;
             }
             .marker {
-                display: flex;
                 margin: auto -2px auto;
                 align-self: center;
             }
@@ -42,10 +39,7 @@ app-chapter {
         }
     }
     .mdl-tabs__panel {
-        position: relative;
         .mdl-grid {
-            width: 100%;
-            box-sizing: border-box;
             align-content: center;
             flex-direction: column;
             .mdl-card__supporting-text {
@@ -74,31 +68,30 @@ app-chapter {
                 margin: 8px;
             }
             mark {
-                @extend .mdl-chip, .mdl-chip__text, .mdl-color--accent-contrast;
-                width: auto;
+                @extend .w-auto, .mdl-chip, .mdl-chip__text, .mdl-color--accent-contrast;
             }
             blockquote {
                 margin: 2em 0 2em 12px;
             }
             table {
-                width: 100%;
+                @extend .w-100;
                 white-space: normal;
                 th {
-                    text-align: center;
+                    @extend .center;
                 }
                 td {
                     text-align: left;
                 }
             }
             .img-loader {
-                text-align: center;
+                @extend .center;
                 margin: 2em auto;
             }
             .link-container {
                 margin-top: 2em;
-                text-align: center;
+                @extend .center;
                 p {
-                    margin: 0;
+                    @extend .m-0;
                 }
             }
             .manipulation {

@@ -1,19 +1,19 @@
-<div class="mdl-grid mdl-color--white">
+<div class="mdl-grid mdl-color--accent-contrast w-100 h-100 h-min-100 p-relative border-box">
     ${!favoriteList.length
-    ? `<div class="empty mdl-cell mdl-cell--8-col">
+    ? `<div class="empty m-auto center mdl-cell mdl-cell--8-col">
         <i class="material-icons">grade</i>
         <div class="mdl-typography--headline">
             Aucun favoris
         </div>
     </div>`
-    : `<ul class="mdl-list mdl-cell mdl-cell--8-col">
+    : `<ul class="mdl-list p-0 m-0 mdl-cell mdl-cell--8-col">
         ${ favoriteList.map((favorite, index) =>
         `<li
-            class="mdl-shadow--2dp mdl-list__item mdl-color-text--white mdl-color--${color(favorite.course).substr(0, color(favorite.course).length - 3) + (parseInt(color(favorite.course).substr(color(favorite.course).length - 3), 10) + 100)}">
-            <span class="mdl-typography--subhead mdl-color--${color(favorite.course)}">
+            class="p-0 border-box mdl-shadow--2dp mdl-list__item mdl-color-text--accent-contrast mdl-color--${color(favorite.course).substr(0, color(favorite.course).length - 3) + (parseInt(color(favorite.course).substr(color(favorite.course).length - 3), 10) + 100)}">
+            <span class="w-100 mdl-typography--subhead mdl-color--${color(favorite.course)}">
                 ${favorite.course}
             </span>
-            <span class="mdl-typography--headline">
+            <span class="border-box mdl-typography--headline">
                 ${favorite.chapter}: ${favorite.section}
             </span>
             <span class="mdl-layout-spacer"></span>

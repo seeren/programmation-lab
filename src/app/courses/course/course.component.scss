@@ -1,6 +1,6 @@
 app-course {
     .mdl-tabs__tab.is-active::after {
-        background-color: white !important;
+        @extend .mdl-color--accent-contrast;
     }
     .mdl-grid {
         align-content: flex-start;
@@ -10,11 +10,7 @@ app-course {
         .mdl-grid {
             flex-direction: column;
             align-content: center;
-            width: 100%;
-            box-sizing: border-box;
             .duration {
-                display: flex;
-                position: relative;
                 flex-grow: 1;
                 justify-content: center;
                 align-items: center;
@@ -24,10 +20,8 @@ app-course {
                     max-width: 75%;
                     top: 50%;
                     left: 50%;
-                    position: absolute;
                 }
                 p {
-                    margin: 0;
                     padding-left: 0.5em;
                     span {
                         vertical-align: top;
@@ -37,10 +31,6 @@ app-course {
         }
     }
     #summary {
-        width: 100%;
-        .mdl-grid {
-            width: 100%;
-        }
         .mdl-card {
             min-height: auto;
             .mdl-card__title {
@@ -50,7 +40,6 @@ app-course {
                     font-size: 1.2em;
                 }
                 .done {
-                    @extend .mdl-color-text--green-500;
                     margin-right: 0.8em;
                     font-size: 2em;
                     margin-top: -0.25em;
@@ -60,12 +49,8 @@ app-course {
                 }
             }
             .mdl-card__supporting-text {
-                width: 100%;
-                padding: 0;
                 .mdl-list {
                     padding-left: 1em;
-                    margin: 0;
-                    display: none;
                     .mdl-list__item {
                         padding: 12px !important;
                     }
