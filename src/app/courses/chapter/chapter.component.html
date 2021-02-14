@@ -19,7 +19,7 @@ ${ chapter
             ? ((() => {
             switch (element.tagName) {
             case 'H3': return `<h3 class="mdl-cell mdl-cell--8-col">${element.innerText.substring(3)}</h3>`;
-            case 'H4': return `<h4 class="mdl-cell mdl-cell--8-col">${element.innerText.substring(3)}</h4>`;
+            case 'H4': return `<h4 class="mdl-cell mdl-cell--8-col">${element.innerText}</h4>`;
             case 'CODE': return `
             <pre
                 class="mdl-cell mdl-cell--8-col mdl-color--accent"><code class="language-${element.getAttribute('data-language')}">${element.innerHTML}</code></pre>

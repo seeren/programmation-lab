@@ -1,8 +1,8 @@
 import { Service } from 'appable';
 
-import { environment } from '../../../environment/environment.prod';
+import { environment } from '../../../../environment/environment.prod';
 
-import { LocalStorageService } from '../shared/services/local-storage.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { Favorite } from './favorite.model';
 
 /**
@@ -50,7 +50,7 @@ export const FavoriteListService = new class extends Service {
      * @param {Favorite} favorite
      */
     add(favorite) {
-        this.favoriteList.push(favorite);
+        this.favoriteList.unshift(favorite);
         this.save();
     }
 

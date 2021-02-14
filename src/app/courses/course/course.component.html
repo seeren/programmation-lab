@@ -34,7 +34,7 @@ ${course && course.readme
         </div>
     </div>
     <div class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
-        <div class="mdl-grid justify-center">
+        <div class="mdl-grid">
             ${course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">

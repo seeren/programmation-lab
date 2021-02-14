@@ -5,7 +5,7 @@ import template from './navigation.component.html';
 
 import { MdlService } from '../../services/mdl.service';
 import { ScrollService } from '../../services/scroll.service';
-import { FavoriteListService } from '../../../favorites/favorite-list.service';
+import { FavoriteListService } from '../../../favorites/favorite-list/favorite-list.service';
 import { ChapterService } from '../../../courses/chapter/chapter.service';
 
 /**

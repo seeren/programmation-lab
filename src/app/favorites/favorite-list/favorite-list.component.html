@@ -1,0 +1,25 @@
+<div class="mdl-grid mdl-color--white">
+    ${!favoriteList.length
+    ? `<div class="empty mdl-cell mdl-cell--8-col">
+        <i class="material-icons">grade</i>
+        <div class="mdl-typography--headline">
+            Aucun favoris
+        </div>
+    </div>`
+    : `<ul class="mdl-list mdl-cell mdl-cell--8-col">
+        ${ favoriteList.map((favorite, index) =>
+        `<li
+            class="mdl-shadow--2dp mdl-list__item mdl-color-text--white mdl-color--${color(favorite.course).substr(0, color(favorite.course).length - 3) + (parseInt(color(favorite.course).substr(color(favorite.course).length - 3), 10) + 100)}">
+            <span class="mdl-typography--subhead mdl-color--${color(favorite.course)}">
+                ${favorite.course}
+            </span>
+            <span class="mdl-typography--headline">
+                ${favorite.chapter}: ${favorite.section}
+            </span>
+            <span class="mdl-layout-spacer"></span>
+            <button onclick="show(${index})" class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons toggle">keyboard_arrow_right</i>
+            </button>
+        </li>`).join('')}
+    </ul>`}
+</div>
