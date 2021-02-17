@@ -2,6 +2,12 @@ app-navigation {
     .loader {
         background-image: url("./../resources/icon.png");
     }
+    .mdl-snackbar {
+        height: 35px;
+        .mdl-snackbar__text {
+            padding: 7px 12px;
+        }
+    }
     .mdl-layout__header {
         &.scrolled {
             background-color: white !important;

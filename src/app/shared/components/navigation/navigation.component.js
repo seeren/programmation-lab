@@ -29,6 +29,7 @@ export class NavigationComponent extends Component {
         MdlService
             .downGrade(`${this.selector}.mdl-layout`)
             .upgradeOne(`${this.selector}.mdl-layout`)
+            .upgradeOne(`${this.selector} .mdl-snackbar`)
             .upgradeAll(`${this.selector} .mdl-layout__tab-ripple-container`);
         this.onScroll = ScrollService.add(`${this.selector} .mdl-layout__header`, 0);
         ScrollService.top();
@@ -80,11 +81,18 @@ export class NavigationComponent extends Component {
         if (event) {
             event.preventDefault();
             event.stopImmediatePropagation();
+
+            const snackbarContainer = document.querySelector(`${this.selector} .mdl-snackbar`);
+            const data = { };
             if (favorite) {
+                data.message = 'Favoris supprimé';
                 FavoriteListService.remove(favorite);
             } else {
+                data.message = 'Favoris ajouté';
                 FavoriteListService.add(FavoriteListService.clone(state[`${'param'}`]));
             }
+            // @ts-ignore
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
         }
         this.upgradeFavorite();
     }
