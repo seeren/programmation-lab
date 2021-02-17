@@ -1,14 +1,9 @@
 app-favorite-list {
     @extend .p-absolute, .h-100, .w-100, .border-box;
-    padding-top: 56px;
+    padding-top: 52px;
     .mdl-grid {
         align-content: center;
         flex-direction: column;
-        .empty {
-            .material-icons {
-                font-size: 3em;
-            }
-        }
         .mdl-list {
             .mdl-list__item {
                 flex-shrink: 0;
@@ -19,6 +14,7 @@ app-favorite-list {
                 }
                 .mdl-typography--headline {
                     padding: 0.5em 1em;
+                    max-width: calc(100% - 2.75em);
                 }
                 .mdl-button {
                     margin-right: 16px;

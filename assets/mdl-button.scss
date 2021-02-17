@@ -1,6 +1,11 @@
 .mdl-button--mini-fab {
-    $size: 30px;
+    $size: 28px;
     width: $size !important;
     min-width: $size !important;
     height: $size !important;
+}
+.empty {
+    .material-icons {
+        font-size: 3em;
+    }
 }

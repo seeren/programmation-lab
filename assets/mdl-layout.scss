@@ -14,12 +14,5 @@
         .mdl-layout-title {
             font-size: ($size / 2) - 2;
         }
-        .mdl-layout__drawer-button {
-            margin: 4px $size / 3;
-            color: inherit;
-            height: $size - 4;
-            width: $size;
-            line-height: $size;
-        }
     }
 }

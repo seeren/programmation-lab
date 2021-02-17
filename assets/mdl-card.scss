@@ -1,10 +1,30 @@
-mdl-card {
+header {
+    .mdl-card {
+        background-color: transparent;
+        .mdl-card__title {
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+            padding-top: 52px;
+            h2 {
+                cursor: pointer !important;
+                font-weight: 300;
+            }
+            .mdl-card__supporting-text {
+                font-size: 1.5rem;
+                line-height: 1.2em;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.mdl-card {
     .mdl-card__supporting-text {
         box-sizing: border-box;
     }
     .mdl-badge {
         font-size: 28px !important;
-        &::after {
+        &.mdl-badge--overlap::after {
             right: -22px !important;
         }
     }

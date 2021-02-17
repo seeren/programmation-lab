@@ -13,7 +13,7 @@ app-navigation {
         .mdl-layout__header-row {
             padding-left: 0 !important;
             .mdl-layout-title {
-                padding: 0.5em 1em 0.5em 2.75em;
+                padding: 0.5em 2.75em;
                 width: 100%;
                 box-sizing: border-box;
                 overflow: hidden;
@@ -21,14 +21,18 @@ app-navigation {
                 white-space: nowrap;
                 .mdl-button--mini-fab {
                     position: absolute;
+                    top: 0.05em;
                     left: 0.5em;
                 }
-            }
-            .logo {
-                transition: width 0.2s;
-                transition: height 0.2s;
-                width: 3em;
-                height: 3em;
+                .logo {
+                    position: absolute;
+                    top: -0.125em;
+                    left: 0.4em;
+                    $size: 36px;
+                    width: $size !important;
+                    min-width: $size !important;
+                    height: $size !important;
+                }
             }
         }
         .mdl-layout__tab-bar-container {
