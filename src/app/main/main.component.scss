@@ -1,3 +1,26 @@
 app-main {
-    // background: blue;
+    > header {
+        height: 30vh;
+        align-content: center;
+        flex-direction: column;
+    }
+    > .courses {
+        
+        height: calc(70vh - 35px);
+    }
+    > footer {
+        align-items: center;
+        height: 50vh;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgb(66,66,66) 100%) !important;
+        .mdl-grid {
+            padding-top: 8px;
+            .logo {
+                justify-content: center;
+                img {
+                    max-height: 4em;
+                    align-self: center;
+                }
+            }
+        }
+    }
 }

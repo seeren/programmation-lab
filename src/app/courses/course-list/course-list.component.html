@@ -4,7 +4,8 @@ ${ courseList
         <div class="mdl-card__title mdl-card--expand mdl-color-text--grey-50">
             <h2 class="display-1" onclick="show('${courseList[0].name}')">${courseList[0].name}</h2>
             <p class="w-100 mdl-card__supporting-text mdl-typography--text-center mdl-color-text--grey-50">
-                ${courseList[0].description}</p>
+                ${courseList[0].description}
+            </p>
         </div>
         <div
             class="mdl-card__actions mdl-color-text--grey-50 mdl-color--${courseList[0].color.substr(0, courseList[0].color.length - 3) + (parseInt(courseList[0].color.substr(courseList[0].color.length - 3), 10) + 100)}">
@@ -22,7 +23,8 @@ ${ courseList
 </header>
 <section class="p-absolute h-0 h-min-0 mdl-layout__header">
     <div class="mdl-layout__header-row mdl-color--black">
-        <span class="mdl-layout-title"><i class="p-absolute material-icons">library_books</i>${courseList.length} Formation</span>
+        <span class="mdl-layout-title"><i class="p-absolute material-icons">library_books</i>${courseList.length}
+            Formation</span>
     </div>
 </section>
 <section class="mdl-grid mdl-color--accent-contrast">
@@ -46,23 +48,5 @@ ${ courseList
         </div>
     </div>`
     : '').join('')}
-</section>
-<footer class="d-flex mdl-mega-footer">
-    <div class="w-100 mr-0 ml-0 mdl-grid">
-        <div class="mdl-cell mdl-cell--3-col-phone mdl-cell--6-col-tablet mdl-cell--8-col mdl-color-text--grey-50">
-            <h4 class="mt-0 mdl-typography--headline">Seeren Training</h4>
-            <p class="mdl-cell--hide-phone">
-                Motivé par l'idée de fournir des supports de cours à mes apprenants
-                j'ai rédigé l'ensemble en open source sur Github
-            </p>
-            <a href="https://github.com/seeren" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                Follow
-            </a>
-        </div>
-        <div
-            class="logo mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--4-col mdl-typography--text-center">
-            <img src="dist/resources/icon.png" alt="" />
-        </div>
-    </div>
-</footer>`
+</section>`
 : '' }

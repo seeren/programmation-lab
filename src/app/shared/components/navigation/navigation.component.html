@@ -1,7 +1,10 @@
 <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
         ${'main' === route
-        ? `<img src="dist/resources/icon.png" class="logo" />`
+        ? `<h1 class="mdl-layout-title mdl-typography--text-center">
+            <img src="dist/resources/icon.png" class="logo" />
+           Developpeur Web et Mobile
+        </h1>`
         : `<h1 class="mdl-layout-title mdl-typography--text-center">
             <button onclick="back()"
                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
@@ -18,17 +21,13 @@
             class="mdl-layout__tab ${'courses' === route || 'course' === route || 'chapter' === route ? 'is-active': ''}">
             <span class="material-icons">library_books</span>
         </a>
-        <a ${'chapter' !== route ? `onclick="navigate('favorites')" href="#favorites"` : `onclick="toogleFavorite(event)" href="#"`}
+        <a ${'chapter' !==route ? `onclick="navigate('favorites')" href="#favorites" ` :
+            `onclick="toogleFavorite(event)" href="#" `}
             class="mdl-layout__tab ${'favorites' === route ? 'is-active': ''}${'chapter' === route ? ' chapter' : ''}">
             <span class="material-icons">grade</span>
         </a>
     </div>
 </header>
-${'main' === title
-? `<div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Favorites</span>
-</div>`
-: ``}
 <div class="mdl-layout__content">
     <span class="mdl-layout__tab-panel is-active" id="main"></span>
     <span class="mdl-layout__tab-panel" id="courses"></span>
