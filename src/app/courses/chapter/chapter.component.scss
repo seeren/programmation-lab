@@ -77,19 +77,19 @@ app-chapter {
                 @extend .w-100;
                 white-space: normal;
                 th {
-                    @extend .center;
+                    @extend .mdl-typography--text-center;
                 }
                 td {
-                    text-align: left;
+                    @extend .mdl-typography--text-left;
                 }
             }
             .img-loader {
-                @extend .center;
+                @extend .mdl-typography--text-center;
                 margin: 2em auto;
             }
             .link-container {
                 margin-top: 2em;
-                @extend .center;
+                @extend .mdl-typography--text-center;
                 p {
                     @extend .m-0;
                 }
