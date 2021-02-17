@@ -32,9 +32,6 @@ export class NavigationComponent extends Component {
             .upgradeAll(`${this.selector} .mdl-layout__tab-ripple-container`);
         this.onScroll = ScrollService.add(`${this.selector} .mdl-layout__header`, 0);
         ScrollService.top();
-        if ('chapter' === this.route) {
-            this.upgradeFavorite();
-        }
     }
 
     /**

@@ -34,6 +34,7 @@ export class ChapterComponent extends Component {
     onInit() {
         this.chapter = null;
         this.section = RouterComponent.get('section');
+        ChapterService.notify();
     }
 
     /**
