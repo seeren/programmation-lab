@@ -4,6 +4,7 @@ import { Component, RouterComponent } from 'appable';
 import template from './main.component.html';
 
 import { LastService } from '../courses/shared/services/last.service';
+import { MdlService } from '../shared/services/mdl.service';
 
 /**
  * @type {MainComponent}
@@ -25,11 +26,25 @@ export class MainComponent extends Component {
     }
 
     /**
+     * @emits
+     */
+    onUpdate() {
+        MdlService.upgradeOne(`${this.selector} .mdl-button`);
+    }
+
+    /**
      * @event
      * @param {String} course
      */
     show(course) {
         RouterComponent.navigate('course', { course });
+    }
+
+    /**
+     * @event
+     */
+    showAll() {
+        RouterComponent.navigate('courses');
     }
 
 }
