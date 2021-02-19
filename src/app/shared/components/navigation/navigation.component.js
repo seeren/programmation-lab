@@ -56,7 +56,7 @@ export class NavigationComponent extends Component {
         if ('courses' === state[`${'name'}`]) {
             this.title = 'Thématiques';
         } else if ('course' === state[`${'name'}`]) {
-            this.title = state[`${'param'}`].chapter;
+            this.title = state[`${'param'}`].course;
         } else if ('chapter' === state[`${'name'}`]) {
             this.title = state[`${'param'}`].chapter;
         } else if ('favorites' === state[`${'name'}`]) {
@@ -64,6 +64,7 @@ export class NavigationComponent extends Component {
         }  else {
             this.title = 'Programmation Lab';
         }
+        console.log(this.title);
         if (window.document.querySelector('main.mdl-layout__content')) {
             this.onDestroy();
             this.update();
