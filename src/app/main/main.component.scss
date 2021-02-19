@@ -24,7 +24,7 @@ app-main {
         }
         $spacing: 1000;
         @mixin particles($max) {
-            $box-shadow: 0px 0px #18FFFF;
+            $box-shadow: 0px 0px #9affff;
             @for $i from 1 through $max {
                 $box-shadow: #{$box-shadow},
                     (random($spacing / 2) + random($spacing / 2) * -1) + px random($spacing) + px #006064;
@@ -35,8 +35,8 @@ app-main {
             0% {
                 transform: translateY(0px);
             }
-            75% {
-                opacity: 0.7;
+            80% {
+                opacity: 1;
             }
             100% {
                 transform: translateY($spacing * -1 + px);
@@ -61,14 +61,14 @@ app-main {
             &.particle-2 {
                 animation: particles 20s linear infinite;
                 @include particles(75);
-                height: 4px;
+                height: 5px;
                 width: 5px;
             }
             &.particle-3 {
                 animation: particles 25s linear infinite;
                 @include particles(20);
-                height: 6px;
-                width: 6px;
+                height: 8px;
+                width: 8px;
             }
         }
     }

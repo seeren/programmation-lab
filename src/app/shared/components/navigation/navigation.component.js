@@ -51,12 +51,18 @@ export class NavigationComponent extends Component {
      */
     onNavigate() {
         const state = RouterService.get();
-        this.title = state[`${'name'}`];
+        // this.title = state[`${'name'}`];
         this.route = state[`${'name'}`];
-        if ('course' === this.title) {
-            this.title = state[`${'param'}`].course;
-        } else if ('chapter' === this.title) {
+        if ('courses' === state[`${'name'}`]) {
+            this.title = 'Thématiques';
+        } else if ('course' === state[`${'name'}`]) {
             this.title = state[`${'param'}`].chapter;
+        } else if ('chapter' === state[`${'name'}`]) {
+            this.title = state[`${'param'}`].chapter;
+        } else if ('favorites' === state[`${'name'}`]) {
+            this.title = 'Extraits';
+        }  else {
+            this.title = 'Programmation Lab';
         }
         if (window.document.querySelector('main.mdl-layout__content')) {
             this.onDestroy();
@@ -85,10 +91,10 @@ export class NavigationComponent extends Component {
             const snackbarContainer = document.querySelector(`${this.selector} .mdl-snackbar`);
             const data = { };
             if (favorite) {
-                data.message = 'Favoris supprimé';
+                data.message = 'Extrait supprimé';
                 FavoriteListService.remove(favorite);
             } else {
-                data.message = 'Favoris ajouté';
+                data.message = 'Extrait ajouté';
                 FavoriteListService.add(FavoriteListService.clone(state[`${'param'}`]));
             }
             // @ts-ignore

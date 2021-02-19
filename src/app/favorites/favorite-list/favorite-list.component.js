@@ -21,13 +21,6 @@ export class FavoriteListComponent extends Component {
      * @emits
      */
     onInit() {
-        this.showAll();
-    }
-
-    /**
-     * @emits
-     */
-    showAll() {
         this.favoriteList = FavoriteListService.favoriteList;
     }
 

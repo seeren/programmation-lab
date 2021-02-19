@@ -12,14 +12,15 @@ app-spinner {
         @keyframes logo {
             0%,
             100% {
-                width: 5em;
-                height: 5em;
+                width: 2.75em;
+                height: 2.75em;
             }
-            75% {
-                width: 3.5em;
-                height: 3.5em;
+            50% {
+                width: 2em;
+                height: 2em;
             }
         }
+        border-radius: 50%;
         animation: logo 1s ease-in-out infinite;
     }
 }

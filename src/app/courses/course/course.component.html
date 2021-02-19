@@ -9,16 +9,16 @@ ${course && course.readme
     </div>
     <div class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="description">
         <div class="w-100 border-box mdl-grid">
-            <h2 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
+            <h2 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
                 ${this.course.readme.document.querySelector('h1').innerHTML}
             </h2>
-            <h3 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
+            <h3 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
                 ${this.course.readme.document.querySelector('h2 ~ h2').innerHTML}
             </h3>
-            <p class="mdl-cell mdl-cell--8-col">
+            <p class="mdl-cell mdl-cell--8-col mdl-typography--headline">
                 ${this.course.readme.document.querySelector('p ~ p').innerHTML}
             </p>
-            <h3 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
+            <h3 class="mdl-cell mdl-cell--8-col mdl-typography--caption">
                 Durée: ${this.course.readme.document.querySelector('p').innerHTML}
             </h3>
             <div class="p-relative d-flex duration">
@@ -38,7 +38,8 @@ ${course && course.readme
             ${course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-shadow--2dp">
-                    ${ wiki.checked ? `<i class="mdl-list__item-icon material-icons mdl-color-text--green-500 done">done</i>` : ``}
+                    ${ wiki.checked ? `<i
+                        class="mdl-list__item-icon material-icons mdl-color-text--green-500 done">done</i>` : ``}
                     <h2 class="mdl-card__title-text">
                         ${wiki.document.querySelector('h1').innerHTML}
                     </h2>
