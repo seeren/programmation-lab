@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.seeren.app" version="0.0.1"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>Développeur Web</name>
+<widget id="io.seeren.programmationlab" version="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Programmation Lab</name>
     <description>
-        Formations pour Concepteur développeur d'application (CDA) et développeur web et mobile (DWWM)
+        Apprenez à programmer pour le web avec HTML, JavaScript, Angular, Web-GL, Cordova, PHP, Symfony, SQL, UML, Scrum, WordPress etc. Gratuitement - "Programmation Lab: Progresser en Programmation en prélevant des extraits"
     </description>
     <author email="consultant@seeren.fr" href="https://github.com/seeren-training">
             Seeren
@@ -13,7 +12,7 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
-    <preference name="HeaderColor" value="#212121" />
+    <preference name="HeaderColor" value="#006064" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
