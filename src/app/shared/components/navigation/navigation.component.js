@@ -53,15 +53,15 @@ export class NavigationComponent extends Component {
         const state = RouterService.get();
         this.route = state[`${'name'}`];
         switch (state[`${'name'}`]) {
-            case 'courses': this.title = 'Thématiques';
+        case 'courses': this.title = 'Thématiques';
             break;
-            case 'course': this.title =  state[`${'param'}`].course;
+        case 'course': this.title = state[`${'param'}`].course;
             break;
-            case 'chapter': this.title = state[`${'param'}`].chapter;
+        case 'chapter': this.title = state[`${'param'}`].chapter;
             break;
-            case 'favorites': this.title = 'Extraits';
+        case 'favorites': this.title = 'Extraits';
             break;
-            default: this.title = 'Programmation Lab';
+        default: this.title = 'Programmation Lab';
         }
         if (window.document.querySelector('main.mdl-layout__content')) {
             this.onDestroy();

@@ -98,10 +98,11 @@ export class ChapterComponent extends Component {
     }
 
     /**
-     * @param {String} section
+     * @param {String} escapedSection
      */
-    step(section) {
+    step(escapedSection) {
         ScrollService.top();
+        const section = unescape(escapedSection);
         if (section !== this.section) {
             this.section = section;
             RouterService.get()[`${'param'}`].section = section;
