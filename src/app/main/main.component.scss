@@ -5,6 +5,11 @@ app-main {
         flex-direction: column;
         z-index: 9;
         position: relative;
+        .empty {
+            .material-icons {
+                font-size: 3em;
+            }
+        }
     }
     > .courses {
         position: relative;

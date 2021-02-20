@@ -1,6 +1,6 @@
 app-navigation {
     .loader {
-        background-image: url("./../resources/icon.png");
+        background-image: url("./../resources/icon-alpha.png");
     }
     .mdl-layout__header {
         &.scrolled {
@@ -17,17 +17,13 @@ app-navigation {
             padding-left: 0 !important;
             .mdl-layout-title {
                 padding: 0.5em 2.75em;
-                width: 100%;
-                box-sizing: border-box;
-                overflow: hidden;
-                text-overflow: ellipsis;
                 white-space: nowrap;
                 .mdl-button--mini-fab,
                 .logo {
-                    position: absolute;
+                    background: #000000;
                     top: 0.1em;
                     left: 0.4em;
-                    $size: 36px;
+                    $size: 34px;
                     width: $size;
                     min-width: $size;
                     height: $size;
@@ -44,6 +40,9 @@ app-navigation {
                 height: 35px;
                 .mdl-layout__tab {
                     height: 35px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     &.is-active::after {
                         background-color: white !important;
                     }
@@ -59,8 +58,8 @@ app-navigation {
                     .lab-icons {
                         display: inline-block;
                         background-image: url("./../resources/icon-min.png");
-                        height: 20px;
-                        width: 20px;
+                        height: 16px;
+                        width: 16px;
                         background-size: cover;
                         opacity: 0.6;
                     }

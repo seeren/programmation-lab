@@ -1,4 +1,11 @@
 app-favorite-list {
+    .lab-icons {
+        display: inline-block;
+        background-image: url("./../resources/icon-min-black.png");
+        height: 2.5em;
+        width: 2.5em;
+        background-size: cover;
+    }
     @extend .p-absolute, .h-100, .w-100, .border-box;
     padding-top: 52px;
     .mdl-grid {
