@@ -69,6 +69,8 @@ app-chapter {
             }
             mark {
                 @extend .w-auto, .mdl-chip, .mdl-chip__text, .mdl-color--accent-contrast;
+                height: 22px;
+                line-height: 22px;
             }
             blockquote {
                 margin: 2em 0 2em 12px;
