@@ -4,7 +4,9 @@ export const window = (() => {
 
     const { JSDOM } = jsdom;
     // @ts-ignore
-    global.window = new JSDOM('<!doctype html>').window;
+    global.window = new JSDOM('<!doctype html>', {
+        url: 'https://localhost:3000/',
+    }).window;
     global.window.Error = Error;
     global.window.Function = Function;
     global.window.JSON = JSON;

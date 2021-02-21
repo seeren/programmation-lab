@@ -11,10 +11,6 @@ describe('AppComponent', () => {
 
     beforeEach(() => { component = new AppComponent(); });
 
-    describe('Selector', () => {
-        it('`app` is the selector', () => {
-            assert.equal(component.selector, 'app');
-        });
-    });
+    describe('Selector', () => it('`app` is the selector', () => assert.equal(component.selector, 'app')));
 
 });
