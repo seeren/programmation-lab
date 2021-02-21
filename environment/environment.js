@@ -10,4 +10,13 @@ export const environment = {
      */
     token: 'GITHUB_TOKEN',
 
+    /**
+     * @type {Object}
+     */
+    storage: {
+        courseList: 'seeren-course-list',
+        favoriteList: 'seeren-favorite-list',
+        last: 'seeren-last',
+    },
+
 };
