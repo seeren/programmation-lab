@@ -7,4 +7,6 @@
 /plugins/
 /resources/android/
 /www/dist/index.*
+*.keystore
+*.zip
 package-lock.json
