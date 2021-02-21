@@ -85,23 +85,11 @@ export class CourseComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.show(course));
         CourseService.get(course)
-            .then(
-
-                /**
-                 * @param {Course} data
-                 */
-                (data) => {
-                    this.course = data;
-                    this.percent = CourseService.toPercent(data);
-                },
-            )
-            .catch(
-
-                /**
-                 * @param {Error} error
-                 */
-                (error) => error instanceof AbortError || this.attach(retry),
-            )
+            .then((data) => {
+                this.course = data;
+                this.percent = CourseService.toPercent(data);
+            })
+            .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.course) {

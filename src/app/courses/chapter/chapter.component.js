@@ -71,23 +71,11 @@ export class ChapterComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.show(course, chapter));
         ChapterService.get(course, chapter)
-            .then(
-
-                /**
-                 * @param {Wiki} data
-                 */
-                (data) => {
-                    this.chapter = data;
-                    this.color = ColorService.get(course);
-                },
-            )
-            .catch(
-
-                /**
-                 * @param {Error} error
-                 */
-                (error) => error instanceof AbortError || this.attach(retry),
-            )
+            .then((data) => {
+                this.chapter = data;
+                this.color = ColorService.get(course);
+            })
+            .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.chapter) {

@@ -86,8 +86,6 @@ export class NavigationComponent extends Component {
         if (event) {
             event.preventDefault();
             event.stopImmediatePropagation();
-
-            const snackbarContainer = document.querySelector(`${this.selector} .mdl-snackbar`);
             const data = { };
             if (favorite) {
                 data.message = 'Extrait supprimé';
@@ -97,7 +95,7 @@ export class NavigationComponent extends Component {
                 FavoriteListService.add(FavoriteListService.clone(state[`${'param'}`]));
             }
             // @ts-ignore
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            document.querySelector(`${this.selector} .mdl-snackbar`).MaterialSnackbar.showSnackbar(data);
         }
         this.upgradeFavorite();
     }

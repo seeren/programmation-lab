@@ -57,20 +57,8 @@ export class CourseListComponent extends Component {
         const spinner = new SpinnerComponent();
         const retry = SpinnerService.start(this, spinner, () => this.showAll());
         CourseListService.get()
-            .then(
-
-                /**
-                 * @param {Course[]} data
-                 */
-                (data) => this.courseList = data,
-            )
-            .catch(
-
-                /**
-                 * @param {Error} error
-                 */
-                (error) => error instanceof AbortError || this.attach(retry),
-            )
+            .then((data) => this.courseList = data)
+            .catch((error) => error instanceof AbortError || this.attach(retry))
             .finally(() => {
                 AbortService.remove(this.onAbort);
                 if (this.components.length || this.courseList) {
