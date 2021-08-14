@@ -3,16 +3,16 @@ import jsdom from 'jsdom';
 export const window = (() => {
 
     const { JSDOM } = jsdom;
-    // @ts-ignore
-    global.window = new JSDOM('<!doctype html>', {
+    const globalWindow = new JSDOM('<!doctype html>', {
         url: 'https://localhost:3000/',
     }).window;
-    global.window.Error = Error;
-    global.window.Function = Function;
-    global.window.JSON = JSON;
-    global.window.Object = Object;
-    global.window.RegExp = RegExp;
-    global.window.parseInt = parseInt;
-    return global.window;
+    globalWindow.Error = Error;
+    globalWindow.Function = Function;
+    globalWindow.JSON = JSON;
+    globalWindow.Object = Object;
+    globalWindow.RegExp = RegExp;
+    globalWindow.parseInt = parseInt;
+    global.window = globalWindow;
+    return globalWindow;
 
 })();
