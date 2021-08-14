@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
@@ -7,8 +7,11 @@ module.exports = {
         './src/index.scss',
     ],
     output: {
-        path: `${__dirname}/www/dist`,
-        filename: 'index.js',
+        path: `${__dirname}/www`,
+        filename: 'programmation-lab.js',
+        globalObject: 'this',
+        assetModuleFilename: 'assets/[hash][ext]',
+
     },
     module: {
         rules: [
@@ -23,47 +26,44 @@ module.exports = {
                 use: 'raw-loader',
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.(css|scss)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'production' !== process.env.NODE_ENV ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
             },
             {
                 test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]',
-                },
+                type: 'asset/resource',
             },
         ],
     },
     watchOptions: {
         ignored: [
-            /\.nyc_output/,
-            /coverage/,
-            /node_modules/,
-            /platforms/,
-            /plugins/,
-            /resources/,
-            /test/,
-            /www/,
+            '/.nyc_output/',
+            '/coverage/',
+            '/node_modules/',
+            '/platforms/',
+            '/plugins/',
+            '/resources/',
+            '/test/',
+            '/www/',
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: 'index.css' }),
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3000,
-            files: ['www/index.html'],
-            // @ts-ignore
-            server: {
-                baseDir: 'www',
-                middleware: (req, res, next) => (-1 === req.url.indexOf('.') && '/' !== req.url
-                    ? res.end(res.writeHead(302, { Location: '/' }))
-                    : next()),
-            },
+        new MiniCssExtractPlugin({
+            filename: 'programmation-lab.css',
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
         }),
     ],
+    devServer: {
+        contentBase: './src/',
+        https: false,
+        host: 'localhost',
+        port: 8080,
+        historyApiFallback: true,
+    },
 };
