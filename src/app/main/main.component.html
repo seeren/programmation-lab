@@ -1,14 +1,14 @@
-<header class="mdl-grid w-100 p-0 border-box mdl-shadow--2dp mdl-color--${last ? last.color : 'accent-contrast'}">
-    ${this.last
+<header class="mdl-grid w-100 p-0 border-box mdl-shadow--2dp mdl-color--${course ? course.color : 'accent-contrast'}">
+    ${course
     ? `<div class="h-100 w-100 m-0 mdl-cell mdl-card">
         <div class="mdl-card__title mdl-card--expand mdl-color-text--grey-50">
-            <h2 class="display-1" onclick="show('${last.name}')">${last.name}</h2>
+            <h2 class="display-1" onclick="show('${course.name}')">${course.name}</h2>
         </div>
         <div
-            class="mdl-shadow--2dp mdl-card__actions mdl-color-text--grey-50  mdl-color--${last.color.substr(0, last.color.length - 3) + (parseInt(last.color.substr(last.color.length - 3), 10) + 100)}">
+            class="mdl-shadow--2dp mdl-card__actions mdl-color-text--grey-50  mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
             <span class="material-icons">visibility</span>
             <div class="mdl-layout-spacer"></div>
-            <span>${last.updated}</span>
+            <span>${course.updated}</span>
         </div>
     </div>`
     : `<div class="empty m-auto mdl-typography--text-center mdl-cell mdl-cell--8-col">
