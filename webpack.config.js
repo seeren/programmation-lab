@@ -10,7 +10,7 @@ module.exports = {
         path: `${__dirname}/www`,
         filename: 'programmation-lab.js',
         globalObject: 'this',
-        assetModuleFilename: 'assets/[hash][ext]',
+        assetModuleFilename: 'assets/[name][ext]',
 
     },
     module: {
@@ -57,6 +57,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            publicPath: '/',
         }),
     ],
     devServer: {
