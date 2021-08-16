@@ -3,7 +3,7 @@ import { ColorService } from '../shared/services/color.service';
 
 export class CourseListBuilder {
 
-    build(repositoryList, courseList = []) {
+    build(repositoryList, courseList) {
         repositoryList.forEach((repository) => {
             let course = courseList.find((item) => repository.name === item.name);
             if (!course) {
