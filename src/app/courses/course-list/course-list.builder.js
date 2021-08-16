@@ -1,17 +1,9 @@
-import { Course } from '../course/cours.model';
+import { Course } from '../shared/models/cours.model';
 import { ColorService } from '../shared/services/color.service';
 
-/**
- * @type {CourseListBuilder}
- */
 export class CourseListBuilder {
 
-    /**
-     * @param {Array<any>} repositoryList
-     * @param {Array<Course>} courseList
-     * @returns {Array<Course>}
-     */
-    build(repositoryList, courseList) {
+    build(repositoryList, courseList = []) {
         repositoryList.forEach((repository) => {
             let course = courseList.find((item) => repository.name === item.name);
             if (!course) {
