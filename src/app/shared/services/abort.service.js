@@ -1,28 +1,23 @@
-import { RouterService, Service } from 'appable';
+import { StateService, Service } from 'appable';
 
-import { HttpClientService } from './http-client.service';
-
-/**
- * @type {AbortService}
- */
-// @ts-ignore
 export const AbortService = new class extends Service {
 
-    /**
-     * @param {HttpClientService} client
-     * @returns {EventListenerOrEventListenerObject}
-     */
-    add(client) {
-        const onAbort = () => client.abort();
-        RouterService.attach(onAbort);
-        return onAbort;
+    #onAbort;
+
+    add(httpClientService) {
+        if (this.#onAbort) {
+            this.clear();
+        }
+        this.#onAbort = () => {
+            httpClientService.abort();
+            this.clear();
+        };
+        StateService.attach(this.#onAbort);
     }
 
-    /**
-     * @param {Function} onAbort
-     */
-    remove(onAbort) {
-        RouterService.detach(onAbort);
+    clear() {
+        StateService.detach(this.#onAbort);
+        this.#onAbort = null;
     }
 
 }();
