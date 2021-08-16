@@ -1,22 +1,12 @@
-import { Component, Service } from 'appable';
+import { Service } from 'appable';
 
 import { RetryComponent } from '../retry/retry.component';
 import { SpinnerComponent } from './spinner.component';
 
-/**
- * @type {SpinnerService}
- */
-// @ts-ignore
 export const SpinnerService = new class extends Service {
 
-    /**
-     *
-     * @param {Component} component
-     * @param {SpinnerComponent} spinner
-     * @param {Function} callback
-     * @returns {RetryComponent}
-     */
-    start(component, spinner, callback) {
+    start(component, callback) {
+        const spinner = new SpinnerComponent();
         const retry = new RetryComponent();
         retry.onRetry = () => {
             component.detach(retry);
@@ -24,7 +14,7 @@ export const SpinnerService = new class extends Service {
         };
         component.attach(spinner);
         component.update();
-        return retry;
+        return [spinner, retry];
     }
 
 }();
