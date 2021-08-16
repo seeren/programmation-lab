@@ -1,28 +1,15 @@
 import { Component } from 'appable';
 
-// @ts-ignore
 import template from './retry.component.html';
 
-/**
- * @type {RetryComponent}
- */
 export class RetryComponent extends Component {
 
-    /**
-     * @constructor
-     */
-    constructor() {
-        super({ selector: 'app-retry', template });
+    onRetry;
 
-        /**
-         * @type {Function}
-         */
-        this.onRetry = null;
+    constructor() {
+        super('app-retry', template);
     }
 
-    /**
-     * @event
-     */
     retry() {
         if (this.onRetry) {
             this.onRetry();
