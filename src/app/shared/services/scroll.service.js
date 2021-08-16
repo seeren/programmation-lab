@@ -1,54 +1,8 @@
 import { Service } from 'appable';
 
-/**
- * @type {ScrollService}
- */
-// @ts-ignore
 export const ScrollService = new class extends Service {
 
-    top() {
-        window.document.querySelector('main.mdl-layout__content').scrollTo({
-            left: 0,
-            top: 0,
-        });
-    }
-
-    /**
-     * @param {EventListenerOrEventListenerObject} onScroll
-     */
-    remove(onScroll) {
-        window.document.querySelector('main.mdl-layout__content')
-            .removeEventListener('scroll', onScroll);
-    }
-
-    /**
-     * @param {String} selector
-     * @param {Number} offsetTop
-     * @returns {EventListenerOrEventListenerObject}
-     */
-    add(selector, offsetTop) {
-
-        /**
-         * @param {Event} event
-         */
-        const onScroll = (event) => this.listen(
-            // @ts-ignore
-            event.target,
-            window.document.querySelector(selector),
-            offsetTop,
-        );
-        window.document
-            .querySelector('main.mdl-layout__content')
-            .addEventListener('scroll', onScroll);
-        return onScroll;
-    }
-
-    /**
-     * @param {HTMLElement} container
-     * @param {HTMLElement} subject
-     * @param {Number} offsetTop
-     */
-    listen(container, subject, offsetTop) {
+    #listen(container, subject, offsetTop) {
         if (!subject.getAttribute('data-scrolled')) {
             window.requestAnimationFrame(() => {
                 const scrolled = subject.classList.contains('scrolled');
@@ -61,6 +15,22 @@ export const ScrollService = new class extends Service {
             });
             subject.setAttribute('data-scrolled', 'scrolled');
         }
+    }
+
+    top() {
+        window.document.querySelector('main.mdl-layout__content').scrollTo({ left: 0, top: 0 });
+    }
+
+    remove(onScroll) {
+        window.document.querySelector('main.mdl-layout__content').removeEventListener('scroll', onScroll);
+    }
+
+    add(selector, offsetTop) {
+        const onScroll = (event) => {
+            this.#listen(event.target, window.document.querySelector(selector), offsetTop);
+        };
+        window.document.querySelector('main.mdl-layout__content').addEventListener('scroll', onScroll);
+        return onScroll;
     }
 
 }();
