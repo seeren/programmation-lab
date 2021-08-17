@@ -1,28 +1,22 @@
+import { AbortError } from '../../../shared/errors/abort.error';
+import { NetworkError } from '../../../shared/errors/network.error';
+import { AbortService } from '../../../shared/services/abort.service';
 import { HttpClientService } from '../../../shared/services/http-client.service';
 import { Wiki } from '../models/wiki.model';
 
-/**
- * @type {WikiService}
- */
-// @ts-ignore
 export const WikiService = new class extends HttpClientService {
 
-    /**
-     * @param {String} url
-     * @returns {Promise<Wiki>}
-     */
-    get(url) {
-        return new Promise((resolve, reject) => {
-            this.request(reject);
-            this.xhr.open('GET', url);
-            this.xhr.onload = () => {
-                const wiki = new Wiki();
-                wiki.raw = this.xhr.response;
-                wiki.checked = false;
-                resolve(wiki);
-            };
-            this.xhr.send();
-        });
+    async fetch(url) {
+        try {
+            AbortService.add(WikiService);
+            const wiki = new Wiki();
+            wiki.raw = await (fetch(url, { signal: this.controller.signal })
+                .then((response) => response.text()));
+            wiki.checked = false;
+            return wiki;
+        } catch (error) {
+            throw error instanceof DOMException ? new AbortError() : new NetworkError();
+        }
     }
 
 }();
