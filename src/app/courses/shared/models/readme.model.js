@@ -1,24 +1,41 @@
-/**
- * @type {Readme}
- */
 export class Readme {
 
-    constructor() {
+    #checked;
 
-        /**
-         * @type {Boolean}
-         */
-        this.checked = null;
+    #raw;
 
-        /**
-         * @type {String}
-         */
-        this.raw = null;
+    #document;
 
-        /**
-         * @type {DocumentFragment}
-         */
-        this.document = null;
+    get checked() {
+        return this.#checked;
+    }
+
+    set checked(checked) {
+        this.#checked = checked;
+    }
+
+    get raw() {
+        return this.#raw;
+    }
+
+    set raw(raw) {
+        this.#raw = raw;
+    }
+
+    get document() {
+        return this.#document;
+    }
+
+    set document(document) {
+        this.#document = document;
+    }
+
+    getJSON() {
+        return {
+            checked: this.#checked,
+            raw: this.#raw,
+            document: this.#document,
+        };
     }
 
 }

@@ -80,4 +80,17 @@ export class Course {
         this.#wikiList = wikiList;
     }
 
+    toJSON() {
+        return {
+            name: this.#name,
+            description: this.#description,
+            color: this.#color,
+            updated: this.updated,
+            readme: this.#readme,
+            stargazers: this.#stargazers,
+            watchers: this.#watchers,
+            wikiList: this.#wikiList,
+        };
+    }
+
 }
