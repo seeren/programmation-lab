@@ -1,54 +1,69 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-cond-assign */
-
-/**
- * @type {MarkdownHTML}
- */
 export class MarkdownHTML {
 
-    /**
-     * @param {String} markdown
-     * @returns {DocumentFragment}
-     */
+    #line = /[\r\n]/;
+
+    #table = /^\|.+\|$/;
+
+    #code = /^```(.+)?/;
+
+    #item = /^(\s+)?[*]+/;
+
+    #title = /^[#]+/;
+
+    #citation = /^>\s?(.+)/;
+
+    #image = /^!\[(.+)]\((.+)\)$/;
+
+    #imageEmbed = /!\[(.+)]\((.+)\)/g;
+
+    #link = /\[(.+)]\((.+)\)$/;
+
+    #linkEmbed = /\[(.+)]\((.+)\)/g;
+
+    #mark = /`([^`]+)`/g;
+
+    #strong = /\*\*([^**]+)\*\*/g;
+
+    #italic = /\*([^**]+)\*/g;
+
     convert(markdown) {
         const document = window.document.createDocumentFragment();
-        let previous = null;
-        let current = null;
-        markdown.split(/[\r\n]/).forEach((line) => {
-            if (previous !== (current = this.convertLine(line, previous))) {
-                document.appendChild(current);
+        let currentNode = null;
+        let previousNode = null;
+        markdown.split(this.#line).forEach((line) => {
+            currentNode = this.#convertLine(line, previousNode);
+            if (previousNode !== currentNode) {
+                document.appendChild(currentNode);
             }
-            previous = current;
+            previousNode = currentNode;
         });
         return document;
     }
 
-    /**
-     * @param {String} line
-     * @param {?HTMLElement} previous
-     * @returns {HTMLElement}
-     */
-    convertLine(line, previous) {
+    #convertLine(line, previous) {
         let matches = null;
-        if (/^\|.+\|$/.exec(line)) {
-            return this.convertTable(null, previous, line);
+        if (this.#table.exec(line)) {
+            return this.#convertTable(null, previous, line);
         }
-        if (matches = /^```(.+)?/.exec(line)) {
-            return this.convertCode(matches, previous);
+        if (matches = this.#code.exec(line)) {
+            return this.#convertCode(matches, previous);
         }
         if (previous && previous.getAttribute('data-state')) {
-            return this.convertCode(null, previous, line);
+            return this.#convertCode(null, previous, line);
         }
-        if (matches = /^(\s+)?[*]+/.exec(line)) {
-            return this.convertItem(matches, previous);
+        if (matches = this.#item.exec(line)) {
+            return this.#convertItem(matches, previous);
         }
-        if (matches = /^[#]+/.exec(line)) {
-            return this.convertTitle(matches);
+        if (matches = this.#title.exec(line)) {
+            return this.#convertTitle(matches);
         }
-        if (matches = /^>\s?(.+)/.exec(line)) {
-            return this.convertCitation(matches);
+        if (matches = this.#citation.exec(line)) {
+            return this.#convertCitation(matches);
         }
-        if (matches = /^!\[(.+)]\((.+)\)$/.exec(line)) {
-            return this.convertImage(matches);
+        if (matches = this.#image.exec(line)) {
+            return this.#convertImage(matches);
         }
         if (!line) {
             return window.document.createElement('br');
@@ -56,24 +71,16 @@ export class MarkdownHTML {
         if ('___' === line) {
             return window.document.createElement('hr');
         }
-        if (matches = /\[(.+)]\((.+)\)$/.exec(line)) {
+        if (matches = this.#link.exec(line)) {
             const link = window.document.createElement('a');
-            // eslint-disable-next-line prefer-destructuring
-            link.href = matches[2];
+            [,, link.href] = matches;
             link.appendChild(window.document.createTextNode(matches[1]));
             return link;
         }
-        return this.buildChildNodes(window.document.createElement('p'), line);
+        return this.#buildChildNodes(window.document.createElement('p'), line);
     }
 
-    /**
-     * @param {Array<String>} matches
-     * @param {?HTMLElement} previous
-     * @param {String} line
-     * @returns {HTMLElement}
-     */
-    convertTable(matches, previous, line) {
-        // eslint-disable-next-line no-param-reassign
+    #convertTable(matches, previous, line) {
         matches = line.split('|');
         matches.pop();
         matches.shift();
@@ -81,7 +88,6 @@ export class MarkdownHTML {
         let cellTag = 'td';
         if (!previous || 'TABLE' !== previous.tagName) {
             cellTag = 'th';
-            // eslint-disable-next-line no-param-reassign
             previous = window.document.createElement('table');
             const thead = window.document.createElement('thead');
             previous.appendChild(thead);
@@ -100,13 +106,7 @@ export class MarkdownHTML {
         return previous;
     }
 
-    /**
-     * @param {RegExpExecArray} matches
-     * @param {?HTMLElement} previous
-     * @param {?String} line
-     * @returns {HTMLElement}
-     */
-    convertCode(matches, previous, line = null) {
+    #convertCode(matches, previous, line = null) {
         if (null !== line) {
             const text = document.createTextNode(line);
             previous.appendChild(text);
@@ -123,14 +123,9 @@ export class MarkdownHTML {
         return element;
     }
 
-    /**
-     * @param {RegExpExecArray} matches
-     * @param {?HTMLElement} previous
-     * @returns {HTMLElement}
-     */
-    convertItem(matches, previous) {
+    #convertItem(matches, previous) {
         const offset = matches[1] ? matches[1].length : 0;
-        const item = this.buildChildNodes(
+        const item = this.#buildChildNodes(
             window.document.createElement('li'),
             matches.input.substring(2 + offset),
         );
@@ -151,63 +146,40 @@ export class MarkdownHTML {
         return previous;
     }
 
-    /**
-     * @param {RegExpExecArray} matches
-     * @returns {HTMLElement}
-     */
-    convertTitle(matches) {
+    #convertTitle(matches) {
         const level = matches[0].length;
-        return this.buildChildNodes(
+        return this.#buildChildNodes(
             window.document.createElement(`h${level}`),
             matches.input.substring(level + 1),
         );
     }
 
-    /**
-     * @param {RegExpExecArray} matches
-     * @returns {HTMLElement}
-     */
-    convertImage(matches) {
+    #convertImage(matches) {
         const element = window.document.createElement('img');
         [element.alt, element.src] = [matches[1], matches[2]];
         return element;
     }
 
-    /**
-     * @param {RegExpExecArray} matches
-     * @returns {HTMLElement}
-     */
-    convertCitation(matches) {
-        return this.buildChildNodes(window.document.createElement('blockquote'), matches[1]);
+    #convertCitation(matches) {
+        return this.#buildChildNodes(window.document.createElement('blockquote'), matches[1]);
     }
 
-    /**
-     * @param {HTMLElement} element
-     * @param {String} line
-     * @returns {HTMLElement}
-     */
-    buildChildNodes(element, line) {
+    #buildChildNodes(element, line) {
         let html = line;
         let matches = null;
-        let regexp = null;
-        regexp = /`([^`]+)`/g;
-        while (matches = regexp.exec(line)) {
+        while (matches = this.#mark.exec(line)) {
             html = html.replace(matches[0], `<mark>${matches[1]}</mark>`);
         }
-        regexp = /\*\*([^**]+)\*\*/g;
-        while (matches = regexp.exec(line)) {
+        while (matches = this.#strong.exec(line)) {
             html = html.replace(matches[0], `<strong>${matches[1]}</strong>`);
         }
-        regexp = /\*([^**]+)\*/g;
-        while (matches = regexp.exec(line)) {
+        while (matches = this.#italic.exec(line)) {
             html = html.replace(matches[0], `<em>${matches[1]}</em>`);
         }
-        regexp = /!\[(.+)]\((.+)\)/g;
-        while (matches = regexp.exec(line)) {
+        while (matches = this.#imageEmbed.exec(line)) {
             html = html.replace(matches[0], `<img alt="${matches[1]}" src="${matches[2]}" />`);
         }
-        regexp = /\[(.+)]\((.+)\)/g;
-        while (matches = regexp.exec(line)) {
+        while (matches = this.#linkEmbed.exec(line)) {
             html = html.replace(matches[0], `<a href="${matches[2]}">${matches[1]}</a>`);
         }
         element.innerHTML = html;

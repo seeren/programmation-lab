@@ -1,49 +1,26 @@
-import { Course } from './cours.model';
-import { Readme } from '../shared/models/readme.model';
+import { Course } from '../shared/models/cours.model';
+import { Markdown } from '../shared/models/markdown.model';
 import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
 
-/**
- * @type {CourseBuilder}
- */
 export class CourseBuilder {
 
-    constructor() {
-
-        /**
-         * @type {MarkdownHTML}
-         */
-        this.converter = new MarkdownHTML();
-    }
-
-    /**
-     * @param {Array<Course>} courseList
-     * @param {any} readme
-     * @param {String} name
-     * @returns {Course}
-     */
     build(courseList, readme, name) {
         let course = courseList.find((item) => item.name === name);
         if (!course) {
             course = new Course();
             courseList.push(course);
-            // eslint-disable-next-line prefer-destructuring
-            course.name = readme.html_url.split('/')[4];
+            [,,,, course.name] = readme.html_url.split('/');
         }
-        course.readme = new Readme();
+        course.readme = new Markdown();
         course.readme.raw = decodeURIComponent(escape(atob(readme.content)));
         course.readme.checked = true;
         return course;
     }
 
-    /**
-     * @param {Course} course
-     * @returns {Course}
-     */
     decorate(course) {
-        course.readme.document = this.converter.convert(course.readme.raw);
-        course.wikiList.forEach(
-            (wikiList) => wikiList.document = this.converter.convert(wikiList.raw),
-        );
+        const converter = new MarkdownHTML();
+        course.readme.document = converter.convert(course.readme.raw);
+        course.wikiList.forEach((wikiList) => wikiList.document = converter.convert(wikiList.raw));
         return course;
     }
 
