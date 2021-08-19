@@ -1,6 +1,7 @@
 import { Course } from '../shared/models/cours.model';
 import { Markdown } from '../shared/models/markdown.model';
 import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
+import { ColorService } from '../shared/services/color.service';
 
 export class CourseBuilder {
 
@@ -10,6 +11,7 @@ export class CourseBuilder {
             course = new Course();
             courseList.push(course);
             [,,,, course.name] = readme.html_url.split('/');
+            course.color = ColorService.get(course.name);
         }
         course.readme = new Markdown();
         course.readme.raw = decodeURIComponent(escape(atob(readme.content)));
