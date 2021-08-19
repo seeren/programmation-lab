@@ -14,6 +14,8 @@ export class CourseListComponent extends Component {
 
     #onResize;
 
+    fetched = false;
+
     courseList = CourseListService.courseList;
 
     constructor() {
@@ -21,7 +23,7 @@ export class CourseListComponent extends Component {
     }
 
     onUpdate(element) {
-        if (this.courseList.length) {
+        if (this.fetched) {
             this.#onScroll = ScrollService.add(
                 `${this.selector} .mdl-layout__header`,
                 element.getElementsByTagName('header')[0].offsetHeight - 36,
@@ -48,6 +50,7 @@ export class CourseListComponent extends Component {
         const [spinner, retry] = SpinnerService.start(this, () => this.#showAll());
         try {
             this.courseList = await CourseListService.fetch();
+            this.fetched = true;
             this.detach(spinner);
         } catch (error) {
             if (!(error instanceof AbortError)) {
