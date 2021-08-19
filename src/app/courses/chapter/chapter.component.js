@@ -27,7 +27,7 @@ export class ChapterComponent extends Component {
     }
 
     onInit() {
-        this.section = RouterComponent.get('section');
+        this.section = decodeURI(RouterComponent.get('section'));
     }
 
     onUpdate() {
@@ -47,6 +47,7 @@ export class ChapterComponent extends Component {
     onDestroy() {
         if (this.chapter) {
             ScrollService.remove(this.#onScroll);
+            this.chapter = null;
         }
         this.components.forEach((component) => this.detach(component));
     }
@@ -55,8 +56,11 @@ export class ChapterComponent extends Component {
         ScrollService.top();
         const section = unescape(escapedSection);
         if (section !== this.section) {
-            this.section = section;
             StateService.get().param.section = section;
+            window.history.replaceState(
+                StateService.get(),
+                'chapter', `/formations/${RouterComponent.get('course')}/${RouterComponent.get('chapter')}/${section}`,
+            );
             ChapterService.notify();
         }
     }
