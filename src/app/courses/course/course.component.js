@@ -27,13 +27,14 @@ export class CourseComponent extends Component {
                 .upgradeAll(`${this.selector} .mdl-tabs__ripple-container`);
             this.#onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
         } else if (!this.components.length) {
-            this.#show(RouterComponent.get('course'));
+            this.#show(decodeURI(RouterComponent.get('course')));
         }
     }
 
     onDestroy() {
         if (this.course && this.course.readme) {
             ScrollService.remove(this.#onScroll);
+            this.course = null;
         }
         this.components.forEach((component) => this.detach(component));
     }
