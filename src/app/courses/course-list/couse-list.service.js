@@ -1,12 +1,12 @@
 import { environment } from '../../../../environment/environment.prod';
 
-import { HttpClientService } from '../../shared/services/http-client.service';
-import { RateError } from '../../shared/errors/rate.error';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { CourseListBuilder } from './course-list.builder';
+import { RateError } from '../../shared/errors/rate.error';
 import { NetworkError } from '../../shared/errors/network.error';
 import { AbortError } from '../../shared/errors/abort.error';
 import { AbortService } from '../../shared/services/abort.service';
+import { HttpClientService } from '../../shared/services/http-client.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 export const CourseListService = new class extends HttpClientService {
 
@@ -27,12 +27,16 @@ export const CourseListService = new class extends HttpClientService {
             throw new RateError();
         }
         this.#courseList = new CourseListBuilder().build(repositoryList, this.#courseList);
-        LocalStorageService.set(environment.storage.courseList, this.#courseList, 86400);
+        this.save();
         return this.#courseList;
     }
 
     get courseList() {
         return this.#courseList;
+    }
+
+    save() {
+        LocalStorageService.set(environment.storage.courseList, this.#courseList, 86400);
     }
 
 }();

@@ -1,4 +1,4 @@
-import { Course } from '../shared/models/cours.model';
+import { Course } from './cours.model';
 import { Markdown } from '../shared/models/markdown.model';
 import { MarkdownHTML } from '../shared/converters/markdown-html.converter';
 import { ColorService } from '../shared/services/color.service';

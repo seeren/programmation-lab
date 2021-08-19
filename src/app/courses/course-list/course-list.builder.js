@@ -1,4 +1,4 @@
-import { Course } from '../shared/models/cours.model';
+import { Course } from '../course/cours.model';
 import { ColorService } from '../shared/services/color.service';
 
 export class CourseListBuilder {
