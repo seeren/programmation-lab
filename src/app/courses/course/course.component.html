@@ -1,13 +1,13 @@
-${course && course.readme
+${course
 ? `<div
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--accent-contrast mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${course.color}">
-        <a href="#description" onclick="open('description')"
-            class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Description</a>
-        <a href="#summary" onclick="open('summary')"
-            class="${'summary' === tab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Programme</a>
+        <a href="#description" onclick="onTab('description')"
+            class="${'description' === activeTab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Description</a>
+        <a href="#summary" onclick="onTab('summary')"
+            class="${'summary' === activeTab ? 'is-active ' : ''}mdl-tabs__tab mdl-color-text--accent-contrast">Programme</a>
     </div>
-    <div class="${'description' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="description">
+    <div class="${'description' === activeTab ? 'is-active ' : ''}mdl-tabs__panel" id="description">
         <div class="w-100 border-box mdl-grid">
             <h2 class="mdl-cell mdl-cell--8-col mdl-typography--headline">
                 ${this.course.readme.document.querySelector('h1').innerHTML}
@@ -33,7 +33,7 @@ ${course && course.readme
             </div>
         </div>
     </div>
-    <div class="w-100 ${'summary' === tab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
+    <div class="w-100 ${'summary' === activeTab ? 'is-active ' : ''}mdl-tabs__panel" id="summary">
         <div class="w-100 mdl-grid">
             ${course.wikiList.map((wiki, wikiIndex) => wikiIndex
             ? `<div class="summary-${wikiIndex} mdl-card mdl-cell mdl-cell--8-col mdl-shadow--2dp">
@@ -44,7 +44,7 @@ ${course && course.readme
                         ${wiki.document.querySelector('h1').innerHTML}
                     </h2>
                     <div class="mdl-layout-spacer"></div>
-                    <button onclick="toggle(${wikiIndex})" class="mdl-button mdl-js-button mdl-button--icon">
+                    <button onclick="onSummary(${wikiIndex})" class="mdl-button mdl-js-button mdl-button--icon">
                         <i class="material-icons toggle">keyboard_arrow_down</i>
                     </button>
                 </div>
@@ -55,7 +55,7 @@ ${course && course.readme
                             <span class="mdl-list__item-primary-content">
                                 ${h2.innerText.substring(3)}
                             </span>
-                            <button onclick="showChapter(${wikiIndex}, ${sectionIndex})"
+                            <button onclick="onChapter(${wikiIndex}, ${sectionIndex})"
                                 class="mdl-button mdl-js-button mdl-button--icon">
                                 <i class="material-icons mdl-list__item-icon">keyboard_arrow_right</i>
                             </button>
