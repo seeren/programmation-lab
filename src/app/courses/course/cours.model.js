@@ -86,7 +86,7 @@ export class Course {
             description: this.#description,
             color: this.#color,
             updated: this.updated,
-            readme: this.#readme.toJSON(),
+            readme: this.#readme?.toJSON() || null,
             stargazers: this.#stargazers,
             watchers: this.#watchers,
             wikiList: this.#wikiList,
