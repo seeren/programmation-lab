@@ -1,4 +1,4 @@
-export class Readme {
+export class Markdown {
 
     #checked;
 
@@ -30,7 +30,7 @@ export class Readme {
         this.#document = document;
     }
 
-    getJSON() {
+    toJSON() {
         return {
             checked: this.#checked,
             raw: this.#raw,
