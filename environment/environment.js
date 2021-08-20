@@ -2,9 +2,9 @@ export const environment = {
     organisation: 'seeren-training',
     token: 'GITHUB_TOKEN',
     storage: {
-        courseList: 'seeren-course-list',
-        favoriteList: 'seeren-favorite-list',
-        course: 'seeren-course',
+        courseList: 'programmation-lab:course-list',
+        favoriteList: 'programmation-lab:favorite-list',
+        course: 'programmation-lab:course',
     },
     keystore: {
         name: 'KEYSTORE_NAME',
