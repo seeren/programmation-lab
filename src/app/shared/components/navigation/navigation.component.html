@@ -1,12 +1,12 @@
 <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
-        ${'main' === route
+        ${'main' === routeName
         ? `<h1 class="w-100 border-box ellipsis overflow-h  mdl-layout-title mdl-typography--text-center">
-            <img src="dist/resources/icon-alpha.png" class="p-absolute logo" />
+            <img src="/assets/icon-alpha.png" class="p-absolute logo" />
             ${title}
         </h1>`
         : `<h1 class="w-100 border-box ellipsis overflow-h mdl-layout-title mdl-typography--text-center">
-            <button onclick="back()"
+            <button onclick="onNavigateBack()"
                 class="p-absolute mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -14,16 +14,16 @@
         </h1>`}
     </div>
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-shadow--16dp mdl-color--accent">
-        <a onclick="navigate('main')" href="#main" class="mdl-layout__tab ${'main' === route ? 'is-active': ''}">
+        <a onclick="onNavigate('main')" href="#main" class="mdl-layout__tab ${'main' === routeName ? 'is-active': ''}">
             <span class="material-icons">home</span>
         </a>
-        <a onclick="navigate('courses')" href="#courses"
-            class="mdl-layout__tab ${'courses' === route || 'course' === route || 'chapter' === route ? 'is-active': ''}">
+        <a onclick="onNavigate('courses')" href="#courses"
+            class="mdl-layout__tab ${'courses' === routeName || 'course' === routeName || 'chapter' === routeName ? 'is-active': ''}">
             <span class="material-icons">library_books</span>
         </a>
-        <a ${'chapter' !==route ? `onclick="navigate('favorites')" href="#favorites" ` :
-            `onclick="toogleFavorite(event)" href="#" `}
-            class="mdl-layout__tab ${'favorites' === route ? 'is-active': ''}${'chapter' === route ? ' chapter' : ''}">
+        <a ${'chapter' !==routeName ? `onclick="onNavigate('favorites')" href="#favorites" ` :
+            `onclick="onToogleFavorite(event)" href="#" `}
+            class="mdl-layout__tab ${'favorites' === routeName ? 'is-active': ''}${'chapter' === routeName ? ' chapter' : ''}">
             <span class="lab-icons"></span>
         </a>
     </div>
