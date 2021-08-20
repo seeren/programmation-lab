@@ -6,18 +6,18 @@
             Aucun extrait
         </div>
     </div>`
-    : `<ul class="mdl-list p-0 m-0 mdl-cell mdl-cell--8-col">
+    : `<ul class="mdl-list mdl-grid">
         ${ favoriteList.map((favorite, index) =>
         `<li
-            class="p-0 border-box mdl-shadow--2dp mdl-list__item mdl-color-text--accent-contrast mdl-color--${color(favorite.course).substr(0, color(favorite.course).length - 3) + (parseInt(color(favorite.course).substr(color(favorite.course).length - 3), 10) + 100)}">
+            class="mdl-cell mdl-cell--6-col-phone mdl-cell--4-col-tablet mdl-cell--3-col p-0 m-1 border-box mdl-shadow--2dp mdl-list__item mdl-color-text--accent-contrast mdl-color--${getColor(favorite.course)}">
             <span class="border-box mdl-typography--headline">
                 ${favorite.chapter}: ${favorite.section}
             </span>
             <span class="mdl-layout-spacer"></span>
-            <button onclick="show(${index})" class="mdl-button mdl-js-button mdl-button--icon">
+            <button onclick="onFavorite(${index})" class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons toggle">keyboard_arrow_right</i>
             </button>
-            <span class="w-100 mdl-typography--subhead mdl-color--${color(favorite.course)}">
+            <span class="w-100 mdl-typography--subhead mdl-color--${getColor(favorite.course).substr(0, getColor(favorite.course).length - 3) + (parseInt(getColor(favorite.course).substr(getColor(favorite.course).length - 3), 10) + 100)}">
                 ${favorite.course}
             </span>
         </li>`).join('')}

@@ -9,8 +9,6 @@ app-favorite-list {
     @extend .p-absolute, .h-100, .w-100, .border-box;
     padding-top: 52px;
     .mdl-grid {
-        align-content: center;
-        flex-direction: column;
         .mdl-list {
             .mdl-list__item {
                 flex-shrink: 0;
@@ -19,6 +17,7 @@ app-favorite-list {
                 border-radius: 0.3em;
                 .mdl-typography--subhead {
                     padding: 0.5em 1em;
+                    align-self: flex-end;
                 }
                 .mdl-typography--headline {
                     padding: 0.5em 1em;

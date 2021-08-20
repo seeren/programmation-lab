@@ -1,34 +1,19 @@
 import { Component, RouterComponent } from 'appable';
+
+import template from './favorite-list.component.html';
+
+import { FavoriteListService } from './favorite-list.service';
 import { ColorService } from '../../courses/shared/services/color.service';
 
-// @ts-ignore
-import template from './favorite-list.component.html';
-import { FavoriteListService } from './favorite-list.service';
-
-/**
- * @type {FavoriteListComponent}
- */
 export class FavoriteListComponent extends Component {
 
-    /**
-     * @constructor
-     */
+    favoriteList = FavoriteListService.favoriteList;
+
     constructor() {
-        super({ selector: 'app-favorite-list', template });
+        super('app-favorite-list', template);
     }
 
-    /**
-     * @emits
-     */
-    onInit() {
-        this.favoriteList = FavoriteListService.favoriteList;
-    }
-
-    /**
-     * @event
-     * @param {Number} index
-     */
-    show(index) {
+    onFavorite(index) {
         const favorite = FavoriteListService.favoriteList[index];
         RouterComponent.navigate('chapter', {
             course: favorite.course,
@@ -37,11 +22,8 @@ export class FavoriteListComponent extends Component {
         });
     }
 
-    /**
-     * @param {String} course
-     */
-    color(course) {
-        return ColorService.get(course);
+    getColor(courseName) {
+        return ColorService.get(courseName);
     }
 
 }

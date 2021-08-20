@@ -1,24 +1,41 @@
-/**
- * @type {Favorite}
- */
 export class Favorite {
 
-    constructor() {
+    #course;
 
-        /**
-         * @type {String}
-         */
-        this.course = null;
+    #chapter;
 
-        /**
-         * @type {String}
-         */
-        this.chapter = null;
+    #section;
 
-        /**
-         * @type {String}
-         */
-        this.section = null;
+    get course() {
+        return this.#course;
+    }
+
+    set course(course) {
+        this.#course = course;
+    }
+
+    get chapter() {
+        return this.#chapter;
+    }
+
+    set chapter(chapter) {
+        this.#chapter = chapter;
+    }
+
+    get section() {
+        return this.#section;
+    }
+
+    set section(section) {
+        this.#section = section;
+    }
+
+    toJSON() {
+        return {
+            course: this.#course,
+            chapter: this.#chapter,
+            section: this.#section,
+        };
     }
 
 }
