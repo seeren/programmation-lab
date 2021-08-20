@@ -7,10 +7,14 @@ import { CourseService } from '../courses/shared/services/course.service';
 
 export class MainComponent extends Component {
 
-    course = CourseService.get();
+    course;
 
     constructor() {
         super('app-main', template);
+    }
+
+    onInit() {
+        this.course = CourseService.get();
     }
 
     onUpdate() {
