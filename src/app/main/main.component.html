@@ -8,7 +8,7 @@
             class="mdl-shadow--2dp mdl-card__actions mdl-color-text--grey-50  mdl-color--${course.color.substr(0, course.color.length - 3) + (parseInt(course.color.substr(course.color.length - 3), 10) + 100)}">
             <span class="material-icons">visibility</span>
             <div class="mdl-layout-spacer"></div>
-            <span>${course.updated}</span>
+            <span>${ new Intl.DateTimeFormat('fr-FR').format(new Date(course.updated))}</span>
         </div>
     </div>`
     : `<div class="empty m-auto mdl-typography--text-center mdl-cell mdl-cell--8-col">

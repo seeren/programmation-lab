@@ -59,7 +59,6 @@ export class NavigationComponent extends Component {
             FavoriteListService.add(state.param);
         }
         document.querySelector(`${this.selector} .mdl-snackbar`).MaterialSnackbar.showSnackbar(data);
-
         this.#onChapterChange();
     }
 
@@ -90,6 +89,9 @@ export class NavigationComponent extends Component {
 
     #onChapterChange() {
         const tab = window.document.querySelector(`${this.selector} .mdl-layout__tab.chapter`);
+        if (!tab) {
+            return;
+        }
         return FavoriteListService.find(StateService.get().param)
             ? tab.classList.add('is-active')
             : tab.classList.remove('is-active');

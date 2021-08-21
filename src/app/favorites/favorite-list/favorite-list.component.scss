@@ -9,12 +9,16 @@ app-favorite-list {
     @extend .p-absolute, .h-100, .w-100, .border-box;
     padding-top: 52px;
     .mdl-grid {
+        align-items: start;
         .mdl-list {
+            width: 100%;
+            align-items: start;
             .mdl-list__item {
                 flex-shrink: 0;
                 flex-wrap: wrap;
                 margin: 0.5em 0;
                 border-radius: 0.3em;
+                
                 .mdl-typography--subhead {
                     padding: 0.5em 1em;
                     align-self: flex-end;
@@ -22,6 +26,9 @@ app-favorite-list {
                 .mdl-typography--headline {
                     padding: 0.5em 1em;
                     max-width: calc(100% - 2.75em);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
                 .mdl-button {
                     margin-right: 16px;

@@ -11,6 +11,7 @@ import { MdlService } from '../../shared/services/mdl.service';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { ChapterService } from './chapter.service';
 import { ColorService } from '../shared/services/color.service';
+import { NotFoundError } from '../../shared/errors/not-found.error';
 
 export class ChapterComponent extends Component {
 
@@ -40,7 +41,10 @@ export class ChapterComponent extends Component {
             this.#onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
             Prism.highlightAll();
         } else if (!this.components.length) {
-            this.#show(decodeURI(RouterComponent.get('course')), decodeURI(RouterComponent.get('chapter')));
+            try {
+                this.#show(decodeURI(RouterComponent.get('course')), decodeURI(RouterComponent.get('chapter')));
+            } catch (error) {
+            }
         }
     }
 
@@ -84,12 +88,15 @@ export class ChapterComponent extends Component {
             this.chapter = await ChapterService.fetch(courseName, chapterName);
             this.color = ColorService.get(courseName);
             this.detach(spinner);
-        } catch (error) {
-            if (!(error instanceof AbortError)) {
-                this.attach(retry);
-            }
-        } finally {
             this.update();
+        } catch (error) {
+            if (error instanceof NotFoundError) {
+                console.log('redirect');
+                RouterComponent.navigate('courses');
+            } if (!(error instanceof AbortError)) {
+                this.attach(retry);
+                this.update();
+            }
         }
     }
 

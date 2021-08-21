@@ -1,4 +1,4 @@
-import { StateService, Service } from 'appable';
+import { StateService, Service, RouterComponent } from 'appable';
 
 import { environment } from '../../../../../environment/environment.prod';
 
@@ -15,6 +15,10 @@ export const CourseService = new class extends Service {
         ChapterService.attach(() => {
             this.#course = CourseListService.courseList
                 .find((course) => StateService.get().param.course === course.name);
+            if (!this.#course) {
+                return RouterComponent.navigate('courses');
+            }
+            this.#course.updated = new Date().toISOString();
             LocalStorageService.set(environment.storage.course, this.#course, 86400 * 365);
         });
     }

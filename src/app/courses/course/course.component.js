@@ -7,6 +7,7 @@ import { SpinnerService } from '../../shared/components/spinner/spinner.service'
 import { AbortError } from '../../shared/errors/abort.error';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { MdlService } from '../../shared/services/mdl.service';
+import { NotFoundError } from '../../shared/errors/not-found.error';
 
 export class CourseComponent extends Component {
 
@@ -71,7 +72,9 @@ export class CourseComponent extends Component {
             this.percent = CourseService.toPercent(this.course);
             this.detach(spinner);
         } catch (error) {
-            if (!(error instanceof AbortError)) {
+            if (error instanceof NotFoundError) {
+                RouterComponent.navigate('courses');
+            } else if (!(error instanceof AbortError)) {
                 this.attach(retry);
             }
         } finally {

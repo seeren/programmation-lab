@@ -7,6 +7,7 @@ import { AbortError } from '../../shared/errors/abort.error';
 import { AbortService } from '../../shared/services/abort.service';
 import { HttpClientService } from '../../shared/services/http-client.service';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 export const CourseListService = new class extends HttpClientService {
 
