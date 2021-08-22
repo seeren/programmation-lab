@@ -15,13 +15,12 @@ export const CourseService = new class extends HttpClientService {
     async fetch(courseName) {
         let readme;
         const builder = new CourseBuilder();
-        const existingCourse = CourseListService.courseList
-            .find((item) => item.name === courseName);
-        if (existingCourse && existingCourse.readme && existingCourse.wikiList) {
-            if (!(existingCourse.readme.document instanceof DocumentFragment)) {
-                builder.decorate(existingCourse);
+        const saved = CourseListService.courseList.find((item) => item.name === courseName);
+        if (saved && saved.readme && saved.wikiList) {
+            if (!(saved.readme.document instanceof DocumentFragment)) {
+                builder.decorate(saved);
             }
-            return existingCourse;
+            return saved;
         }
         try {
             AbortService.add(CourseService);

@@ -71,14 +71,14 @@ export class CourseComponent extends Component {
             this.course = await CourseService.fetch(courseName);
             this.percent = CourseService.toPercent(this.course);
             this.detach(spinner);
+            this.update();
         } catch (error) {
             if (error instanceof NotFoundError) {
                 RouterComponent.navigate('courses');
             } else if (!(error instanceof AbortError)) {
                 this.attach(retry);
+                this.update();
             }
-        } finally {
-            this.update();
         }
     }
 
