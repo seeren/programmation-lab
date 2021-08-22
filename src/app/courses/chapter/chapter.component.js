@@ -27,24 +27,22 @@ export class ChapterComponent extends Component {
         super('app-chapter', template);
     }
 
-    onInit() {
-        this.section = decodeURI(RouterComponent.get('section'));
-    }
-
     onUpdate() {
-        ChapterService.notify();
-        if (this.chapter) {
-            ImageService.lazyLoad(`${this.selector} .img-loader`);
-            MdlService
-                .upgradeOne(`${this.selector} .mdl-js-ripple-effect`)
-                .upgradeAll(`${this.selector} .mdl-js-spinner`);
-            this.#onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
-            Prism.highlightAll();
-        } else if (!this.components.length) {
-            try {
+        try {
+            this.section = decodeURI(RouterComponent.get('section'));
+            if (this.chapter) {
+                ChapterService.notify();
+                ImageService.lazyLoad(`${this.selector} .img-loader`);
+                MdlService
+                    .upgradeOne(`${this.selector} .mdl-js-ripple-effect`)
+                    .upgradeAll(`${this.selector} .mdl-js-spinner`);
+                this.#onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
+                Prism.highlightAll();
+            } else if (!this.components.length) {
                 this.#show(decodeURI(RouterComponent.get('course')), decodeURI(RouterComponent.get('chapter')));
-            } catch (error) {
             }
+        } catch (error) {
+            RouterComponent.navigate('courses');
         }
     }
 
@@ -60,6 +58,7 @@ export class ChapterComponent extends Component {
         ScrollService.top();
         const section = unescape(escapedSection);
         if (section !== this.section) {
+            this.section = section;
             StateService.get().param.section = section;
             window.history.replaceState(
                 StateService.get(),
@@ -87,13 +86,18 @@ export class ChapterComponent extends Component {
         try {
             this.chapter = await ChapterService.fetch(courseName, chapterName);
             this.color = ColorService.get(courseName);
+            const sectionList = this.chapter.document.querySelectorAll('h2');
+            if (!Array.from(sectionList).find(
+                (item) => item.innerText.substr(3) === this.section,
+            )) {
+                this.onStep(sectionList[0].innerText.substr(3));
+            }
             this.detach(spinner);
             this.update();
         } catch (error) {
             if (error instanceof NotFoundError) {
-                console.log('redirect');
                 RouterComponent.navigate('courses');
-            } if (!(error instanceof AbortError)) {
+            } else if (!(error instanceof AbortError)) {
                 this.attach(retry);
                 this.update();
             }
