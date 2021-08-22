@@ -21,10 +21,10 @@
     "plugins": {
       "cordova-plugin-device": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-whitelist": {},
       "cordova-plugin-headercolor": {},
       "cordova-plugin-navigationbar-color": {},
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-whitelist": {}
     }
   },
   "devDependencies": {
@@ -39,10 +39,11 @@
     "babel-plugin-transform-html-import-to-string": "latest",
     "chai": "latest",
     "cordova": "latest",
-    "cordova-android": "latest",
+    "cordova-android": "^9.1.0",
     "cordova-plugin-navigationbar-color": "latest",
     "cordova-plugin-splashscreen": "github:goinnn/cordova-plugin-splashscreen#4.0.0#colors",
-    "cordova-res": "latest",
+    "cordova-plugin-whitelist": "^1.3.5",
+    "cordova-res": "^0.15.3",
     "coveralls": "latest",
     "cross-env": "latest",
     "css-loader": "latest",
@@ -73,7 +74,6 @@
     "cordova-plugin-device": "latest",
     "cordova-plugin-headercolor": "latest",
     "cordova-plugin-statusbar": "latest",
-    "cordova-plugin-whitelist": "latest",
     "jsdom": "latest",
     "material-design-icons": "^3.0.1",
     "material-design-lite": "latest",
