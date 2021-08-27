@@ -1,8 +1,14 @@
 app-navigation {
+    position: relative;
+    z-index: 9;
+    height: 0 !important;
+    overflow: visible;
     .loader {
         background-image: url("./../resources/icon-alpha.png");
     }
     .mdl-layout__header {
+        position: fixed;
+        z-index: 9;
         &.scrolled {
             background-color: white !important;
             color: black !important;
