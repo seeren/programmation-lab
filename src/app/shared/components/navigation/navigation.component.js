@@ -9,6 +9,8 @@ import { ChapterService } from '../../../courses/chapter/chapter.service';
 
 export class NavigationComponent extends Component {
 
+    title = 'Programmation Lab';
+
     routeName;
 
     #onScroll;
