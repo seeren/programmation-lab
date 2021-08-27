@@ -5,10 +5,13 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack serve --open --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "android": "cordova run android --device",
+    "android": "npm run build & cordova run android --device",
     "android:build": "npm run build & cordova build android --release -- --packageType=bundle",
+    "android:emulate": "npm run build & cordova run android --emulator",
     "android:install": "cordova platform add android",
-    "android:run": "npm run build & npm run android",
+    "ios": "npm run build & cordova run ios --device",
+    "ios:emulate": "npm run build & cordova run ios --emulator",
+    "ios:install": "cordova platform add ios",
     "test": "cross-env NODE_ENV=test mocha --require @babel/register --recursive test/unit",
     "test:coverage": "cross-env NODE_ENV=test nyc --reporter=lcovonly --reporter=text npm test",
     "test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls"
@@ -17,6 +20,7 @@
   "main": "src/index",
   "cordova": {
     "platforms": [
+      "ios",
       "android"
     ],
     "plugins": {
@@ -41,6 +45,7 @@
     "chai": "latest",
     "cordova": "latest",
     "cordova-android": "^9.1.0",
+    "cordova-ios": "^6.2.0",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-headercolor": "^1.0.0",
     "cordova-plugin-navigationbar-color": "latest",
