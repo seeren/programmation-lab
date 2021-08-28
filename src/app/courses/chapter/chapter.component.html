@@ -2,19 +2,22 @@ ${ chapter
 ? `<div
     class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color-text--white mdl-color--${color.substr(0, color.length - 3) + (parseInt(color.substr(color.length - 3), 10) + 100)}">
     <div class="mdl-tabs__tab-bar mdl-shadow--4dp mdl-color--${color}">
-        ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `<a href="#section-${index}"
+        ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => {
+            h2.id = `section-${index}`;
+            return `<a href="#section-${index}"
             onclick="onStep('${escape(h2.innerText.substring(3))}')"
             class="p-0 d-flex ${h2.innerHTML.indexOf(section) !== -1 ? `is-active ` : ``}mdl-tabs__tab mdl-color-text--white">
             <span class="before"></span>
             <span class="d-flex marker"><i class="material-icons">panorama_fish_eye</i></span>
             <span class="after"></span>
-        </a>`).join('')}
+        </a>`
+    }).join('')}
     </div>
     ${Array.from(chapter.document.querySelectorAll('h2')).map((h2, index) => `<div id="section-${index}"
         class="p-relative ${h2.innerHTML.indexOf(section) !==-1 ? `is-active ` : ``}mdl-tabs__panel">
         <div class="w-100 border-box mdl-grid">
             <h2 class="mdl-cell mdl-cell--8-col">${h2.innerText.substring(3)}</h2>
-            ${Array.from(chapter.document.querySelectorAll('h2:nth-of-type(' + (index + 1) + ') ~ *'))
+            ${Array.from(chapter.document.querySelectorAll('#section-' + index + ' ~ *'))
             .map((element, index, nodeList) => undefined === nodeList.checked && 'H2' !== element.tagName
             ? ((() => {
             switch (element.tagName) {
