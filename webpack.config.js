@@ -61,7 +61,7 @@ module.exports = {
         }),
     ],
     devServer: {
-        contentBase: './src/',
+        static: './src/',
         https: false,
         host: 'localhost',
         port: 8080,
