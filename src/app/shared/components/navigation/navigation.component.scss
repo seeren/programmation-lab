@@ -76,4 +76,7 @@ app-navigation {
     .mdl-layout__content {
         display: none;
     }
+    .mdl-snackbar {
+        z-index: 9;
+    }
 }
