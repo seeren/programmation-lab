@@ -60,6 +60,8 @@
     "eslint-config-airbnb-base": "latest",
     "eslint-plugin-import": "latest",
     "html-webpack-plugin": "latest",
+    "ios-deploy": "latest",
+    "ios-sim": "latest",
     "mini-css-extract-plugin": "latest",
     "mocha": "latest",
     "mocha-lcov-reporter": "latest",
