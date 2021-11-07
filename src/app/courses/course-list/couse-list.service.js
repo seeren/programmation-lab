@@ -7,7 +7,6 @@ import { AbortError } from '../../shared/errors/abort.error';
 import { AbortService } from '../../shared/services/abort.service';
 import { HttpClientService } from '../../shared/services/http-client.service';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
-import { SpinnerService } from '../../shared/components/spinner/spinner.service';
 
 export const CourseListService = new class extends HttpClientService {
 
@@ -17,7 +16,7 @@ export const CourseListService = new class extends HttpClientService {
         let repositoryList;
         try {
             AbortService.add(CourseListService);
-            repositoryList = await (fetch(`https://api.github.com/users/${environment.organisation}/repos`, {
+            repositoryList = await (fetch(`https://api.github.com/users/${environment.organisation}/repos?per_page=50`, {
                 signal: this.controller.signal,
                 headers: { Authorization: `token ${environment.token}` },
             }).then((response) => response.json()));
