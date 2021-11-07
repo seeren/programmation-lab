@@ -1,7 +1,10 @@
 import { Course } from '../course/cours.model';
 import { ColorService } from '../shared/services/color.service';
+import { CourseListFilter } from './course-list.filter';
 
 export class CourseListBuilder {
+
+    #filter = new CourseListFilter()
 
     build(repositoryList, courseList) {
         repositoryList.forEach((repository) => {
@@ -17,9 +20,7 @@ export class CourseListBuilder {
             course.updated = repository.updated_at;
             course.watchers = repository.watchers_count;
         });
-        return courseList.sort(
-            (a, b) => (new Date(b.updated)).valueOf() - (new Date(a.updated)).valueOf(),
-        );
+        return this.#filter.filter(courseList);
     }
 
 }

@@ -7,6 +7,8 @@ import { SpinnerService } from '../../shared/components/spinner/spinner.service'
 import { AbortError } from '../../shared/errors/abort.error';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { ResizeService } from '../../shared/services/resize.service';
+import { MdlService } from '../../shared/services/mdl.service';
+import { CourseListFilter } from './course-list.filter';
 
 export class CourseListComponent extends Component {
 
@@ -17,6 +19,8 @@ export class CourseListComponent extends Component {
     fetched = false;
 
     courseList = CourseListService.courseList;
+
+    type = 1;
 
     constructor() {
         super('app-course-list', template);
@@ -29,6 +33,7 @@ export class CourseListComponent extends Component {
                 element.getElementsByTagName('header')[0].offsetHeight - 36,
             );
             this.#onResize = ResizeService.add(this, element);
+            MdlService.upgrade('.mdl-menu');
         } else if (!this.components.length) {
             this.#showAll();
         }
@@ -44,6 +49,17 @@ export class CourseListComponent extends Component {
 
     onCourse(courseName) {
         RouterComponent.navigate('course', { course: courseName });
+    }
+
+    filter(type) {
+        const filter = new CourseListFilter();
+        if (type === this.type) {
+            this.courseList.reverse();
+        } else {
+            filter.filter(this.courseList, type);
+        }
+        this.type = type;
+        this.update();
     }
 
     async #showAll() {

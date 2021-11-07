@@ -23,8 +23,18 @@ ${ fetched
 </header>
 <section class="p-absolute h-0 h-min-0 mdl-layout__header">
     <div class="mdl-layout__header-row mdl-color--black">
-        <span class="mdl-layout-title"><i class="p-absolute material-icons">library_books</i>${courseList.length}
-            Formation</span>
+        <span class="mdl-layout-title">
+            <i class="p-absolute material-icons">library_books</i>${courseList.length}
+            Formation
+        </span>
+        <button id="course-menu" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="course-menu">
+            <li onclick="filter(1)" class="mdl-menu__item">Date</li>
+            <li onclick="filter(2)" class="mdl-menu__item">Nom</li>
+            <li onclick="filter(3)" class="mdl-menu__item">Stars</li>
+        </ul>
     </div>
 </section>
 <section class="mdl-grid mdl-color--accent-contrast">
