@@ -13,6 +13,10 @@ export class FavoriteListComponent extends Component {
         super('app-favorite-list', template);
     }
 
+    onInit() {
+        this.favoriteList.sort((a, b) => a.course > b.course);
+    }
+
     onFavorite(index) {
         const favorite = FavoriteListService.favoriteList[index];
         RouterComponent.navigate('chapter', {
