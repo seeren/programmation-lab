@@ -27,6 +27,13 @@ export class CourseComponent extends Component {
                 .upgradeOne(`${this.selector} .mdl-tabs`)
                 .upgradeAll(`${this.selector} .mdl-tabs__ripple-container`);
             this.#onScroll = ScrollService.add(`${this.selector} .mdl-tabs__tab-bar`, 16);
+            const { length } = this.course.wikiList;
+            for (let index = 1; index < length; index += 1) {
+                if (!this.course.wikiList[index].checked) {
+                    this.onSummary(index);
+                    break;
+                }
+            }
         } else if (!this.components.length) {
             this.#show(decodeURI(RouterComponent.get('course')));
         }
