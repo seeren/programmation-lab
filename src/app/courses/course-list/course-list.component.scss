@@ -1,6 +1,12 @@
 app-course-list {
     > header {
         height: 40vh;
+        .display-1 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+            hyphens: auto;
+        }
     }
     > .mdl-layout__header {
         display: initial;
