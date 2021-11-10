@@ -30,6 +30,7 @@
     <allow-intent href="https://*/*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="30" />
+        <preference name="android-targetSdkVersion" value="30" />
         <resource-file src="resources/colors.xml" target="/app/src/main/res/values/colors.xml" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
