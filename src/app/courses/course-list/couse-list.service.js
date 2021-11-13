@@ -13,6 +13,10 @@ export const CourseListService = new class extends HttpClientService {
     #courseList = LocalStorageService.get(environment.storage.courseList) || [];
 
     async fetch() {
+        if (this.#courseList.length
+             && !this.#courseList.find((course) => 'number' !== typeof course.stargazers)) {
+            return this.#courseList;
+        }
         let repositoryList;
         try {
             AbortService.add(CourseListService);
