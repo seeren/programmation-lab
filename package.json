@@ -10,6 +10,7 @@
     "android:emulate": "npm run build && cordova run android --emulator",
     "android:install": "cordova platform add android",
     "ios": "npm run build && cordova run ios --device",
+    "ios:build": "npm run build && cordova build ios --release",
     "ios:emulate": "npm run build && cordova run ios --emulator",
     "ios:install": "cordova platform add ios",
     "test": "cross-env NODE_ENV=test mocha --require @babel/register --recursive test/unit",
